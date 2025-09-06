@@ -1,5 +1,5 @@
 # Sistema-Gestion-Congresos
-Sistema de gestion de Congresos
+
 
 # 📌 Proyecto 1 - Gestión de Congresos
 
@@ -50,19 +50,3 @@ El sistema se monetiza cobrando una comisión sobre las inscripciones a congreso
 
 ---
 
-## 📦 Entregables
-- Código fuente y compilado.
-- Documento de casos de uso.
-- Manual técnico:
-  - Diagrama de clases
-  - Diagrama E/R
-  - Diagrama de tablas
-  - Mapeo físico de la DB
-- Manual de usuario.
-
----
-
-## 📅 Fecha de entrega
-📌 Martes 23 de septiembre, 14:00 horas.
-
----
