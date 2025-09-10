@@ -18,7 +18,9 @@ public class ControlLogin {
             ps.setString(2, password);
 
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next(); // Si hay un resultado, el usuario es válido
+                // retornamos true si existe un registro que coincida con el usuario y la
+                // contraseña
+                return rs.next();
             }
 
         } catch (Exception e) {
