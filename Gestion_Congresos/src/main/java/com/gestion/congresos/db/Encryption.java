@@ -33,10 +33,14 @@ public class Encryption {
     public String encryptPassword(String password) {
         try {
             KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-            keyGen.init(128); // Tamaño de clave de 128 bits
+            // *Tamaño de clave de 128 bits
+            keyGen.init(128);
             SecretKey secretKey = keyGen.generateKey();
+
+            // *Instanciamos el cifrador con el algoritmo AES
             cipher = Cipher.getInstance("AES");
 
+            // *Llamamos al método que cifra la contraseña
             String encryptedPassword = encryptPassword(password, secretKey);
             if (encryptedPassword != null) {
                 return encryptedPassword;
@@ -70,9 +74,16 @@ public class Encryption {
      */
     private String encryptPassword(String password, SecretKey secretKey) {
         try {
+            // *Convertimos la contraseña a un arreglo de bytes
             byte[] passwordByte = password.getBytes();
+            // *Iniciamos el cifrado en modo ENCRYPT_MODE
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            // *Ciframos la contraseña
             byte[] encryptedByte = cipher.doFinal(passwordByte);
+            /*
+             * Codificamos el arreglo de bytes a Base64 para obtener una
+             * representación en String
+             */
             Base64.Encoder encoder = Base64.getEncoder();
             String encryptedPassword = encoder.encodeToString(encryptedByte);
             return encryptedPassword;
