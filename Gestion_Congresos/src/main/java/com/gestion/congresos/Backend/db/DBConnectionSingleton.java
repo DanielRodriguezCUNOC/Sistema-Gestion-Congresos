@@ -1,4 +1,4 @@
-package com.gestion.congresos.db;
+package com.gestion.congresos.Backend.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ public class DBConnectionSingleton {
 
     private static final String IP = "localhost";
     private static final int PUERTO = 3306;
-    private static final String SCHEMA = "gestioncongresosdb";
+    private static final String SCHEMA = "congresodb";
     private static final String USER_NAME = "codenbugs";
     private static final String PASSWORD = "code";
     private static final String URL = "jdbc:mysql://" + IP + ":" + PUERTO + "/" + SCHEMA;

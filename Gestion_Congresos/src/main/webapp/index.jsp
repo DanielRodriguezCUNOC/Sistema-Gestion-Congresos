@@ -17,7 +17,7 @@
             para impulsar el conocimiento.
           </p>
           <a
-            href="${pageContext.servletContext.contextPath}/mvc/login/register.jsp"
+            href="${pageContext.servletContext.contextPath}/mvc/user/create-user.jsp"
             class="btn btn-primary btn-lg mt-3"
           >
             Comenzar Ahora

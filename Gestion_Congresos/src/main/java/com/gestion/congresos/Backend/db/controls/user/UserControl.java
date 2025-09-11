@@ -1,17 +1,17 @@
-package com.gestion.congresos.db.controls.user;
+package com.gestion.congresos.Backend.db.controls.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.gestion.congresos.db.DBConnectionSingleton;
-import com.gestion.congresos.db.models.UserModel;
+import com.gestion.congresos.Backend.db.DBConnectionSingleton;
+import com.gestion.congresos.Backend.db.models.UserModel;
 
 public class UserControl {
 
-    private static final String FINDBY_USERNAME = "SELECT * FROM users WHERE user = ?";
-    private static final String INSERT_USER = "INSERT INTO users (idRol, name, user, password, email, ID, phone, photo, organization, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String FINDBY_USERNAME = "SELECT * FROM Usuario WHERE usuario = ?";
+    private static final String INSERT_USER = "INSERT INTO Usuario (id_rol, nombre, usuario, password, correo, identificacion_personal, telefono, fotografia, organizacion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public UserControl() {
 
@@ -32,12 +32,12 @@ public class UserControl {
             ps.setBytes(8, user.getPhoto());
             ps.setString(9, user.getOrganization());
             ps.setString(10, user.getState());
-
-            conn.commit();
             int rowsAffected = ps.executeUpdate();
+            conn.commit();
             return rowsAffected > 0;
         } catch (SQLException e) {
             conn.rollback();
+            e.printStackTrace();
             return false;
 
         }

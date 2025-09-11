@@ -23,14 +23,14 @@
         <li class="nav-item">
           <a
             class="nav-link link-light fw-bold bg-primary rounded"
-            href="${pageContext.servletContext.contextPath}/mvc/login/login.jsp"
+            href="${pageContext.servletContext.contextPath}/SVLogin"
             >Iniciar Sesión</a
           >
         </li>
         <li class="nav-item mx-2">
           <a
             class="nav-link link-light fw-bold bg-primary rounded"
-            href="${pageContext.servletContext.contextPath}/mvc/login/register.jsp"
+            href="${pageContext.servletContext.contextPath}/SVCreateUser"
             >Registrarse</a
           >
         </li>
