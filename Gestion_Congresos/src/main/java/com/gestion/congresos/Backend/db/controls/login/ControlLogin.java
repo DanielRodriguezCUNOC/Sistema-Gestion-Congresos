@@ -1,10 +1,10 @@
-package com.gestion.congresos.db.controls.login;
+package com.gestion.congresos.Backend.db.controls.login;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.gestion.congresos.db.DBConnectionSingleton;
+import com.gestion.congresos.Backend.db.DBConnectionSingleton;
 
 public class ControlLogin {
 

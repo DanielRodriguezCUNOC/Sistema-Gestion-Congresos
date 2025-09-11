@@ -1,4 +1,4 @@
-package com.gestion.congresos.db.models;
+package com.gestion.congresos.Backend.db.models;
 
 public class UserModel {
 
