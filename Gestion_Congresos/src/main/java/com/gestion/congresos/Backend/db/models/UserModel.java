@@ -121,6 +121,23 @@ public class UserModel {
         this.state = state;
     }
 
+    /**
+     * The function `isValid` checks if all required fields in a `UserModel` object
+     * are not empty or null.
+     * 
+     * @param user The `isValide` method checks if the provided `UserModel` object
+     *             is valid based on
+     *             certain conditions. The method checks if the `idRol` is less than
+     *             or equal to 0, if the `name`,
+     *             `user`, `password`, `email`, `ID`, `phone
+     * @return The method is returning a boolean value. It returns `true` if all the
+     *         conditions inside the
+     *         `if` statement are false, indicating that the UserModel object passed
+     *         as a parameter is considered
+     *         valid. Otherwise, it returns `false` if any of the conditions are
+     *         true, indicating that the
+     *         UserModel object is not valid.
+     */
     public boolean isValide(UserModel user) {
         if (user.getIdRol() <= 0 || user.getName().isBlank() || user.getUser().isBlank() || user.getPassword().isBlank()
                 || user.getEmail().isBlank() || user.getID().isBlank() || user.getPhone().isBlank()

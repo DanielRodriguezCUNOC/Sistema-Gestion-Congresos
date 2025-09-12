@@ -29,11 +29,8 @@ public class Encryption {
      * The function decrypts a Base64-encoded password and returns the decoded
      * string.
      * 
-     * @param encryptedPassword Thank you for providing the `decryptPassword`
-     *                          method. To assist you
-     *                          further, could you please provide the value of the
-     *                          `encryptedPassword` parameter that you would
-     *                          like to decrypt?
+     * @param encryptedPassword The `decryptPassword` method takes a Base64 encoded
+     *                          password as input.
      * @return The `decryptPassword` method returns a decrypted password as a String
      *         after decoding the
      *         input encrypted password using Base64 decoding.
