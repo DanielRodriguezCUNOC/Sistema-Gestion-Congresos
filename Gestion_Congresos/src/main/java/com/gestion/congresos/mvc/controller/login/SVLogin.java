@@ -39,8 +39,10 @@ public class SVLogin extends HttpServlet {
         try {
             if (loginHandler.autenticateUser()) {
 
-                request.getSession().setAttribute("user", request.getParameter("user"));
-                response.sendRedirect("mvc/user/userDashboard.jsp");
+                int idUser = loginHandler.getUserId();
+                // * Enviamos el id del usuario loggeado */
+                request.getSession().setAttribute("idUser", idUser);
+                response.sendRedirect("SVUserDashboard");
             } else {
                 request.getSession().setAttribute("error", "Usuario o contraseña incorrectos.");
             }
