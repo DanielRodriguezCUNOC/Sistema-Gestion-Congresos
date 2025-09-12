@@ -21,8 +21,9 @@ public class Encryption {
      *         of the input
      *         password.
      */
-    public static String encryptPassword(String password) {
-        return Base64.getEncoder().encodeToString(password.getBytes());
+    public static String encryptPassword(String password, String email) {
+        String saltedPassword = password + email;
+        return Base64.getEncoder().encodeToString(saltedPassword.getBytes());
     }
 
     /**

@@ -2,7 +2,10 @@ package com.gestion.congresos.mvc.controller.login;
 
 import java.io.IOException;
 
-import com.gestion.congresos.Backend.db.controls.login.ControlLogin;
+import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.MissingDataException;
+import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
+import com.gestion.congresos.Backend.handler.LoginHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,20 +34,25 @@ public class SVLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Obtenemos los datos del formulario
-        String user = request.getParameter("user");
-        String password = request.getParameter("password");
+        LoginHandler loginHandler = new LoginHandler(request);
 
-        ControlLogin controlLogin = new ControlLogin();
+        try {
+            if (loginHandler.autenticateUser()) {
 
-        if (controlLogin.userExist(user, password)) {
-            // Si el usuario es válido, redirigimos al dashboard de usuario
-            response.sendRedirect(request.getContextPath() + "/mvc/dashboard/userDashboard.jsp");
-        } else {
-
-            request.setAttribute("error", "Usuario o contraseña incorrectos");
-
-            request.getRequestDispatcher("/mvc/login/login.jsp").forward(request, response);
+                request.getSession().setAttribute("user", request.getParameter("user"));
+                response.sendRedirect("mvc/user/userDashboard.jsp");
+            } else {
+                request.getSession().setAttribute("error", "Usuario o contraseña incorrectos.");
+            }
+        } catch (MissingDataException e) {
+            request.getSession().setAttribute("error", e.getMessage());
+            response.sendRedirect("mvc/login/login.jsp");
+        } catch (UserNotFoundException e) {
+            request.getSession().setAttribute("error", e.getMessage());
+            response.sendRedirect("mvc/login/login.jsp");
+        } catch (DataBaseException e) {
+            request.getSession().setAttribute("error", e.getMessage());
+            response.sendRedirect("mvc/login/login.jsp");
         }
 
     }

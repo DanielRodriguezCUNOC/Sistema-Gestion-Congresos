@@ -3,8 +3,10 @@ package com.gestion.congresos.Backend.db.controls.login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.gestion.congresos.Backend.db.DBConnectionSingleton;
+import com.gestion.congresos.Backend.exceptions.DataBaseException;
 
 public class ControlLogin {
 
@@ -32,7 +34,7 @@ public class ControlLogin {
      *         given credentials is found in the
      *         database, it returns `true`, otherwise it returns `false`.
      */
-    public boolean userExist(String username, String password) {
+    public boolean userExist(String username, String password) throws DataBaseException {
         Connection connection = DBConnectionSingleton.getInstance().getConnection();
         try (PreparedStatement ps = connection.prepareStatement(FIND_USER_QUERY)) {
 
@@ -43,9 +45,8 @@ public class ControlLogin {
                 return rs.next();
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        } catch (SQLException e) {
+            throw new DataBaseException("Error al consultar el usuario en la base de datos", e);
         }
     }
 

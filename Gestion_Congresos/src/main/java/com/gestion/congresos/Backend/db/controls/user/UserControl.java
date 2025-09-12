@@ -7,11 +7,14 @@ import java.sql.SQLException;
 
 import com.gestion.congresos.Backend.db.DBConnectionSingleton;
 import com.gestion.congresos.Backend.db.models.UserModel;
+import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
 
 public class UserControl {
 
     private static final String FINDBY_USERNAME = "SELECT * FROM Usuario WHERE usuario = ?";
     private static final String INSERT_USER = "INSERT INTO Usuario (id_rol, nombre, usuario, password, correo, identificacion_personal, telefono, fotografia, organizacion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String GET_EMAIL_BY_USERNAME = "SELECT correo FROM Usuario WHERE usuario = ?";
 
     public UserControl() {
 
@@ -100,5 +103,26 @@ public class UserControl {
             return false;
         }
 
+    }
+
+    public String getEmailByUsername(String username) throws UserNotFoundException, DataBaseException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+        try (PreparedStatement ps = conn.prepareStatement(GET_EMAIL_BY_USERNAME)) {
+
+            ps.setString(1, username);
+            ps.executeQuery();
+
+            try (ResultSet rs = ps.getResultSet()) {
+                if (rs.next()) {
+                    return rs.getString("correo");
+                } else {
+                    throw new UserNotFoundException("No se encontró un correo relacionado con el nombre de usuario.");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DataBaseException("Ha ocurrido un error, intentelo de nuevo", e);
+        }
     }
 }
