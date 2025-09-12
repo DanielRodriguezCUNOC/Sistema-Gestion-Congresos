@@ -94,12 +94,12 @@ public class UserCreateHandler {
                         "La contraseña no es válida. Debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una letra minúscula y un número.");
 
             }
-            String password = Encryption.encryptPassword(passwordRaw);
+
             String email = getFormField(request, "email");
+            String password = Encryption.encryptPassword(passwordRaw, email);
             String ID = getFormField(request, "ID");
             String phone = getFormField(request, "phone");
             String organization = getFormField(request, "organization");
-
             Part photoPart = request.getPart("photo");
             byte[] photo = ImageConverter.convertImage(photoPart);
 
