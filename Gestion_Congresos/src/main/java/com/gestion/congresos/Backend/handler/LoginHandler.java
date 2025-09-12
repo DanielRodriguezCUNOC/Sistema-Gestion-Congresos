@@ -45,4 +45,8 @@ public class LoginHandler {
         return controlLogin.userExist(user, passwordSalt);
     }
 
+    public int getUserId() throws DataBaseException, UserNotFoundException {
+        return userControl.getUserIdByUsername(request.getParameter("user"));
+    }
+
 }
