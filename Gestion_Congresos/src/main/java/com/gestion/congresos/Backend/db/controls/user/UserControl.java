@@ -17,6 +17,27 @@ public class UserControl {
 
     }
 
+    /**
+     * The `insertUser` function inserts a new user into a database using a prepared
+     * statement and
+     * handles SQLExceptions by rolling back changes and returning false.
+     * 
+     * @param user The `insertUser` method you provided is responsible for inserting
+     *             a new user into a
+     *             database. It takes a `UserModel` object as a parameter, which
+     *             contains various attributes such as
+     *             idRol, name, user, password, email, ID, phone, photo,
+     *             organization, and state.
+     * @return The method `insertUser` returns a boolean value indicating whether
+     *         the user insertion was
+     *         successful or not. It returns `true` if the number of rows affected
+     *         by the SQL update operation
+     *         is greater than 0, indicating that the user was successfully inserted
+     *         into the database.
+     *         Otherwise, it returns `false` if an exception occurs during the
+     *         insertion process or if no rows
+     *         were affected.
+     */
     public boolean insertUser(UserModel user) throws SQLException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
         try (PreparedStatement ps = conn.prepareStatement(INSERT_USER)) {
@@ -44,6 +65,23 @@ public class UserControl {
 
     }
 
+    /**
+     * The function `validateUser` checks if a user with a given username exists in
+     * the database and
+     * returns true if a matching record is found.
+     * 
+     * @param username The `validateUser` method you provided seems to be checking
+     *                 if a user with a
+     *                 specific username exists in the database. The `username`
+     *                 parameter is the username that you want
+     *                 to validate or check for existence in the database.
+     * @return The method `validateUser` is returning a boolean value. It returns
+     *         `true` if there is a
+     *         record in the database that matches the provided username, and it
+     *         returns `false` if there is an
+     *         exception caught during the process or if no matching record is
+     *         found.
+     */
     public boolean validateUser(String username) {
 
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
