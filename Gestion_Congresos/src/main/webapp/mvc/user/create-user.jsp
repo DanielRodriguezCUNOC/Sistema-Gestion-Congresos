@@ -18,12 +18,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <div class="card-body">
           <h3 class="card-title text-center mb-4">Registro de Usuario</h3>
 
-          <c:if test="${not empty sessionScope.error}">
+          <c:if test="${not empty requestScope.error}">
             <div
               class="alert alert-danger alert-dismissible fade show"
               role="alert"
             >
-              <strong>Error:</strong> <c:out value="${sessionScope.error}" />
+              <strong>Error:</strong> <c:out value="${requestScope.error}" />
               <button
                 type="button"
                 class="btn-close"
@@ -34,12 +34,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             <c:remove var="error" scope="session" />
           </c:if>
 
-          <c:if test="${not empty sessionScope.success}">
+          <c:if test="${not empty requestScope.success}">
             <div
               class="alert alert-success alert-dismissible fade show"
               role="alert"
             >
-              <c:out value="${sessionScope.success}" />
+              <c:out value="${requestScope.success}" />
               <button
                 type="button"
                 class="btn-close"
@@ -62,6 +62,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 class="form-control"
                 id="nombre"
                 name="name"
+                value="${not empty requestScope.savedName ? requestScope.savedName : ''}"
                 required
               />
             </div>
@@ -73,6 +74,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 class="form-control"
                 id="usuario"
                 name="user"
+                value="${not empty requestScope.savedUser ? requestScope.savedUser : ''}"
                 required
               />
             </div>
@@ -95,6 +97,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 class="form-control"
                 id="correo"
                 name="email"
+                value="${not empty requestScope.savedEmail ? requestScope.savedEmail : ''}"
                 required
               />
             </div>
@@ -108,6 +111,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 class="form-control"
                 id="identificacion"
                 name="ID"
+                value="${not empty requestScope.savedID ? requestScope.savedID : ''}"
                 required
               />
             </div>
@@ -119,6 +123,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 class="form-control"
                 id="telefono"
                 name="phone"
+                value="${not empty requestScope.savedPhone ? requestScope.savedPhone : ''}"
                 required
               />
             </div>
@@ -130,6 +135,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 class="form-control"
                 id="organizacion"
                 name="organization"
+                value="${not empty requestScope.savedOrganization ? requestScope.savedOrganization : ''}"
                 required
               />
             </div>

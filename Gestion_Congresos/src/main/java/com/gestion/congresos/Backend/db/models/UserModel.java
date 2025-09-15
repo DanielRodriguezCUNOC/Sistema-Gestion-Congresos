@@ -1,5 +1,7 @@
 package com.gestion.congresos.Backend.db.models;
 
+import java.util.Base64;
+
 public class UserModel {
 
     private int idUser;
@@ -146,5 +148,23 @@ public class UserModel {
         }
         return true;
 
+    }
+
+    /**
+     * The `getPhotoBase64` function returns a Base64 encoded string of a photo if
+     * it is not null and has a
+     * length greater than 0.
+     * 
+     * @return The method `getPhotoBase64()` returns a Base64 encoded string
+     *         representation of the `photo`
+     *         byte array if it is not null and has a length greater than 0. If the
+     *         `photo` array is null or empty,
+     *         the method returns null.
+     */
+    public String getPhotoBase64() {
+        if (photo != null && photo.length > 0) {
+            return Base64.getEncoder().encodeToString(photo);
+        }
+        return null;
     }
 }

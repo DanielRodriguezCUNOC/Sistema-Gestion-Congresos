@@ -1,4 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,21 +9,20 @@
     <jsp:include page="/includes/resources.jsp" />
   </head>
   <body class="d-flex flex-column min-vh-100">
-    <jsp:include page="/includes/navbar.jsp" />
     <main class="flex-fill">
       <header class="bg-primary text-white py-4">
         <div class="container d-flex align-items-center">
           <div class="me-3">
             <img
-              src="${usuario.fotoUrl}"
-              alt="Foto de ${usuario.nombre}"
+              src="data:image/jpeg;base64,${user.photoBase64}"
+              alt="Foto de ${user.name}"
               class="rounded-circle border border-white"
               width="80"
               height="80"
             />
           </div>
           <div>
-            <h2 class="fw-bold mb-0">Hola, ${usuario.nombre}</h2>
+            <h2 class="fw-bold mb-0">Hola, ${user.name}</h2>
             <p class="mb-0">Bienvenido a tu panel de usuario</p>
           </div>
         </div>
