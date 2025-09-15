@@ -29,7 +29,7 @@ public class LoginHandler {
         String user = request.getParameter("user");
         String password = request.getParameter("password");
 
-        if (!validator.isValidUsername(user) && !validator.isValidPassword(password)) {
+        if (!validator.isValidUsername(user) || !validator.isValidPassword(password)) {
             throw new MissingDataException("Faltan datos obligatorios.");
         }
         return checkInDatabase(user, password);

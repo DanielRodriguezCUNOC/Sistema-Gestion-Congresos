@@ -1,10 +1,14 @@
 package com.gestion.congresos.mvc.controller.user;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.gestion.congresos.Backend.exceptions.ImageFormatException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.UserAlreadyExistsException;
 import com.gestion.congresos.Backend.handler.UserCreateHandler;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,8 +23,8 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SVCreateUser", urlPatterns = { "/SVCreateUser" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // ! 1 MB
-        maxFileSize = 1024 * 1024 * 10, // ! 10 MB
-        maxRequestSize = 1024 * 1024 * 15 // ! 15 MB
+        maxFileSize = 1024 * 1024 * 5, // ! 10 MB
+        maxRequestSize = 1024 * 1024 * 5 // ! 15 MB
 )
 public class SVCreateUser extends HttpServlet {
 
@@ -53,24 +57,27 @@ public class SVCreateUser extends HttpServlet {
             boolean inserted = userCreateHandler.createUser();
 
             if (inserted) {
-                request.getSession().setAttribute("success", "Usuario registrado exitosamente.");
+                request.setAttribute("success", "Usuario creado correctamente");
+
             } else {
-                request.getSession().setAttribute("error", "Error al registrar el usuario.");
+                request.setAttribute("error", "No se ha podido crear el usuario");
+                recoveryDataFromForm(request);
+
             }
 
         } catch (MissingDataException e) {
-
-            request.getSession().setAttribute("error", e.getMessage());
+            request.setAttribute("error", e.getMessage());
+            recoveryDataFromForm(request);
 
         } catch (UserAlreadyExistsException e) {
-
-            request.getSession().setAttribute("error", e.getMessage());
-        } catch (Exception e) {
-
-            request.getSession().setAttribute("error", "Ocurrió un error: " + e.getMessage());
+            request.setAttribute("error", e.getMessage());
+            recoveryDataFromForm(request);
+        } catch (ImageFormatException e) {
+            request.setAttribute("error", e.getMessage());
+            recoveryDataFromForm(request);
         }
 
-        response.sendRedirect(request.getContextPath() + "/mvc/user/create-user.jsp");
+        request.getRequestDispatcher("/mvc/user/create-user.jsp").forward(request, response);
     }
 
     /**
@@ -94,5 +101,27 @@ public class SVCreateUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/mvc/user/create-user.jsp").forward(request, response);
+    }
+
+    private void recoveryDataFromForm(HttpServletRequest request) {
+        Map<String, String> dataForm = new HashMap<>();
+
+        request.setAttribute("savedName", request.getParameter("name"));
+        request.setAttribute("savedUser", request.getParameter("user"));
+        request.setAttribute("savedEmail", request.getParameter("email"));
+        request.setAttribute("savedID", request.getParameter("ID"));
+        request.setAttribute("savedPhone", request.getParameter("phone"));
+        request.setAttribute("savedOrganization", request.getParameter("organization"));
+
+        String[] fields = { "name", "user", "email", "ID", "phone", "organization" };
+
+        for (String field : fields) {
+            String value = request.getParameter(field);
+            if (value != null) {
+                dataForm.put(field, value);
+            }
+
+        }
+        request.setAttribute("formData", dataForm);
     }
 }

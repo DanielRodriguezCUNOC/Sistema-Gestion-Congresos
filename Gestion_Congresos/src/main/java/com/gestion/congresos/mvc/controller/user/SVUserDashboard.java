@@ -28,21 +28,21 @@ public class SVUserDashboard extends HttpServlet {
             int rolUser = userDashboardHandler.getUserRolId();
             switch (rolUser) {
                 case 1:
-                    request.getSession().setAttribute("rolUser", "rolUser");
+
                     response.sendRedirect("mvc/admin/adminSistemaDashboard.jsp");
                     break;
                 case 2:
-                    request.getSession().setAttribute("rolUser", "rolUser");
+
                     response.sendRedirect("mvc/admin/adminCongresoDashboard.jsp");
                     break;
                 case 3:
-                    request.getSession().setAttribute("rolUser", "rolUser");
+
                     response.sendRedirect("mvc/user/userComiteCientificoDashboard.jsp");
 
                     break;
                 case 4:
-                    request.getSession().setAttribute("rolUser", "rolUser");
-                    response.sendRedirect("mvc/user/userDashboard.jsp");
+                    request.getSession().setAttribute("idUser", request.getSession().getAttribute("idUser"));
+                    response.sendRedirect(request.getContextPath() + "/SVParticipantUser");
                     break;
 
                 default:

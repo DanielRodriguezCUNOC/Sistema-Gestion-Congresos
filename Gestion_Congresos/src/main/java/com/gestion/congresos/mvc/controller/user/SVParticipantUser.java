@@ -1,0 +1,58 @@
+package com.gestion.congresos.mvc.controller.user;
+
+import java.io.IOException;
+
+import com.gestion.congresos.Backend.db.models.UserModel;
+import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
+import com.gestion.congresos.Backend.handler.ParticipantHandler;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet(name = "SVParticipantUser", urlPatterns = { "/SVParticipantUser" })
+public class SVParticipantUser extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+            ParticipantHandler participantHandler = new ParticipantHandler();
+
+            System.out.println("ID Usuario en sesión: " + request.getSession().getAttribute("idUser"));
+
+            UserModel user = participantHandler.getParticipant(request);
+
+            System.out.println("Usuario obtenido del handler: " + user);
+
+            if (user == null) {
+                request.getSession().setAttribute("error", "Usuario no encontrado.");
+                response.sendRedirect("mvc/error.jsp");
+                return;
+            }
+
+            request.setAttribute("user", user);
+
+            request.getRequestDispatcher("mvc/dashboard/participant-dashboard.jsp").forward(request, response);
+
+        } catch (DataBaseException e) {
+            request.getSession().setAttribute("error", e.getMessage());
+            response.sendRedirect("mvc/error.jsp");
+
+        } catch (UserNotFoundException e) {
+            request.getSession().setAttribute("error", e.getMessage());
+            response.sendRedirect("mvc/error.jsp");
+        }
+
+    }
+}

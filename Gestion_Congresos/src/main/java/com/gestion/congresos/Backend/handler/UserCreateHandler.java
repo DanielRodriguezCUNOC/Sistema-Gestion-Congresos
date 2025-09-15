@@ -8,6 +8,7 @@ import com.gestion.congresos.Backend.db.Encryption;
 import com.gestion.congresos.Backend.db.controls.rol.RolControl;
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
 import com.gestion.congresos.Backend.db.models.UserModel;
+import com.gestion.congresos.Backend.exceptions.ImageFormatException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.UserAlreadyExistsException;
 import com.gestion.congresos.Backend.validations.ValidatorData;
@@ -38,7 +39,7 @@ public class UserCreateHandler {
      * 
      * @return The method `createUser()` is returning a boolean value.
      */
-    public boolean createUser() throws MissingDataException, UserAlreadyExistsException {
+    public boolean createUser() throws MissingDataException, UserAlreadyExistsException, ImageFormatException {
         String typeUser = null;
         try {
             typeUser = getFormField(request, "typeUser");
@@ -84,7 +85,8 @@ public class UserCreateHandler {
      *         the user already exists.
      */
 
-    private boolean createUserWithRole(int idRol) throws MissingDataException, UserAlreadyExistsException {
+    private boolean createUserWithRole(int idRol)
+            throws MissingDataException, UserAlreadyExistsException, ImageFormatException {
         try {
             String name = getFormField(request, "name");
             String user = getFormField(request, "user");
@@ -135,7 +137,9 @@ public class UserCreateHandler {
             }
 
             try {
+
                 return userControl.insertUser(newUser);
+
             } catch (SQLException e) {
                 e.printStackTrace();
                 return false;

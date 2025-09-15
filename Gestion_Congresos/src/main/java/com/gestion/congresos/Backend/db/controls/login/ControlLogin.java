@@ -10,7 +10,7 @@ import com.gestion.congresos.Backend.exceptions.DataBaseException;
 
 public class ControlLogin {
 
-    private static final String FIND_USER_QUERY = "SELECT * FROM usuarios WHERE usuario = ? AND password = ?";
+    private static final String FIND_USER_QUERY = "SELECT * FROM Usuario WHERE usuario = ? AND password = ?";
 
     /**
      * The function `userExist` checks if a user with a given username and password

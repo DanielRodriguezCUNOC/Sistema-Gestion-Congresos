@@ -17,6 +17,7 @@ public class UserControl {
     private static final String GET_EMAIL_BY_USERNAME = "SELECT correo FROM Usuario WHERE usuario = ?";
     private static final String GET_ID_USER_BY_USERNAME = "SELECT id_usuario FROM Usuario WHERE usuario = ?";
     private static final String GET_ID_ROL_BY_ID_USER = "SELECT id_rol FROM Usuario WHERE id_rol = ?";
+    private static final String GET_USER_BY_ID = "SELECT * FROM Usuario WHERE id_usuario = ?";
 
     public UserControl() {
 
@@ -204,6 +205,39 @@ public class UserControl {
                     return rs.getInt("id_rol");
                 } else {
                     throw new UserNotFoundException("No se encontró un usuario con el nombre proporcionado.");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DataBaseException("Ha ocurrido un error al acceder a la base de datos.", e);
+        }
+    }
+
+    public UserModel getUserById(int userId) throws DataBaseException, UserNotFoundException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+        try (PreparedStatement ps = conn.prepareStatement(GET_USER_BY_ID)) {
+
+            ps.setInt(1, userId);
+            ps.executeQuery();
+
+            try (ResultSet rs = ps.getResultSet()) {
+                if (rs.next()) {
+                    UserModel user = new UserModel();
+                    user.setIdUser(rs.getInt("id_usuario"));
+                    user.setIdRol(rs.getInt("id_rol"));
+                    user.setName(rs.getString("nombre"));
+                    user.setUser(rs.getString("usuario"));
+                    user.setPassword(rs.getString("password"));
+                    user.setEmail(rs.getString("correo"));
+                    user.setID(rs.getString("identificacion_personal"));
+                    user.setPhone(rs.getString("telefono"));
+                    user.setPhoto(rs.getBytes("fotografia"));
+                    user.setOrganization(rs.getString("organizacion"));
+                    user.setState(rs.getString("estado"));
+                    return user;
+                } else {
+                    throw new UserNotFoundException("No se encontró un usuario con el ID proporcionado.");
                 }
             }
 
