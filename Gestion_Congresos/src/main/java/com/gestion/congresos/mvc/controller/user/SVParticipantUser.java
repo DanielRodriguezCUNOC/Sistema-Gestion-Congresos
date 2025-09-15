@@ -29,11 +29,7 @@ public class SVParticipantUser extends HttpServlet {
         try {
             ParticipantHandler participantHandler = new ParticipantHandler();
 
-            System.out.println("ID Usuario en sesión: " + request.getSession().getAttribute("idUser"));
-
             UserModel user = participantHandler.getParticipant(request);
-
-            System.out.println("Usuario obtenido del handler: " + user);
 
             if (user == null) {
                 request.getSession().setAttribute("error", "Usuario no encontrado.");
