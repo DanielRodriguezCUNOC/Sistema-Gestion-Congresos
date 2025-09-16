@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 import com.gestion.congresos.Backend.db.Encryption;
-import com.gestion.congresos.Backend.db.controls.rol.RolControl;
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
 import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.ImageFormatException;
@@ -24,8 +23,10 @@ import jakarta.servlet.http.Part;
  */
 public class UserCreateHandler {
 
-    private HttpServletRequest request;
+    private static final int ID_ROL_DEFAULT = 4; // * Representa un usuario de tipo participante */
+
     private ValidatorData validatorData;
+    private HttpServletRequest request;
 
     public UserCreateHandler(HttpServletRequest request) {
         this.request = request;
@@ -39,27 +40,12 @@ public class UserCreateHandler {
      * 
      * @return The method `createUser()` is returning a boolean value.
      */
-    public boolean createUser() throws MissingDataException, UserAlreadyExistsException, ImageFormatException {
-        String typeUser = null;
-        try {
-            typeUser = getFormField(request, "typeUser");
-        } catch (IOException | ServletException e) {
+    public boolean createUser(int idRol) throws MissingDataException, UserAlreadyExistsException, ImageFormatException {
 
-            // ! Si hay un error al obtener el campo, decimos que el campo es nulo
-            typeUser = null;
+        if (idRol <= 0) {
+            idRol = ID_ROL_DEFAULT;
+            return createUserWithRole(idRol);
         }
-
-        int idRol;
-        if (typeUser == null || typeUser.isEmpty()) {
-            /*
-             * Si no se proporciona un tipo de usuario, se asigna el rol de Participante
-             * por defecto
-             */
-            idRol = 4;
-        } else {
-            idRol = getIdRol(typeUser);
-        }
-
         return createUserWithRole(idRol);
     }
 
@@ -149,27 +135,6 @@ public class UserCreateHandler {
             e.printStackTrace();
             return false;
         }
-    }
-
-    /**
-     * The function `getIdRol` returns the ID of a role by calling a method from
-     * `RolControl` class.
-     * 
-     * @param rol The `getIdRol` method takes a `String` parameter named `rol`,
-     *            which represents the
-     *            role for which you want to retrieve the ID. The method creates an
-     *            instance of `RolControl` class
-     *            and calls its `getIdRol` method with the `rol` parameter to get
-     *            the ID corresponding to
-     * @return The method `getIdRol` is being called from the `RolControl` class
-     *         with the parameter
-     *         `rol`, and the return value of that method is being returned by the
-     *         `getIdRol` method in the
-     *         current class.
-     */
-    private int getIdRol(String rol) {
-        RolControl rolControl = new RolControl();
-        return rolControl.getIdRol(rol);
     }
 
     /**

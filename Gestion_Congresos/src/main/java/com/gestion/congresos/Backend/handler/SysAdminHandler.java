@@ -1,5 +1,8 @@
 package com.gestion.congresos.Backend.handler;
 
+import java.util.List;
+
+import com.gestion.congresos.Backend.db.controls.admin.ControlSysAdmin;
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
 import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
@@ -23,5 +26,10 @@ public class SysAdminHandler {
 
         return userControl.getUserById(idUser);
 
+    }
+
+    public List<String[]> getAllConferenceAdmins() throws DataBaseException {
+        ControlSysAdmin controlSysAdmin = new ControlSysAdmin();
+        return controlSysAdmin.getAllConferenceAdmins();
     }
 }

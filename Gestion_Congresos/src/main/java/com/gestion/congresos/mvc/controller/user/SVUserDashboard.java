@@ -28,8 +28,8 @@ public class SVUserDashboard extends HttpServlet {
             int rolUser = userDashboardHandler.getUserRolId();
             switch (rolUser) {
                 case 1:
-
-                    response.sendRedirect("mvc/admin/adminSistemaDashboard.jsp");
+                    request.getSession().setAttribute("idUser", request.getSession().getAttribute("idUser"));
+                    response.sendRedirect(request.getContextPath() + "/SVSystemAdmin");
                     break;
                 case 2:
 

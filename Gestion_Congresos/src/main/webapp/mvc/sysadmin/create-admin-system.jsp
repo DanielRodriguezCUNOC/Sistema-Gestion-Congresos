@@ -8,8 +8,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <jsp:include page="/includes/resources.jsp" />
   </head>
   <body class="bg-light">
-    <jsp:include page="/includes/navbar.jsp" />
-
     <main
       class="d-flex align-items-center justify-content-center"
       style="min-height: calc(100vh - 56px)"

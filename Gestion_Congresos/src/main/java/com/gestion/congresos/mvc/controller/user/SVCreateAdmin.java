@@ -17,6 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "SVCreateAdmin", urlPatterns = { "/SVCreateAdmin" })
 public class SVCreateAdmin extends HttpServlet {
 
+    private static final int ID_ROL_DEFAULT = 3; // * Representa un usuario de tipo admin de sistema */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -24,13 +26,12 @@ public class SVCreateAdmin extends HttpServlet {
         UserCreateHandler userCreate = new UserCreateHandler(request);
 
         try {
-            if (userCreate.createUser()) {
-                if (request.getParameter("typeUser").equals("Administrador Congreso")) {
-                    response.sendRedirect(request.getContextPath() + "/mvc/list/list-admin-conference.jsp");
-                } else {
+            boolean inserted = userCreate.createUser(ID_ROL_DEFAULT);
+            if (inserted) {
+                request.setAttribute("success", "Administrador de sistema creado correctamente");
+            } else {
 
-                    response.sendRedirect(request.getContextPath() + "/mvc/list/list-admin-system.jsp");
-                }
+                response.sendRedirect(request.getContextPath() + "/mvc/list/list-admin-system.jsp");
             }
         } catch (MissingDataException m) {
             request.setAttribute("error", m.getMessage());

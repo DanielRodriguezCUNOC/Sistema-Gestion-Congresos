@@ -28,6 +28,8 @@ import jakarta.servlet.http.HttpServletResponse;
 )
 public class SVCreateUser extends HttpServlet {
 
+    private static final int ID_ROL_DEFAULT = 4; // * Representa un usuario de tipo participante */
+
     /**
      * This Java function handles the creation of a user, displaying success or
      * error messages based on
@@ -54,7 +56,7 @@ public class SVCreateUser extends HttpServlet {
         UserCreateHandler userCreateHandler = new UserCreateHandler(request);
 
         try {
-            boolean inserted = userCreateHandler.createUser();
+            boolean inserted = userCreateHandler.createUser(ID_ROL_DEFAULT);
 
             if (inserted) {
                 request.setAttribute("success", "Usuario creado correctamente");
