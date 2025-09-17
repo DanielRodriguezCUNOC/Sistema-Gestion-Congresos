@@ -16,7 +16,7 @@ public class UserControl {
     private static final String INSERT_USER = "INSERT INTO Usuario (id_rol, nombre, usuario, password, correo, identificacion_personal, telefono, fotografia, organizacion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String GET_EMAIL_BY_USERNAME = "SELECT correo FROM Usuario WHERE usuario = ?";
     private static final String GET_ID_USER_BY_USERNAME = "SELECT id_usuario FROM Usuario WHERE usuario = ?";
-    private static final String GET_ID_ROL_BY_ID_USER = "SELECT id_rol FROM Usuario WHERE id_rol = ?";
+    private static final String GET_ID_ROL_BY_ID_USER = "SELECT id_rol FROM Usuario WHERE id_usuario = ?";
     private static final String GET_USER_BY_ID = "SELECT * FROM Usuario WHERE id_usuario = ?";
 
     public UserControl() {
@@ -88,24 +88,20 @@ public class UserControl {
      *         exception caught during the process or if no matching record is
      *         found.
      */
-    public boolean validateUser(String username) {
+    public boolean validateUser(String username) throws DataBaseException {
 
-        Connection conn = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement ps = conn.prepareStatement(FINDBY_USERNAME)) {
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+                PreparedStatement ps = conn.prepareStatement(FINDBY_USERNAME)) {
 
             ps.setString(1, username);
-            ps.executeQuery();
 
-            try (ResultSet rs = ps.getResultSet()) {
-                // retornamos true si existe un registro que coincida con el usuario
+            try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();
             }
 
-        } catch (Exception e) {
-            return false;
+        } catch (SQLException e) {
+            throw new DataBaseException("Error al validar el usuario: " + username, e);
         }
-
     }
 
     /**
@@ -136,9 +132,8 @@ public class UserControl {
         try (PreparedStatement ps = conn.prepareStatement(GET_EMAIL_BY_USERNAME)) {
 
             ps.setString(1, username);
-            ps.executeQuery();
 
-            try (ResultSet rs = ps.getResultSet()) {
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getString("correo");
                 } else {
@@ -177,9 +172,8 @@ public class UserControl {
         try (PreparedStatement ps = conn.prepareStatement(GET_ID_USER_BY_USERNAME)) {
 
             ps.setString(1, username);
-            ps.executeQuery();
 
-            try (ResultSet rs = ps.getResultSet()) {
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt("id_usuario");
                 } else {
@@ -197,14 +191,13 @@ public class UserControl {
 
         try (PreparedStatement ps = conn.prepareStatement(GET_ID_ROL_BY_ID_USER)) {
 
-            ps.setString(1, String.valueOf(userId));
-            ps.executeQuery();
+            ps.setInt(1, userId);
 
-            try (ResultSet rs = ps.getResultSet()) {
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt("id_rol");
                 } else {
-                    throw new UserNotFoundException("No se encontró un usuario con el nombre proporcionado.");
+                    throw new UserNotFoundException("No se encontró el rol para el usuario con ID." + userId);
                 }
             }
 
@@ -245,4 +238,5 @@ public class UserControl {
             throw new DataBaseException("Ha ocurrido un error al acceder a la base de datos.", e);
         }
     }
+
 }

@@ -8,8 +8,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <jsp:include page="/includes/resources.jsp" />
   </head>
   <body class="bg-light">
-    <jsp:include page="/includes/navbar.jsp" />
-
     <main
       class="d-flex align-items-center justify-content-center"
       style="min-height: calc(100vh - 56px)"
@@ -33,7 +31,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             </div>
           </c:if>
           <form
-            action="${pageContext.servletContext.contextPath}/SVCreateAdmin"
+            id="form-create-admin"
+            action="SVCreateConferenceAdmin"
             method="post"
             enctype="multipart/form-data"
           >
@@ -43,7 +42,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 type="text"
                 class="form-control"
                 id="nombre"
-                name="nombre"
+                name="name"
                 value="${param.nombre}"
                 required
               />
@@ -55,8 +54,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 type="text"
                 class="form-control"
                 id="usuario"
-                name="usuario"
-                value="${param.usuario}"
+                name="user"
+                value="${param.user}"
                 required
               />
             </div>
@@ -124,22 +123,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             </div>
 
             <div class="mb-3">
-              <label for="rol" class="form-label">Rol</label>
-              <select class="form-select" id="rol" name="typeUser" required>
-                <option value="">Seleccione un rol</option>
-                <c:forEach var="rol" items="${rols}">
-                  <option value="${rol.id_rol}">${rol.nombre}</option>
-                </c:forEach>
-              </select>
-            </div>
-
-            <div class="mb-3">
               <label for="foto" class="form-label">Fotografía</label>
               <input
                 type="file"
                 class="form-control"
                 id="foto"
-                name="fotografia"
+                name="photo"
                 accept="image/*"
                 required
               />
@@ -147,6 +136,15 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
             <div class="d-grid">
               <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+            <div class="d-grid">
+              <button
+                type="button"
+                id="btn-cancel"
+                class="btn btn-secondary mt-2"
+              >
+                Cancelar
+              </button>
             </div>
           </form>
         </div>

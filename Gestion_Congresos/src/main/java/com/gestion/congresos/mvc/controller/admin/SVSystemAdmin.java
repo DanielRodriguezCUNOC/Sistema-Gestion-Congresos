@@ -1,4 +1,4 @@
-package com.gestion.congresos.mvc.controller.user;
+package com.gestion.congresos.mvc.controller.admin;
 
 import java.io.IOException;
 
@@ -8,10 +8,12 @@ import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
 import com.gestion.congresos.Backend.handler.SysAdminHandler;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@WebServlet(name = "SVSystemAdmin", urlPatterns = { "/SVSystemAdmin" })
 public class SVSystemAdmin extends HttpServlet {
 
     @Override
@@ -19,9 +21,9 @@ public class SVSystemAdmin extends HttpServlet {
             throws IOException, ServletException {
 
         try {
-            SysAdminHandler sysAdminHandler = new SysAdminHandler();
+            SysAdminHandler sysAdminHandler = new SysAdminHandler(request);
 
-            UserModel sysAdmin = sysAdminHandler.getSysAdmin(request);
+            UserModel sysAdmin = sysAdminHandler.getSysAdmin();
 
             if (sysAdmin == null) {
                 request.setAttribute("sysAdmin", sysAdmin);

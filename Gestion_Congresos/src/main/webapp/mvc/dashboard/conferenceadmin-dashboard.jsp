@@ -26,10 +26,26 @@
         </div>
       </header>
 
-      <!-- Acciones del Dashboard Administrador de Congresos -->
       <section class="py-5">
         <div class="container">
           <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                  <h5 class="fw-bold">🙋 Funciones de Participante</h5>
+                  <p>
+                    Accede al panel de participante para inscribirte, pagar,
+                    reservar talleres y más.
+                  </p>
+                  <a
+                    href="${pageContext.request.contextPath}/SVParticipantUser"
+                    class="btn btn-primary"
+                    >Ir al Panel</a
+                  >
+                </div>
+              </div>
+            </div>
+
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">

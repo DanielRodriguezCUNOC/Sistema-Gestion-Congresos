@@ -1,15 +1,30 @@
 package com.gestion.congresos.Backend.handler;
 
+import java.util.List;
+
+import com.gestion.congresos.Backend.db.controls.admin.ControlSysAdmin;
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
+import com.gestion.congresos.Backend.db.models.InstitutionModel;
 import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.InstitutionAlredyExists;
 import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 public class SysAdminHandler {
 
-    public UserModel getSysAdmin(HttpServletRequest request) throws DataBaseException, UserNotFoundException {
+    private HttpServletRequest request;
+
+    public SysAdminHandler(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    // * Constructor sin parametros */
+    public SysAdminHandler() {
+    }
+
+    public UserModel getSysAdmin() throws DataBaseException, UserNotFoundException {
 
         UserControl userControl = new UserControl();
 
@@ -23,5 +38,40 @@ public class SysAdminHandler {
 
         return userControl.getUserById(idUser);
 
+    }
+
+    public List<String[]> getAllConferenceAdmins() throws DataBaseException {
+        ControlSysAdmin controlSysAdmin = new ControlSysAdmin();
+        return controlSysAdmin.getAllConferenceAdmins();
+    }
+
+    public boolean addInstitution() throws DataBaseException, InstitutionAlredyExists {
+
+        String name_institution = request.getParameter("name_institution");
+        String address_institution = request.getParameter("address_institution");
+
+        InstitutionModel institutionModel = new InstitutionModel(name_institution, address_institution);
+
+        if (institutionModel.isValid()) {
+            ControlSysAdmin controlSysAdmin = new ControlSysAdmin();
+
+            if (!controlSysAdmin.existsInstitution(name_institution)) {
+                return controlSysAdmin.insertInstitution(institutionModel);
+            } else {
+                throw new InstitutionAlredyExists(name_institution);
+            }
+        }
+        return false;
+
+    }
+
+    public List<InstitutionModel> getAllInstitutions() throws DataBaseException {
+        ControlSysAdmin controlSysAdmin = new ControlSysAdmin();
+        return controlSysAdmin.getAllInstitutions();
+    }
+
+    public List<String[]> getAllUsers() throws DataBaseException {
+        ControlSysAdmin controlSysAdmin = new ControlSysAdmin();
+        return controlSysAdmin.getAllUsers();
     }
 }
