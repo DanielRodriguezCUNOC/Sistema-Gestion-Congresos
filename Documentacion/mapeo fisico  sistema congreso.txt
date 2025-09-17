@@ -1,0 +1,195 @@
+-- Configuracion de la base de datos
+
+CREATE USER 'codenbugs'@'localhost' IDENTIFIED BY 'code';
+CREATE DATABASE congresodb;
+GRANT ALL PRIVILEGES ON congresodb.* TO 'codenbugs'@'localhost';
+FLUSH PRIVILEGES;
+
+USE congresodb;
+
+-- Creacion de tablas
+
+CREATE TABLE Institucion (
+    id_institucion INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_institucion VARCHAR(255) NOT NULL UNIQUE,
+    ubicacion VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Rol (
+    id_rol INT AUTO_INCREMENT PRIMARY KEY,
+    rol VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE Tipo_Participante(
+    id_tipo_participante INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_participante VARCHAR(10) UNIQUE NOT NULL
+);
+
+CREATE TABLE Tipo_Actividad(
+    id_tipo_actividad INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_actividad VARCHAR(10) UNIQUE NOT NULL
+);
+
+CREATE TABLE Salon (
+    id_salon INT AUTO_INCREMENT PRIMARY KEY,
+    id_institucion INT NOT NULL,
+    nombre_salon VARCHAR(100) NOT NULL UNIQUE,
+    ubicacion VARCHAR(100) NOT NULL,
+    capacidad INT NOT NULL,
+    CONSTRAINT fk_salon_institucion
+    FOREIGN KEY (id_institucion) REFERENCES Institucion(id_institucion)
+);
+
+CREATE TABLE Usuario (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    id_rol INT NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    usuario VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) UNIQUE NOT NULL,
+    identificacion_personal VARCHAR(15) UNIQUE NOT NULL,
+    telefono VARCHAR(25) NOT NULL,
+    fotografia LONGBLOB NOT NULL,
+    organizacion VARCHAR(150) NOT NULL,
+    estado ENUM('ACTIVO', 'INACTIVO') NOT NULL DEFAULT 'ACTIVO',
+    CONSTRAINT fk_rol_usuario 
+    FOREIGN KEY (id_rol) REFERENCES Rol(id_rol)
+);
+
+CREATE TABLE Comision (
+    id_comision INT AUTO_INCREMENT PRIMARY KEY,
+    porcentaje_comision DECIMAL(5,2) NOT NULL,
+    fecha_actualizacion DATETIME NOT NULL
+);
+
+CREATE TABLE Congreso (
+    id_congreso INT AUTO_INCREMENT PRIMARY KEY,
+    id_institucion INT NOT NULL,
+    nombre_congreso VARCHAR(255) UNIQUE NOT NULL,
+    fecha_inicio DATETIME NOT NULL,
+    fecha_fin DATETIME NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    acepta_convocatoria TINYINT NOT NULL DEFAULT 1,
+    estado TINYINT NOT NULL DEFAULT 1,
+    CONSTRAINT fk_congreso_institucion
+    FOREIGN KEY (id_institucion) REFERENCES Institucion(id_institucion)
+);
+
+CREATE TABLE Actividad (
+    id_actividad INT AUTO_INCREMENT PRIMARY KEY,
+    id_salon INT NOT NULL,
+    id_congreso INT NOT NULL,
+    id_tipo_actividad INT NOT NULL,
+    nombre_actividad VARCHAR(150) NOT NULL,
+    fecha DATETIME NOT NULL,
+    hora_inicio TIME NOT NULL,
+    hora_fin TIME NOT NULL,
+    descripcion VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_actividad_salon 
+    FOREIGN KEY (id_salon) REFERENCES Salon(id_salon),
+    CONSTRAINT fk_actividad_congreso
+    FOREIGN KEY (id_congreso) REFERENCES Congreso(id_congreso),
+    CONSTRAINT fk_actividad_tipo_actividad
+    FOREIGN KEY (id_tipo_actividad) REFERENCES Tipo_Actividad(id_tipo_actividad)
+);
+CREATE TABLE Inscripcion(
+    id_inscripcion INT AUTO_INCREMENT PRIMARY KEY,
+    id_congreso INT NOT NULL,
+    id_usuario INT NOT NULL,
+    CONSTRAINT fk_inscripcion_congreso
+    FOREIGN KEY (id_congreso) REFERENCES Congreso(id_congreso),
+    CONSTRAINT fk_inscripcion_usuario
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+
+CREATE TABLE Pago (
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_inscripcion INT NOT NULL,
+    id_usuario INT NOT NULL,
+    fecha_pago DATETIME NOT NULL,
+    monto_pagado DECIMAL(10,2) NOT NULL,
+    CONSTRAINT fk_pago_inscripcion
+    FOREIGN KEY (id_inscripcion) REFERENCES Inscripcion(id_inscripcion),
+    CONSTRAINT fk_pago_usuario
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+CREATE TABLE Comision_Pago(
+    id_comision_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_pago INT NOT NULL,
+    porcentaje_comision DECIMAL(5,2) NOT NULL,
+    monto_comision DECIMAL (10,2) NOT NULL,
+    CONSTRAINT fk_comision_pago
+    FOREIGN KEY (id_pago) REFERENCES Pago(id_pago)
+);
+
+CREATE TABLE Reserva_Taller (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_actividad INT NOT NULL,
+    fecha_reserva DATETIME NOT NULL,
+    CONSTRAINT fk_reserva_actividad
+    FOREIGN KEY (id_actividad) REFERENCES Actividad(id_actividad)
+    ON DELETE CASCADE,
+    CONSTRAINT fk_reserva_usuario
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+CREATE TABLE Trabajo (
+    id_trabajo INT AUTO_INCREMENT PRIMARY KEY,
+    id_congreso INT NOT NULL,
+    id_usuario INT NOT NULL,
+    id_tipo_actividad INT NOT NULL,
+    nombre_trabajo VARCHAR(150) NOT NULL,
+    descripcion VARCHAR(255) NOT NULL,
+    fecha_creacion DATETIME NOT NULL,
+    estado ENUM('ACEPTADO', 'RECHAZADO', 'PENDIENTE') NOT NULL,
+    CONSTRAINT fk_trabajo_congreso
+    FOREIGN KEY (id_congreso) REFERENCES Congreso(id_congreso),
+    CONSTRAINT fk_trabajo_usuario
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    CONSTRAINT fk_trabajo_tipo_actividad
+    FOREIGN KEY (id_tipo_actividad) REFERENCES Tipo_Actividad(id_tipo_actividad) 
+);
+
+CREATE TABLE Encargado_Actividad (
+    id_actividad INT NOT NULL,
+    id_usuario INT NOT NULL,
+    PRIMARY KEY (id_actividad, id_usuario),
+    CONSTRAINT fk_encargado_actividad
+    FOREIGN KEY (id_actividad) REFERENCES Actividad(id_actividad)
+    ON DELETE CASCADE,
+    CONSTRAINT fk_encargado_usuario
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+CREATE TABLE Asistencia (
+    id_usuario INT NOT NULL,
+    id_tipo_participante INT NOT NULL,
+    nombre_actividad VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id_usuario, id_tipo_participante),
+    CONSTRAINT fk_asistencia_participante
+    FOREIGN KEY (id_tipo_participante) REFERENCES Tipo_Participante(id_tipo_participante),
+    CONSTRAINT fk_asistencia_usuario
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+
+
+CREATE TABLE Cartera_Digital (
+    id_cartera INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    saldo DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    CONSTRAINT fk_cartera_usuario
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+CREATE TABLE Recarga_Cartera (
+    id_recarga INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    fecha_recarga DATETIME NOT NULL,
+    monto_recarga DECIMAL(10,2) NOT NULL,
+    CONSTRAINT fk_recarga_usuario
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
