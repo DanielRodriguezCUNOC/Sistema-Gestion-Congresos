@@ -88,24 +88,20 @@ public class UserControl {
      *         exception caught during the process or if no matching record is
      *         found.
      */
-    public boolean validateUser(String username) {
+    public boolean validateUser(String username) throws DataBaseException {
 
-        Connection conn = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement ps = conn.prepareStatement(FINDBY_USERNAME)) {
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+                PreparedStatement ps = conn.prepareStatement(FINDBY_USERNAME)) {
 
             ps.setString(1, username);
-            ps.executeQuery();
 
-            try (ResultSet rs = ps.getResultSet()) {
-                // retornamos true si existe un registro que coincida con el usuario
+            try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();
             }
 
-        } catch (Exception e) {
-            return false;
+        } catch (SQLException e) {
+            throw new DataBaseException("Error al validar el usuario: " + username, e);
         }
-
     }
 
     /**
@@ -242,4 +238,5 @@ public class UserControl {
             throw new DataBaseException("Ha ocurrido un error al acceder a la base de datos.", e);
         }
     }
+
 }

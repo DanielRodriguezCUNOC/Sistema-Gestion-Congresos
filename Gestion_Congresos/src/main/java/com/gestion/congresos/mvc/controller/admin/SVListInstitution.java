@@ -3,6 +3,7 @@ package com.gestion.congresos.mvc.controller.admin;
 import java.io.IOException;
 import java.util.List;
 
+import com.gestion.congresos.Backend.db.models.InstitutionModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.handler.SysAdminHandler;
 
@@ -12,21 +13,22 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SVListConferenceAdmin", urlPatterns = { "/SVListConferenceAdmin" })
-public class SVListConferenceAdmin extends HttpServlet {
+@WebServlet(name = "SVListInstitution", urlPatterns = { "/SVListInstitution" })
+public class SVListInstitution extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
+        System.out.println("DEBUG >>> Accediendo a SVListInstitution");
         try {
             SysAdminHandler sysAdminHandler = new SysAdminHandler();
 
-            List<String[]> conferenceAdmins = sysAdminHandler.getAllConferenceAdmins();
+            List<InstitutionModel> institutions = sysAdminHandler.getAllInstitutions();
+            System.out.println("DEBUG >>> Institutions size: " + institutions.size());
 
-            request.setAttribute("conferenceAdmins", conferenceAdmins);
+            request.setAttribute("institutions", institutions);
 
-            request.getRequestDispatcher("/mvc/sysadmin/list-conference-admin.jsp").forward(request, response);
+            request.getRequestDispatcher("/mvc/sysadmin/list-institutions.jsp").forward(request, response);
 
         } catch (DataBaseException e) {
             request.setAttribute("error", e.getMessage());

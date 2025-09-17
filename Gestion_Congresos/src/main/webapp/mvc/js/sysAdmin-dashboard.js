@@ -1,8 +1,6 @@
 // ==========================
 // Funciones base
 // ==========================
-
-// Ocultar cards y mostrar un contenido dinámico
 function showContent(html) {
   const cards = document.querySelector("#cards-container");
   const content = document.querySelector("#content");
@@ -12,25 +10,24 @@ function showContent(html) {
   content.innerHTML = html;
 }
 
-// Restaurar las cards
 function showCards() {
   document.querySelector("#cards-container").style.display = "flex";
   document.querySelector("#content").style.display = "none";
   document.querySelector("#content").innerHTML = "";
 }
 
+//* Funcionalidades relacionadas a Creacion de Administrador de Congreso*/
+
 // ==========================
-// Cargar formulario Crear Admin
+// Cargar formulario Crear Admin Congreso
 // ==========================
-async function loadCreateAdminForm() {
+async function loadCreateConferenceAdminForm() {
   try {
     const res = await fetch(`${contextPath}/mvc/sysadmin/create-admin-conference.jsp`);
     if (!res.ok) throw new Error("Error al cargar formulario");
 
     const html = await res.text();
-
-    // Insertar HTML + botón cancelar
-    showContent(html + `<button class="btn btn-secondary mt-3" id="btn-cancel">Cancelar</button>`);
+    showContent(html);
 
   } catch (err) {
     console.error(err);
@@ -39,9 +36,9 @@ async function loadCreateAdminForm() {
 }
 
 // ==========================
-// Enviar formulario Crear Admin
+// Enviar formulario Crear Admin Congreso
 // ==========================
-async function submitCreateAdmin(form) {
+async function submitCreateConferenceAdmin(form) {
   const formData = new FormData(form);
 
   try {
@@ -52,13 +49,14 @@ async function submitCreateAdmin(form) {
 
     if (!res.ok) throw new Error("Error en creación");
 
-    // 👉 parseamos JSON que devuelve el servlet
+    //* El servlet de creación devuelve JSON
     const result = await res.json();
 
     if (result.success) {
       alert(result.message);
-      // 👉 después de crear, cargamos el listado dinámicamente
-      await loadConferenceAdmins();
+      
+      //! Cargar listado después de crear
+      loadConferenceAdmins();
     } else {
       alert("Error: " + result.message);
     }
@@ -69,50 +67,17 @@ async function submitCreateAdmin(form) {
   }
 }
 
-
 // ==========================
-// Listar Administradores
+// Listar Administradores de Congreso
 // ==========================
 async function loadConferenceAdmins() {
   try {
     const res = await fetch(`${contextPath}/SVListConferenceAdmin`);
     if (!res.ok) throw new Error("Error en la petición");
 
-    const admins = await res.json(); // array de objetos
-
-    let html = `<h3>Administradores de Congresos</h3>
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Usuario</th>
-                      <th>Correo</th>
-                      <th>Identificación</th>
-                      <th>Teléfono</th>
-                      <th>Organización</th>
-                      <th>Estado</th>
-                      <th>Rol</th>
-                    </tr>
-                  </thead>
-                  <tbody>`;
-
-    admins.forEach(a => {
-      html += `<tr>
-                 <td>${a.nombre}</td>
-                 <td>${a.usuario}</td>
-                 <td>${a.correo}</td>
-                 <td>${a.identificacion}</td>
-                 <td>${a.telefono}</td>
-                 <td>${a.organizacion}</td>
-                 <td>${a.estado}</td>
-                 <td>${a.rol}</td>
-               </tr>`;
-    });
-
-    html += `</tbody></table>`;
-    html += `<button class="btn btn-secondary mt-3" id="btn-cancel">Cancelar</button>`;
-
-    showContent(html);
+    //* El servlet devuelve HTML (JSP renderizado)
+    const html = await res.text();
+    showContent(html + `<button class="btn btn-secondary mt-3" id="btn-back">Regresar</button>`);
 
   } catch (err) {
     console.error(err);
@@ -120,43 +85,138 @@ async function loadConferenceAdmins() {
   }
 }
 
+//* Funcionalidades relacionadas a creacion de Instituciones*/
+
+// ==========================
+// Enviar formulario Crear Institución
+// ==========================
+async function submitCreateInstitution(form) {
+  //! Usar URLSearchParams para enviar como application/x-www-form-urlencoded dado que FormData no funciona bien con servlets
+  const formData = new URLSearchParams(new FormData(form));
+  try {
+    const res = await fetch(`${contextPath}/SVCreateInstitution`, {
+      method: "POST",
+      body: formData,
+       headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+    });
+
+    if (!res.ok) throw new Error("Error en creación");
+
+    //* El servlet de creación devuelve JSON
+    const result = await res.json();
+
+    if (result.success) {
+      alert(result.message);
+      
+      //! Cargar listado después de crear
+      loadInstitutions();
+    } else {
+      alert("Error: " + result.message);
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Error al crear la Institución");
+  }
+}
+
+// ==========================
+// Cargar Formulario Crear Institución
+// ==========================
+
+async function loadCreateInstitutionForm() {
+  try {
+    const res = await fetch(`${contextPath}/mvc/sysadmin/create-institution.jsp`);
+    if (!res.ok) throw new Error("Error al cargar formulario");
+
+    const html = await res.text();
+    showContent(html);
+
+  } catch (err) {
+    console.error(err);
+    alert("Ocurrió un error al cargar el formulario.");
+  }
+}
+
+// ==========================
+// Listar Instituciones
+// ==========================
+async function loadInstitutions() {
+  try {
+    const res = await fetch(`${contextPath}/SVListInstitution`);
+    if (!res.ok) throw new Error("Error en la petición");
+
+    //* El servlet devuelve HTML (JSP renderizado)
+    const html = await res.text();
+    showContent(html + `<button class="btn btn-secondary mt-3" id="btn-back">Regresar</button>`);
+    
+  } catch (err) {
+    console.error(err);
+    alert("Error al cargar las instituciones");
+  }
+}
+
+//* Funcionalidades relacionadas a Administracion de Usuario*/
+
+// ==========================
+// Listar Instituciones
+// ==========================
+async function loadUsers() {
+  try {
+    const res = await fetch(`${contextPath}/SVListUser`);
+    if (!res.ok) throw new Error("Error en la petición");
+
+    //* El servlet devuelve HTML (JSP renderizado)
+    const html = await res.text();
+    showContent(html + `<button class="btn btn-secondary mt-3" id="btn-back">Regresar</button>`);
+    
+  } catch (err) {
+    console.error(err);
+    alert("Error al cargar los usuarios");
+  }
+}
 
 
 // ==========================
 // Delegación de eventos
 // ==========================
-document.addEventListener("DOMContentLoaded", () => {
-  // Botón Crear Admin
-  const btnCreate = document.querySelector("#btn-create-conference-admin");
-  if (btnCreate) {
-    btnCreate.addEventListener("click", (e) => {
-      e.preventDefault();
-      loadCreateAdminForm();
-    });
-  }
-
-  // Botón Listar Admins
-  const btnList = document.querySelector("#btn-list-conference-sysAdmin");
-  if (btnList) {
-    btnList.addEventListener("click", (e) => {
-      e.preventDefault();
-      loadConferenceAdmins();
-    });
-  }
-});
-
-// Manejo de formularios enviados dinámicamente
 document.addEventListener("submit", (e) => {
-  if (e.target && e.target.id === "form-create-admin") {
-    e.preventDefault();
-    submitCreateAdmin(e.target);
+  e.preventDefault();
+  switch (e.target.id) {
+    case "form-create-admin":
+      submitCreateConferenceAdmin(e.target);
+      break;
+    case "form-create-institution":
+      submitCreateInstitution(e.target);
+      break;
   }
 });
 
-// Botón cancelar dinámico
+//* Clics en botones dinamicos
 document.addEventListener("click", (e) => {
-  if (e.target && e.target.id === "btn-cancel") {
-    e.preventDefault();
-    showCards();
+  switch (e.target.id) {
+    case "btn-create-conference-admin":
+      loadCreateConferenceAdminForm();
+      return;
+    case "btn-create-institution":
+      loadCreateInstitutionForm();
+      return;
+    case "btn-list-conference-admins":
+      loadConferenceAdmins();
+      return;
+    case "btn-list-institutions":
+      loadInstitutions();
+      return;
+    case "administrate-users":
+      loadUsers();
+      return;
+    case "btn-cancel":
+    case "btn-back":
+      showCards();
+      return;
   }
 });
+
+

@@ -137,7 +137,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             <div class="d-grid">
               <button type="submit" class="btn btn-primary">Registrar</button>
             </div>
-
             <div class="d-grid">
               <button
                 type="button"

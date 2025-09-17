@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.ImageFormatException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.UserAlreadyExistsException;
@@ -71,7 +72,7 @@ public class SVCreateUser extends HttpServlet {
             request.setAttribute("error", e.getMessage());
             recoveryDataFromForm(request);
 
-        } catch (UserAlreadyExistsException e) {
+        } catch (UserAlreadyExistsException | DataBaseException e) {
             request.setAttribute("error", e.getMessage());
             recoveryDataFromForm(request);
         } catch (ImageFormatException e) {

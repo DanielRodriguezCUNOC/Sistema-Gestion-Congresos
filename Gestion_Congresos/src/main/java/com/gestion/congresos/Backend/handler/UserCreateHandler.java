@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import com.gestion.congresos.Backend.db.Encryption;
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
 import com.gestion.congresos.Backend.db.models.UserModel;
+import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.ImageFormatException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.UserAlreadyExistsException;
@@ -40,7 +41,8 @@ public class UserCreateHandler {
      * 
      * @return The method `createUser()` is returning a boolean value.
      */
-    public boolean createUser(int idRol) throws MissingDataException, UserAlreadyExistsException, ImageFormatException {
+    public boolean createUser(int idRol)
+            throws MissingDataException, UserAlreadyExistsException, ImageFormatException, DataBaseException {
 
         if (idRol <= 0) {
             idRol = ID_ROL_DEFAULT;
@@ -72,7 +74,7 @@ public class UserCreateHandler {
      */
 
     private boolean createUserWithRole(int idRol)
-            throws MissingDataException, UserAlreadyExistsException, ImageFormatException {
+            throws MissingDataException, UserAlreadyExistsException, ImageFormatException, DataBaseException {
         try {
             String name = getFormField(request, "name");
             String user = getFormField(request, "user");

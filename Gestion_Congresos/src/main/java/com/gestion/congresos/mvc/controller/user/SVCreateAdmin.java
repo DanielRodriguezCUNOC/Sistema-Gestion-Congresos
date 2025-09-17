@@ -3,6 +3,7 @@ package com.gestion.congresos.mvc.controller.user;
 import java.io.IOException;
 
 import com.gestion.congresos.Backend.db.controls.rol.RolControl;
+import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.ImageFormatException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.UserAlreadyExistsException;
@@ -36,7 +37,7 @@ public class SVCreateAdmin extends HttpServlet {
         } catch (MissingDataException m) {
             request.setAttribute("error", m.getMessage());
             request.getRequestDispatcher("/mvc/user/create-admin-conference.jsp").forward(request, response);
-        } catch (UserAlreadyExistsException u) {
+        } catch (UserAlreadyExistsException | DataBaseException u) {
             request.setAttribute("error", u.getMessage());
             request.getRequestDispatcher("/mvc/user/create-admin-conference.jsp").forward(request, response);
         } catch (ImageFormatException i) {

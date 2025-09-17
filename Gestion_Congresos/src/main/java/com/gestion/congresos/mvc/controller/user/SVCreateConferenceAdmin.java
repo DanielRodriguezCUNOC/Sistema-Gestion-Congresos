@@ -2,6 +2,7 @@ package com.gestion.congresos.mvc.controller.user;
 
 import java.io.IOException;
 
+import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.ImageFormatException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.UserAlreadyExistsException;
@@ -41,7 +42,7 @@ public class SVCreateConferenceAdmin extends HttpServlet {
                 response.getWriter()
                         .write("{\"success\": false, \"message\": \"No se pudo crear el Administrador de Congreso\"}");
             }
-        } catch (MissingDataException | UserAlreadyExistsException | ImageFormatException e) {
+        } catch (MissingDataException | UserAlreadyExistsException | ImageFormatException | DataBaseException e) {
             String msg = e.getMessage().replace("\"", "\\\"");
             response.getWriter().write("{\"success\": false, \"message\": \"" + msg + "\"}");
 

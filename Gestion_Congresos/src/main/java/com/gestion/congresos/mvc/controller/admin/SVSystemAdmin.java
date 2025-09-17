@@ -21,9 +21,9 @@ public class SVSystemAdmin extends HttpServlet {
             throws IOException, ServletException {
 
         try {
-            SysAdminHandler sysAdminHandler = new SysAdminHandler();
+            SysAdminHandler sysAdminHandler = new SysAdminHandler(request);
 
-            UserModel sysAdmin = sysAdminHandler.getSysAdmin(request);
+            UserModel sysAdmin = sysAdminHandler.getSysAdmin();
 
             if (sysAdmin == null) {
                 request.setAttribute("sysAdmin", sysAdmin);
