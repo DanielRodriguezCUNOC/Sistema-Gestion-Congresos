@@ -1,6 +1,7 @@
 package com.gestion.congresos.Backend.validations;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -13,7 +14,7 @@ public class ValidatorData {
     public boolean isValidName(String name) {
         if (name == null || name.length() > 255)
             return false;
-        RegexValidator nameValidator = new RegexValidator("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,100}$");
+        RegexValidator nameValidator = new RegexValidator("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,255}$");
         return nameValidator.isValid(name);
     }
 
@@ -65,7 +66,11 @@ public class ValidatorData {
     public boolean isValidTypeUser(String typeUser) {
         return "Administrador Sistema".equals(typeUser) || "Administrador Congreso".equals(typeUser)
                 || "Comite Cientifico".equals(typeUser)
-                || "Participante".equals(typeUser);
+                || "Participante".equals(typeUser) || "Ponente Invitado".equals(typeUser);
+    }
+
+    public boolean isValidTypeActivity(String tipoActividad) {
+        return "Taller".equals(tipoActividad) || "Ponencia".equals(tipoActividad);
     }
 
     public boolean isValidPercentage(Double porcentaje) {
@@ -74,18 +79,17 @@ public class ValidatorData {
         return porcentaje >= 0.0 && porcentaje <= 100.0;
     }
 
-    public boolean isValidQuantity(Double cantidad) {
+    public boolean isValidQuantity(BigDecimal cantidad) {
         if (cantidad == null)
             return false;
-        return cantidad > 0 && cantidad <= 99999999.99;
+        return cantidad.compareTo(BigDecimal.ZERO) > 0 && cantidad.compareTo(new BigDecimal("99999999.99")) <= 0;
     }
 
     public boolean isValidDate(String fecha) {
         if (fecha == null)
             return false;
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDateTime.parse(fecha, formatter);
+            LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             return true;
         } catch (DateTimeParseException e) {
             return false;
@@ -96,8 +100,7 @@ public class ValidatorData {
         if (hora == null)
             return false;
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            LocalTime.parse(hora, formatter);
+            LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm:ss"));
             return true;
         } catch (DateTimeParseException e) {
             return false;

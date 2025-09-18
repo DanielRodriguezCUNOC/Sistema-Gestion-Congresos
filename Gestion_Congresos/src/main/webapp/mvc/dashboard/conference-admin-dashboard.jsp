@@ -28,7 +28,7 @@
 
       <section class="py-5">
         <div class="container">
-          <div class="row g-4">
+          <div id="cards-container" class="row g-4">
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
@@ -51,7 +51,10 @@
                 <div class="card-body text-center">
                   <h5 class="fw-bold">📢 Abrir Convocatoria</h5>
                   <p>Inicia la convocatoria para un nuevo congreso.</p>
-                  <a href="abrir-convocatoria.jsp" class="btn btn-secondary"
+                  <a
+                    href="#"
+                    id="btn-open-convocatory"
+                    class="btn btn-secondary"
                     >Abrir</a
                   >
                 </div>
@@ -75,8 +78,26 @@
                 <div class="card-body text-center">
                   <h5 class="fw-bold">🎤 Registrar Ponente Invitado</h5>
                   <p>Agregar ponentes invitados al congreso.</p>
-                  <a href="registrar-ponente.jsp" class="btn btn-secondary"
+                  <a
+                    href="#"
+                    id="btn-create-guest-speaker"
+                    class="btn btn-secondary"
                     >Registrar</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                  <h5 class="fw-bold">🚪 Registrar Salon</h5>
+                  <p>
+                    Registra los salones o auditorios donde se realizarán las
+                    actividades.
+                  </p>
+                  <a href="#" id="btn-create-room" class="btn btn-secondary"
+                    >Generar</a
                   >
                 </div>
               </div>
@@ -87,7 +108,7 @@
                 <div class="card-body text-center">
                   <h5 class="fw-bold">🏛️ Registrar Congreso</h5>
                   <p>Registrar un nuevo congreso en el sistema.</p>
-                  <a href="registrar-congreso.jsp" class="btn btn-secondary"
+                  <a href="#" id="btn-create-congress" class="btn btn-secondary"
                     >Registrar</a
                   >
                 </div>
@@ -99,7 +120,7 @@
                 <div class="card-body text-center">
                   <h5 class="fw-bold">📅 Registrar Actividad</h5>
                   <p>Agregar nuevas actividades dentro de un congreso.</p>
-                  <a href="registrar-actividad.jsp" class="btn btn-secondary"
+                  <a href="#" id="btn-create-activity" class="btn btn-secondary"
                     >Registrar</a
                   >
                 </div>
@@ -123,7 +144,7 @@
                 <div class="card-body text-center">
                   <h5 class="fw-bold">📋 Listar Actividades</h5>
                   <p>Consultar todas las actividades de un congreso.</p>
-                  <a href="listar-actividades.jsp" class="btn btn-secondary"
+                  <a href="#" id="btn-list-activities" class="btn btn-secondary"
                     >Listar</a
                   >
                 </div>
@@ -210,7 +231,12 @@
           </div>
         </div>
       </section>
+      <div id="content" class="container mt-4" style="display: none"></div>
     </main>
     <jsp:include page="/includes/footer.jsp" />
+    <script>
+      const contextPath = "${pageContext.request.contextPath}";
+    </script>
+    <script src="${pageContext.request.contextPath}/mvc/js/admin-conference-dashboard.js"></script>
   </body>
 </html>
