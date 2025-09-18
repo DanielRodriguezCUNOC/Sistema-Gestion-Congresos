@@ -70,8 +70,33 @@ public class SysAdminHandler {
         return controlSysAdmin.getAllInstitutions();
     }
 
-    public List<String[]> getAllUsers() throws DataBaseException {
+    public List<String[]> getAllAdmins() throws DataBaseException {
         ControlSysAdmin controlSysAdmin = new ControlSysAdmin();
-        return controlSysAdmin.getAllUsers();
+        return controlSysAdmin.getAllAdmins();
     }
+
+    public boolean deactivateAdmin(int targetUserId) throws DataBaseException {
+
+        ControlSysAdmin control = new ControlSysAdmin();
+        return control.deactivateUser(targetUserId);
+    }
+
+    public boolean activateAdmin(int targetUserId) throws DataBaseException {
+
+        ControlSysAdmin control = new ControlSysAdmin();
+        return control.activateUser(targetUserId);
+    }
+
+    public boolean editAdmin(int targetUserId, String name, String user, String phone,
+            String organization) throws DataBaseException {
+        ControlSysAdmin control = new ControlSysAdmin();
+        System.out.println("Actualizando admin: " + targetUserId);
+        return control.updateAdmin(targetUserId, name, user, phone, organization);
+    }
+
+    public UserModel getAdminById(int id) throws DataBaseException, UserNotFoundException {
+        UserControl userControl = new UserControl();
+        return userControl.getUserById(id);
+    }
+
 }

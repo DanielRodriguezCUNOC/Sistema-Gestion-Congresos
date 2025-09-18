@@ -24,7 +24,7 @@ public class ControlSysAdmin {
 
     private static final String GET_ALL_INSTITUTIONS = "SELECT nombre_institucion, ubicacion FROM Institucion";
 
-    private static final String GET_ALL_USERS = "SELECT u.id_usuario, u.nombre, u.usuario, u.correo, " +
+    private static final String GET_ALL_ADMINS = "SELECT u.id_usuario, u.nombre, u.usuario, u.correo, " +
             "u.identificacion_personal, u.telefono, u.organizacion, " +
             "u.estado, r.rol AS tipo_rol " +
             "FROM Usuario u " +
@@ -119,34 +119,80 @@ public class ControlSysAdmin {
         return institutions;
     }
 
-    public List<String[]> getAllUsers() throws DataBaseException {
+    public List<String[]> getAllAdmins() throws DataBaseException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-        List<String[]> users = new ArrayList<>();
+        List<String[]> admins = new ArrayList<>();
 
-        try (PreparedStatement ps = conn.prepareStatement(GET_ALL_USERS)) {
+        try (PreparedStatement ps = conn.prepareStatement(GET_ALL_ADMINS)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
 
-                    String[] userData = new String[9];
-                    userData[0] = String.valueOf(rs.getInt("id_usuario"));
-                    userData[1] = rs.getString("nombre");
-                    userData[2] = rs.getString("usuario");
-                    userData[3] = rs.getString("correo");
-                    userData[4] = rs.getString("identificacion_personal");
-                    userData[5] = rs.getString("telefono");
-                    userData[6] = rs.getString("organizacion");
-                    userData[7] = rs.getString("estado");
-                    userData[8] = rs.getString("tipo_rol");
+                    String[] adminData = new String[9];
+                    adminData[0] = String.valueOf(rs.getInt("id_usuario"));
+                    adminData[1] = rs.getString("nombre");
+                    adminData[2] = rs.getString("usuario");
+                    adminData[3] = rs.getString("correo");
+                    adminData[4] = rs.getString("identificacion_personal");
+                    adminData[5] = rs.getString("telefono");
+                    adminData[6] = rs.getString("organizacion");
+                    adminData[7] = rs.getString("estado");
+                    adminData[8] = rs.getString("tipo_rol");
 
-                    users.add(userData);
+                    admins.add(adminData);
                 }
             }
-            return users;
+            return admins;
         } catch (SQLException e) {
             throw new DataBaseException("Ha ocurrido un error al acceder a la base de datos.", e);
         }
 
+    }
+
+    public boolean deactivateUser(int userId) throws DataBaseException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+        String sql = "UPDATE Usuario SET estado = 'INACTIVO' WHERE id_usuario = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new DataBaseException("Error al desactivar el administrador", e);
+        }
+    }
+
+    public boolean activateUser(int userId) throws DataBaseException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+        String sql = "UPDATE Usuario SET estado = 'ACTIVO' WHERE id_usuario = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new DataBaseException("Error al activar el administrador", e);
+        }
+    }
+
+    public boolean updateAdmin(int userId, String name, String username, String phone,
+            String organization)
+            throws DataBaseException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+        String sql = "UPDATE Usuario SET nombre = ?, usuario = ?, telefono = ?, organizacion = ? WHERE id_usuario = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setString(2, username);
+            ps.setString(3, phone);
+            ps.setString(4, organization);
+            ps.setInt(5, userId);
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new DataBaseException("Error al actualizar el administrador", e);
+        }
     }
 
 }

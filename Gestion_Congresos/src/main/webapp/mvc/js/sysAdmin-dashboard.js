@@ -161,11 +161,11 @@ async function loadInstitutions() {
 //* Funcionalidades relacionadas a Administracion de Usuario*/
 
 // ==========================
-// Listar Instituciones
+// Listar Administradores
 // ==========================
-async function loadUsers() {
+async function loadAdmins() {
   try {
-    const res = await fetch(`${contextPath}/SVListUser`);
+    const res = await fetch(`${contextPath}/SVListAdmin`);
     if (!res.ok) throw new Error("Error en la petición");
 
     //* El servlet devuelve HTML (JSP renderizado)
@@ -179,6 +179,7 @@ async function loadUsers() {
 }
 
 
+
 // ==========================
 // Delegación de eventos
 // ==========================
@@ -190,6 +191,9 @@ document.addEventListener("submit", (e) => {
       break;
     case "form-create-institution":
       submitCreateInstitution(e.target);
+      break;
+    case "edit-admin-form":
+      submitEditAdmin(e.target);
       break;
   }
 });
@@ -210,7 +214,7 @@ document.addEventListener("click", (e) => {
       loadInstitutions();
       return;
     case "administrate-users":
-      loadUsers();
+      loadAdmins();
       return;
     case "btn-cancel":
     case "btn-back":

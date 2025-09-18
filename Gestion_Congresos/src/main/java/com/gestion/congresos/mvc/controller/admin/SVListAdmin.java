@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SVListUser", urlPatterns = { "/SVListUser" })
-public class SVListUser extends HttpServlet {
+@WebServlet(name = "SVListAdmin", urlPatterns = { "/SVListAdmin" })
+public class SVListAdmin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -22,11 +22,11 @@ public class SVListUser extends HttpServlet {
         try {
             SysAdminHandler sysAdminHandler = new SysAdminHandler(request);
 
-            List<String[]> users = sysAdminHandler.getAllUsers();
+            List<String[]> admins = sysAdminHandler.getAllAdmins();
 
-            request.setAttribute("users", users);
+            request.setAttribute("admins", admins);
 
-            request.getRequestDispatcher("/mvc/sysadmin/list-users.jsp").forward(request, response);
+            request.getRequestDispatcher("/mvc/sysadmin/list-admins.jsp").forward(request, response);
         } catch (DataBaseException e) {
 
             request.setAttribute("error", e.getMessage());

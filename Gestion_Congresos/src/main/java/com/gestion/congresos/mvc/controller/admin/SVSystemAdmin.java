@@ -28,7 +28,7 @@ public class SVSystemAdmin extends HttpServlet {
             if (sysAdmin == null) {
                 request.setAttribute("sysAdmin", sysAdmin);
                 request.getRequestDispatcher("mvc/error.jsp").forward(request, response);
-
+                return;
             }
 
             request.setAttribute("sysAdmin", sysAdmin);
@@ -38,9 +38,11 @@ public class SVSystemAdmin extends HttpServlet {
             request.setAttribute("error", e.getMessage());
 
             request.getRequestDispatcher("mvc/error.jsp").forward(request, response);
+            return;
         } catch (UserNotFoundException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("mvc/error.jsp").forward(request, response);
+            return;
         }
     }
 }
