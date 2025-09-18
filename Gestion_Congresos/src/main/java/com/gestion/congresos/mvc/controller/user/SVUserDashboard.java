@@ -33,11 +33,13 @@ public class SVUserDashboard extends HttpServlet {
                     break;
                 case 2:
 
-                    response.sendRedirect("mvc/admin/adminCongresoDashboard.jsp");
+                    request.getSession().setAttribute("idUser", request.getSession().getAttribute("idUser"));
+                    response.sendRedirect(request.getContextPath() + "/SVConferenceAdmin");
                     break;
                 case 3:
 
-                    response.sendRedirect("mvc/user/userComiteCientificoDashboard.jsp");
+                    request.getSession().setAttribute("idUser", request.getSession().getAttribute("idUser"));
+                    response.sendRedirect(request.getContextPath() + "/SVCientificCommittee");
 
                     break;
                 case 4:

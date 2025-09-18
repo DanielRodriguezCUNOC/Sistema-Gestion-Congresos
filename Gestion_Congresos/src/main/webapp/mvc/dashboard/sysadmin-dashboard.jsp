@@ -162,6 +162,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
       const contextPath = "${pageContext.request.contextPath}";
     </script>
     <script src="${pageContext.request.contextPath}/mvc/js/sysAdmin-dashboard.js"></script>
-    <script src="${pageContext.request.contextPath}/mvc/js/crud-users.js"></script>
+    <script src="${pageContext.request.contextPath}/mvc/js/crud-admins.js"></script>
   </body>
 </html>
