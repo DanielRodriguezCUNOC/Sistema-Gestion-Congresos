@@ -28,7 +28,8 @@ public class ControlSysAdmin {
             "u.identificacion_personal, u.telefono, u.organizacion, " +
             "u.estado, r.rol AS tipo_rol " +
             "FROM Usuario u " +
-            "JOIN Rol r ON u.id_rol = r.id_rol";
+            "JOIN Rol r ON u.id_rol = r.id_rol " +
+            "WHERE r.id_rol IN (1, 2)";
 
     public List<String[]> getAllConferenceAdmins() throws DataBaseException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();

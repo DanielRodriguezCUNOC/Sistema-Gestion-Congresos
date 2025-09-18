@@ -90,7 +90,9 @@ public class UserControl {
      */
     public boolean validateUser(String username) throws DataBaseException {
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+        try (
                 PreparedStatement ps = conn.prepareStatement(FINDBY_USERNAME)) {
 
             ps.setString(1, username);
