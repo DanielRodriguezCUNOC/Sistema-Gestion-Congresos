@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "SVCreateGuestsSpeaker", value = "/SVCreateGuestsSpeaker")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 1, // 5MB
+        maxFileSize = 1024 * 1024 * 5, // 5MB
         maxRequestSize = 1024 * 1024 * 5) // 5MB
 public class SVCreateGuestsSpeaker extends HttpServlet {
 
@@ -50,7 +50,8 @@ public class SVCreateGuestsSpeaker extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/create-guest-speaker.jsp");
+        request.getRequestDispatcher("/mvc/ajax/conference-admin/create-guest-speaker.jsp").forward(request,
+                response);
 
     }
 

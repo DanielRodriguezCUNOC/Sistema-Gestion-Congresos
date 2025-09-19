@@ -1,6 +1,5 @@
 package com.gestion.congresos.Backend.handler;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
@@ -28,12 +27,20 @@ public class ConferenceAdminHandler {
 
     public UserModel getConferenceAdminById() throws DataBaseException, UserNotFoundException {
 
-        int idUser = Integer.parseInt(request.getParameter("idUser"));
+        // * Obtenemos el id del usuario loggeado de la sesion */
+        Object idUserObj = request.getSession().getAttribute("idUser");
+
+        if (idUserObj == null) {
+            return null;
+        }
+
+        int idUser = (int) idUserObj;
 
         UserControl userControl = new UserControl();
+
         UserModel conferenceAdmin = userControl.getUserById(idUser);
 
-        if (conferenceAdmin == null || conferenceAdmin.getIdRol() != 3) {
+        if (conferenceAdmin == null || conferenceAdmin.getIdRol() != 2) {
             throw new UserNotFoundException("El administrador de conferencia con ID " + idUser + " no existe.");
         }
         return conferenceAdmin;
@@ -41,11 +48,7 @@ public class ConferenceAdminHandler {
 
     public List<String[]> getAllGuestsSpeakers() throws DataBaseException {
         ControlConferenceAdmin controlConferenceAdmin = new ControlConferenceAdmin();
-        try {
-            return controlConferenceAdmin.getAllGuestsSpeakers();
-        } catch (SQLException e) {
-            throw new DataBaseException("Error al obtener los ponentes invitados de la base de datos", e);
-        }
+        return controlConferenceAdmin.getAllGuestsSpeakers();
     }
 
     public List<CongressModel> getAllCongresses() throws DataBaseException {

@@ -8,8 +8,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <jsp:include page="/includes/resources.jsp" />
   </head>
   <body class="bg-light">
-    <jsp:include page="/includes/navbar.jsp" />
-
     <main
       class="d-flex align-items-center justify-content-center"
       style="min-height: calc(100vh - 56px)"
@@ -157,6 +155,10 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
             <div class="d-grid">
               <button type="submit" class="btn btn-primary">Registrar</button>
+
+              <button type="button" class="btn btn-secondary" id="btn-cancel">
+                Cancelar
+              </button>
             </div>
           </form>
         </div>

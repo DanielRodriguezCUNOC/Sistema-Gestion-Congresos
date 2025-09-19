@@ -40,7 +40,7 @@ public class SVCreateActivity extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/create-activity.jsp").forward(request,
+        request.getRequestDispatcher("/mvc/ajax/conference-admin/create-activity.jsp").forward(request,
                 response);
 
     }

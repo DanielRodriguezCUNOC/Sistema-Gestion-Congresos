@@ -43,7 +43,7 @@ public class SVCreateRoom extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/create-room.jsp").forward(request,
+        request.getRequestDispatcher("/mvc/ajax/conference-admin/create-room.jsp").forward(request,
                 response);
 
     }
