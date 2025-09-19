@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
-import com.gestion.congresos.Backend.handler.SysAdminHandler;
+import com.gestion.congresos.Backend.handler.ConferenceAdminHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,17 +21,17 @@ public class SVConferenceAdmin extends HttpServlet {
             throws IOException, ServletException {
 
         try {
-            SysAdminHandler sysAdminHandler = new SysAdminHandler(request);
+            ConferenceAdminHandler conferenceAdminHandler = new ConferenceAdminHandler(request);
 
-            UserModel sysAdmin = sysAdminHandler.getSysAdmin();
+            UserModel conferenceAdmin = conferenceAdminHandler.getConferenceAdminById();
 
-            if (sysAdmin == null) {
-                request.setAttribute("sysAdmin", sysAdmin);
+            if (conferenceAdmin == null) {
+                request.setAttribute("conferenceAdmin", conferenceAdmin);
                 request.getRequestDispatcher("mvc/error.jsp").forward(request, response);
                 return;
             }
 
-            request.setAttribute("sysAdmin", sysAdmin);
+            request.setAttribute("conferenceAdmin", conferenceAdmin);
             request.getRequestDispatcher("mvc/dashboard/conference-admin-dashboard.jsp").forward(request, response);
 
         } catch (DataBaseException e) {

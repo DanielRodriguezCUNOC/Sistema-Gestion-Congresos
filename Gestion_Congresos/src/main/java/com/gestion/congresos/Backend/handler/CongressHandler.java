@@ -51,6 +51,19 @@ public class CongressHandler {
 
             boolean statusCongress = convertStringToBoolean(request.getParameter("statusCongress"));
 
+            int cupo = 0;
+
+            try {
+                cupo = Integer.parseInt(request.getParameter("cupo"));
+
+                if (cupo < 0 && !validatorData.isValidQuota(cupo)) {
+                    throw new MissingDataException("El cupo no es valido");
+
+                }
+            } catch (NumberFormatException e) {
+                throw new MissingDataException("El cupo no es valido");
+            }
+
             if (!validatorData.isValidName(nameCongress)) {
                 throw new MissingDataException("El nombre del congreso no es valido");
             } else if (!validatorData.isValidQuantity(priceCongress)) {
@@ -72,7 +85,7 @@ public class CongressHandler {
             Date dateEndingSQL = Date.valueOf(dateEnding);
 
             CongressModel congressModel = new CongressModel(idInstitution, nameCongress, dateInitializingSQL,
-                    dateEndingSQL, priceCongress, acceptConvocations, statusCongress);
+                    dateEndingSQL, priceCongress, acceptConvocations, statusCongress, cupo);
             if (controlCongress.existsCongressByName(nameCongress)) {
                 throw new ObjectAlreadyExists("El congreso ya existe en la base de datos");
             }

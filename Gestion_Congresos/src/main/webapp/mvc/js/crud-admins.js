@@ -40,7 +40,6 @@ async function submitEditAdmin(form) {
     if (!res.ok) throw new Error("Error al editar el administrador");
 
     const result = await res.json();
-    console.log("Respuesta del servidor:", result);
 
     if (result.success) {
       alert(result.message);
@@ -114,19 +113,16 @@ document.addEventListener("click", (e) => {
     loadEditAdminForm(adminId);
   }
 
-  // --- Botón Activar ---
   if (target.classList.contains("btn-activate-admin")) {
     const adminId = target.getAttribute("data-admin-id");
     activateAdmin(adminId);
   }
 
-  // --- Botón Desactivar ---
   if (target.classList.contains("btn-delete-admin")) {
     const adminId = target.getAttribute("data-admin-id");
     deactivateAdmin(adminId);
   }
 
-  // --- Botón Cancelar en formulario de edición ---
   if (target.id === "btn-cancel") {
     loadAdmins();
   }

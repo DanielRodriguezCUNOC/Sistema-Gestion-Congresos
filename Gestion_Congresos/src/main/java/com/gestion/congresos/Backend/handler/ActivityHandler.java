@@ -89,7 +89,7 @@ public class ActivityHandler {
                 throw new ObjectNotFoundException("El congreso no existe en la base de datos");
             }
 
-            int idRoom = controlRoom.getIdRoomByName(nameRoom, idCongress);
+            int idRoom = controlRoom.getIdRoomByNameAndCongress(nameRoom, idCongress);
 
             if (idRoom < 0) {
                 throw new ObjectNotFoundException("El salon no existe en la base de datos");

@@ -51,7 +51,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
           </c:if>
 
           <form
-            action="${pageContext.servletContext.contextPath}/SVCreateUser"
+            id="form-create-guest-speaker"
+            action="/SVCreateGuestsSpeaker"
             method="post"
             enctype="multipart/form-data"
           >

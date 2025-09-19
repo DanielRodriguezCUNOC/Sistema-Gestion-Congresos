@@ -41,7 +41,7 @@ public class ValidatorData {
     public boolean isValidID(String id) {
         if (id == null || id.length() > 15)
             return false;
-        RegexValidator idValidator = new RegexValidator("^\\d{6,15}$"); // Ajustable según tu formato
+        RegexValidator idValidator = new RegexValidator("^\\d{6,15}$");
         return idValidator.isValid(id);
     }
 
@@ -105,6 +105,12 @@ public class ValidatorData {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public boolean isValidQuota(int cupo) {
+        RegexValidator quotaValidator = new RegexValidator("^[1-9]\\d{0,4}$");
+        return quotaValidator.isValid(String.valueOf(cupo));
+
     }
 
 }

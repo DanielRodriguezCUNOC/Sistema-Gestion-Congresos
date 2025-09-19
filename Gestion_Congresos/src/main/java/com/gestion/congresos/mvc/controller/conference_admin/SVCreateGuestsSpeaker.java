@@ -50,7 +50,7 @@ public class SVCreateGuestsSpeaker extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/create-user.jsp");
+        request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/create-guest-speaker.jsp");
 
     }
 
