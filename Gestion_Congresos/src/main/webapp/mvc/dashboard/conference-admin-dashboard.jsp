@@ -12,7 +12,7 @@
         <div class="container d-flex align-items-center">
           <div class="me-3">
             <img
-              src="${conferenceAdmin.photoBase64}"
+              src="data:image/jpeg;base64,${conferenceAdmin.photoBase64}"
               alt="Foto de ${conferenceAdmin.name}"
               class="rounded-circle border border-white"
               width="80"
@@ -241,5 +241,6 @@
       const contextPath = "${pageContext.request.contextPath}";
     </script>
     <script src="${pageContext.request.contextPath}/mvc/js/admin-conference-dashboard.js"></script>
+    <script src="${pageContext.request.contextPath}/mvc/js/crud-conference-admins.js"></script>
   </body>
 </html>

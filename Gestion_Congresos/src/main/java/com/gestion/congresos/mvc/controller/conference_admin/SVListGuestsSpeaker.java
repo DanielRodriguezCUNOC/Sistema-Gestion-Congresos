@@ -26,7 +26,7 @@ public class SVListGuestsSpeaker extends HttpServlet {
 
             request.setAttribute("guestsSpeakers", guestsSpeakers);
 
-            request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/list-guests-speakers.jsp")
+            request.getRequestDispatcher("/mvc/ajax/conference-admin/list-guests-speakers.jsp")
                     .forward(request, response);
 
         } catch (DataBaseException e) {

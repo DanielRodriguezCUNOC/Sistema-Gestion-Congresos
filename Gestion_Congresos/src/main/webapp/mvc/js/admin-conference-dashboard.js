@@ -71,7 +71,7 @@ async function submitCreateGuestSpeaker(form) {
 // ==========================
 async function loadGuestSpeakers() {
   try {
-    const res = await fetch(`${contextPath}/SVListGuestsSpeaker.jsp`);
+    const res = await fetch(`${contextPath}/SVListGuestsSpeaker`);
     if (!res.ok) throw new Error("Error al cargar listado");
 
     const html = await res.text();
