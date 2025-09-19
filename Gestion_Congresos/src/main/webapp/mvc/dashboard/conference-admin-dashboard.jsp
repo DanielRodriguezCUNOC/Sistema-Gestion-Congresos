@@ -132,7 +132,10 @@
                 <div class="card-body text-center">
                   <h5 class="fw-bold">⚙️ Gestionar Actividad</h5>
                   <p>Modificar información de actividades existentes.</p>
-                  <a href="gestionar-actividad.jsp" class="btn btn-secondary"
+                  <a
+                    href="#"
+                    id="btn-administrate-activity"
+                    class="btn btn-secondary"
                     >Gestionar</a
                   >
                 </div>
@@ -156,7 +159,7 @@
                 <div class="card-body text-center">
                   <h5 class="fw-bold">❌ Eliminar Actividad</h5>
                   <p>Eliminar actividades no deseadas o canceladas.</p>
-                  <a href="eliminar-actividad.jsp" class="btn btn-secondary"
+                  <a href="#" id="btn-delete-activity" class="btn btn-secondary"
                     >Eliminar</a
                   >
                 </div>
@@ -170,7 +173,7 @@
                   <p>
                     Registrar asistencia de participantes a las actividades.
                   </p>
-                  <a href="registrar-asistencia.jsp" class="btn btn-secondary"
+                  <a href="#" id="btn-take-attendance" class="btn btn-secondary"
                     >Registrar</a
                   >
                 </div>

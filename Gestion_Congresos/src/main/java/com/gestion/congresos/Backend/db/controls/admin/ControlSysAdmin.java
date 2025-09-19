@@ -152,14 +152,32 @@ public class ControlSysAdmin {
 
     public boolean deactivateUser(int userId) throws DataBaseException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
-        String sql = "UPDATE Usuario SET estado = 'INACTIVO' WHERE id_usuario = ?";
+        String sql = """
+                UPDATE Usuario
+                SET estado = 'INACTIVO'
+                WHERE id_usuario = ?
+                  AND NOT (
+                      rol = 'ADMIN'
+                      AND estado = 'ACTIVO'
+                      AND (
+                          (SELECT COUNT(*)
+                           FROM Usuario
+                           WHERE rol = 'ADMIN' AND estado = 'ACTIVO') <= 1
+                      )
+                  )
+                """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+
+            if (rowsAffected == 0) {
+                throw new DataBaseException("No se puede desactivar: debe existir al menos un administrador activo.");
+            }
+
+            return true;
         } catch (SQLException e) {
-            throw new DataBaseException("Error al desactivar el administrador", e);
+            throw new DataBaseException("Error al desactivar el usuario", e);
         }
     }
 

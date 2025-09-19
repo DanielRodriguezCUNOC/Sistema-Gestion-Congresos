@@ -40,8 +40,24 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                 <td>${actividad.horaInicio}</td>
                 <td>${actividad.horaFin}</td>
                 <td>${actividad.cupoTaller}</td>
-              </tr></c:forEach
-            >
+                <td>
+                  <button
+                    class="btn btn-sm btn-primary"
+                    id="btn-edit-activity"
+                    data-activity-id="${actividad.idActividad}"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="btn btn-sm btn-danger"
+                    id="btn-delete-activity"
+                    data-activity-id="${actividad.idActividad}"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </c:forEach>
           </tbody>
         </table>
       </div>

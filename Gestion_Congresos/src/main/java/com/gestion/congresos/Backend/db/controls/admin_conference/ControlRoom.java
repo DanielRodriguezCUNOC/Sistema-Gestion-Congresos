@@ -2,12 +2,14 @@ package com.gestion.congresos.Backend.db.controls.admin_conference;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.gestion.congresos.Backend.db.DBConnectionSingleton;
 import com.gestion.congresos.Backend.db.models.RoomModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
 
 public class ControlRoom {
 
@@ -42,7 +44,7 @@ public class ControlRoom {
         }
     }
 
-    public int getIdRoomByName(String nameRoom, int idCongress) throws DataBaseException {
+    public int getIdRoomByNameAndCongress(String nameRoom, int idCongress) throws DataBaseException {
         String query = "SELECT s.id_salon FROM Salon s " +
                 "JOIN Congreso c ON s.id_congreso = c.id_congreso " +
                 "WHERE s.nombre_salon = ? AND c.id_congreso = ?";
@@ -115,6 +117,27 @@ public class ControlRoom {
         } catch (SQLException e) {
             e.printStackTrace();
             return java.util.Collections.emptyList();
+        }
+    }
+
+    public int getIdRoomByName(String nameRoom) throws DataBaseException, ObjectNotFoundException {
+        String query = "SELECT id_salon FROM Salon WHERE nombre_salon = ?";
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, nameRoom);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_salon");
+                } else {
+                    throw new ObjectNotFoundException("Salón no encontrado: " + nameRoom);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DataBaseException("Error al obtener el id del salon", e);
         }
     }
 

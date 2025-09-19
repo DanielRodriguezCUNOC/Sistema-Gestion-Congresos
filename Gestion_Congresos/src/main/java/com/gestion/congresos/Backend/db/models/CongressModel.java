@@ -18,13 +18,15 @@ public class CongressModel {
 
     private boolean estado = true;
 
+    private int cupo;
+
     // ----- Constructores -----
     public CongressModel() {
     }
 
     public CongressModel(Integer idInstitucion, String nombreCongreso,
             Date fechaInicio, Date fechaFin,
-            BigDecimal precio, boolean aceptaConvocatoria, boolean estado) {
+            BigDecimal precio, boolean aceptaConvocatoria, boolean estado, Integer cupo) {
         this.idInstitucion = idInstitucion;
         this.nombreCongreso = nombreCongreso;
         this.fechaInicio = fechaInicio;
@@ -32,6 +34,7 @@ public class CongressModel {
         this.precio = precio;
         this.aceptaConvocatoria = aceptaConvocatoria;
         this.estado = estado;
+        this.cupo = cupo;
     }
 
     // ----- Getters y Setters -----
@@ -97,6 +100,14 @@ public class CongressModel {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public int getCupo() {
+        return cupo;
+    }
+
+    public void setCupo(int cupo) {
+        this.cupo = cupo;
     }
 
     public boolean isValid() {

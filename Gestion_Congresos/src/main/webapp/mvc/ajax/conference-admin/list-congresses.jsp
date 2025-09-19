@@ -24,6 +24,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               <th>Precio</th>
               <th>Convocatoria</th>
               <th>Estado</th>
+              <th>Cupo</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -50,18 +51,14 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                     ${congreso.estado ? 'Activo' : 'Inactivo'}
                   </span>
                 </td>
+                <td>${congreso.cupo}</td>
                 <td>
                   <button
-                    class="btn btn-sm btn-warning btn-edit"
-                    data-id="${congreso.idCongreso}"
+                    class="btn btn-sm btn-warning"
+                    id="btn-edit-congress"
+                    data-congress-id="${congreso.idCongreso}"
                   >
                     Editar
-                  </button>
-                  <button
-                    class="btn btn-sm btn-danger btn-delete"
-                    data-id="${congreso.idCongreso}"
-                  >
-                    Eliminar
                   </button>
                 </td>
               </tr>

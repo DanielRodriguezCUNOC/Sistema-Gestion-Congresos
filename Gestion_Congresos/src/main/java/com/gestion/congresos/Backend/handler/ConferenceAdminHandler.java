@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
+import com.gestion.congresos.Backend.db.controls.user.UserControl;
 import com.gestion.congresos.Backend.db.models.ActivityModel;
 import com.gestion.congresos.Backend.db.models.CongressModel;
+import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
-import com.gestion.congresos.Backend.validations.ValidatorData;
+import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -15,15 +17,26 @@ public class ConferenceAdminHandler {
 
     private HttpServletRequest request;
 
-    private ValidatorData validatorData;
-
     public ConferenceAdminHandler(HttpServletRequest request) {
         this.request = request;
-        this.validatorData = new ValidatorData();
+
     }
 
     public ConferenceAdminHandler() {
-        this.validatorData = new ValidatorData();
+
+    }
+
+    public UserModel getConferenceAdminById() throws DataBaseException, UserNotFoundException {
+
+        int idUser = Integer.parseInt(request.getParameter("idUser"));
+
+        UserControl userControl = new UserControl();
+        UserModel conferenceAdmin = userControl.getUserById(idUser);
+
+        if (conferenceAdmin == null || conferenceAdmin.getIdRol() != 3) {
+            throw new UserNotFoundException("El administrador de conferencia con ID " + idUser + " no existe.");
+        }
+        return conferenceAdmin;
     }
 
     public List<String[]> getAllGuestsSpeakers() throws DataBaseException {

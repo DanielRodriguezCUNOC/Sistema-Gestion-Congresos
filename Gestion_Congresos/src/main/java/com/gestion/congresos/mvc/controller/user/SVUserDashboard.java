@@ -47,6 +47,11 @@ public class SVUserDashboard extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/SVParticipantUser");
                     break;
 
+                case 5:
+                    request.getSession().setAttribute("idUser", request.getSession().getAttribute("idUser"));
+                    response.sendRedirect(request.getContextPath() + "/SVGuestSpeakerUser");
+                    break;
+
                 default:
                     response.sendRedirect("index.jsp");
                     break;

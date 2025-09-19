@@ -21,18 +21,16 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </c:if>
 
   <div class="mb-3">
-    <label for="idInstitucion" class="form-label">Institución</label>
-    <select
-      class="form-select"
+    <label for="idInstitucion" class="form-label">Institución Encargada</label>
+    <input
+      type="number"
+      class="form-control"
       id="idInstitucion"
       name="idInstitucion"
+      placeholder="Ingrese el nombre de la institución"
       required
-    >
-      <option value="">Seleccione una institución</option>
-      <c:forEach var="inst" items="${institutions}">
-        <option value="${inst.idInstitucion}">${inst.nombreInstitucion}</option>
-      </c:forEach>
-    </select>
+      min="1"
+    />
   </div>
 
   <div class="mb-3">
@@ -103,6 +101,11 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       checked
     />
     <label class="form-check-label" for="estado">Activo</label>
+  </div>
+
+  <div class="mb3">
+    <label for="cupo" class="form-label">Cupo Máximo de Participantes</label>
+    <input type="number" class="form-control" id="cupo" name="cupo" min="1" />
   </div>
 
   <div class="d-grid gap-2 mt-4">

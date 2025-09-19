@@ -42,7 +42,7 @@ async function submitCreateGuestSpeaker(form) {
   const formData = new FormData(form);
 
   try {
-    const res = await fetch(`${contextPath}/SVCreateGuestSpeaker`, {
+    const res = await fetch(`${contextPath}/SVCreateGuestsSpeaker`, {
       method: "POST",
       body: formData,
     });
@@ -75,7 +75,7 @@ async function loadGuestSpeakers() {
     if (!res.ok) throw new Error("Error al cargar listado");
 
     const html = await res.text();
-    showContent(html);
+    showContent(html  + `<button class="btn btn-secondary mt-3" id="btn-back">Regresar</button>`);
   } catch (err) {
     console.error(err);
     alert("Ocurrió un error al cargar el listado.");
@@ -139,7 +139,7 @@ async function loadConferences() {
     if (!res.ok) throw new Error("Error en la petición");
 
     const html = await res.text();
-    showContent(html);
+    showContent(html  + `<button class="btn btn-secondary mt-3" id="btn-back">Regresar</button>`);
   } catch (err) {
     console.error(err);
     alert("Ocurrió un error al cargar el listado de congresos.");
@@ -204,7 +204,7 @@ async function loadConferences() {
       if (!res.ok) throw new Error("Error en la petición");
 
       const html = await res.text();
-      showContent(html);
+      showContent(html  + `<button class="btn btn-secondary mt-3" id="btn-back">Regresar</button>`);
     } catch (err) {
       console.error(err);
       alert("Ocurrió un error al cargar el listado de actividades.");
@@ -269,7 +269,7 @@ async function loadConferences() {
       if (!res.ok) throw new Error("Error en la petición");
 
       const html = await res.text();
-      showContent(html);
+      showContent(html  + `<button class="btn btn-secondary mt-3" id="btn-back">Regresar</button>`);
     } catch (err) {
       console.error(err);
       alert("Ocurrió un error al cargar el listado de salones.");
@@ -334,6 +334,9 @@ async function loadConferences() {
         break;
       case "btn-list-conference-admins":
         loadConferenceAdmins();
+        break;
+      case "btn-administrate-activity":
+        loadActivities();
         break;
       case "btn-back":
       case "btn-cancel":

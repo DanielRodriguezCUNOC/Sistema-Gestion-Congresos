@@ -19,14 +19,13 @@ public class SVAdminCRUD extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Solo se utiliza para cargar el formulario de edición
         String action = request.getParameter("action");
 
         if ("loadEditForm".equals(action)) {
             try {
-                int idToEdit = Integer.parseInt(request.getParameter("id"));
+
                 SysAdminHandler handler = new SysAdminHandler(request);
-                UserModel admin = handler.getAdminById(idToEdit);
+                UserModel admin = handler.getAdminById();
 
                 request.setAttribute("admin", admin);
                 request.getRequestDispatcher("/mvc/ajax/admin/edit-admins.jsp")
@@ -49,6 +48,7 @@ public class SVAdminCRUD extends HttpServlet {
             throws ServletException, IOException {
 
         SysAdminHandler handler = new SysAdminHandler(request);
+
         String action = request.getParameter("action");
         String idParam = request.getParameter("id");
 

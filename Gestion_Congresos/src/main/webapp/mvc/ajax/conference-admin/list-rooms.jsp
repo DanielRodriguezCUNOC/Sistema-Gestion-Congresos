@@ -35,15 +35,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                 <td>
                   <button
                     class="btn btn-sm btn-warning btn-edit"
-                    data-id="${room[0]}"
+                    data-room-id="${room[0]}"
                   >
                     Editar
-                  </button>
-                  <button
-                    class="btn btn-sm btn-danger btn-delete"
-                    data-id="${room[0]}"
-                  >
-                    Eliminar
                   </button>
                 </td>
               </tr>
