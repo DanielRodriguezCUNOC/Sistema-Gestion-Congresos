@@ -43,8 +43,9 @@ public class SVCreateCongress extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        request.getRequestDispatcher("/mvc/ajax/conference-admin/create-congress.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        request.getRequestDispatcher("/mvc/ajax/conference-admin/create-congress.jsp").forward(request, response);
     }
 
 }

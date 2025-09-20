@@ -20,23 +20,18 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     </div>
   </c:if>
 
-  <!-- Institución -->
   <div class="mb-3">
     <label for="idInstitucion" class="form-label">Institución</label>
-    <select
-      class="form-select"
+    <input
+      type="text"
+      class="form-control"
       id="idInstitucion"
       name="idInstitucion"
-      required
-    >
-      <option value="">Seleccione una institución</option>
-      <c:forEach var="inst" items="${institutions}">
-        <option value="${inst.idInstitucion}">${inst.nombreInstitucion}</option>
-      </c:forEach>
-    </select>
+      value="${institution.name}"
+      disabled
+    />
   </div>
 
-  <!-- Nombre del salón -->
   <div class="mb-3">
     <label for="nombreSalon" class="form-label">Nombre del Salón</label>
     <input
@@ -48,7 +43,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     />
   </div>
 
-  <!-- Dirección -->
   <div class="mb-3">
     <label for="direccion" class="form-label">Dirección</label>
     <input
@@ -60,7 +54,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     />
   </div>
 
-  <!-- Capacidad -->
   <div class="mb-3">
     <label for="capacidad" class="form-label">Capacidad</label>
     <input
@@ -73,7 +66,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     />
   </div>
 
-  <div class="d-grid gap-2 mt-4">
+  <div class="d-flex gap-3 mt-4">
     <button type="submit" class="btn btn-primary btn-lg">Guardar Salón</button>
     <button type="button" class="btn btn-secondary btn-lg" id="btn-cancel">
       Cancelar

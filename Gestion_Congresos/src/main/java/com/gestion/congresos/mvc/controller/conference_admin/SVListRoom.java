@@ -24,7 +24,7 @@ public class SVListRoom extends HttpServlet {
             List<String[]> rooms = roomHandler.getAllRooms();
 
             request.setAttribute("rooms", rooms);
-            request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/list-rooms.jsp")
+            request.getRequestDispatcher("/mvc/ajax/conference-admin/list-rooms.jsp")
                     .forward(request, response);
 
         } catch (DataBaseException e) {

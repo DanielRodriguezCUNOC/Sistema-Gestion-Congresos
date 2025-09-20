@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlCongress;
+import com.gestion.congresos.Backend.db.controls.congress.ControlCongress;
 import com.gestion.congresos.Backend.db.models.CongressModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;

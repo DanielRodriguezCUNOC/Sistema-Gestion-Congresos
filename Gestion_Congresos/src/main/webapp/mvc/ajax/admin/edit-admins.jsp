@@ -22,18 +22,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   </c:if>
 
   <div class="mb-3">
-    <label for="name" class="form-label">Nombre completo</label>
-    <input
-      type="text"
-      class="form-control"
-      id="name"
-      name="name"
-      value="${admin.name}"
-      required
-    />
-  </div>
-
-  <div class="mb-3">
     <label for="user" class="form-label">Usuario</label>
     <input
       type="text"
@@ -64,6 +52,16 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
       id="organization"
       name="organization"
       value="${admin.organization}"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="foto" class="form-label">Fotografía (Menor a 5MB)</label>
+    <input
+      type="file"
+      class="form-control"
+      id="foto"
+      name="photo"
+      accept="image/*"
     />
   </div>
 

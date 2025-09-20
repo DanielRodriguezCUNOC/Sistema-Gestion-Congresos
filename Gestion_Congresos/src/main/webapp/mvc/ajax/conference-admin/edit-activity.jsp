@@ -117,9 +117,10 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
       disabled
     />
   </div>
-
-  <button type="submit" class="btn btn-success w-100">Guardar</button>
-  <button type="button" class="btn btn-secondary btn-lg" id="btn-cancel">
-    Cancelar
-  </button>
+  <div class="d-grid gap-2 mt-4">
+    <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+    <button type="button" class="btn btn-secondary btn-lg" id="btn-cancel">
+      Cancelar
+    </button>
+  </div>
 </form>

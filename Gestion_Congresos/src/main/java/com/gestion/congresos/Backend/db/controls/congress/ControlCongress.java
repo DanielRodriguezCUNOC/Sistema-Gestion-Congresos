@@ -1,4 +1,4 @@
-package com.gestion.congresos.Backend.db.controls.admin_conference;
+package com.gestion.congresos.Backend.db.controls.congress;
 
 import java.sql.Connection;
 import java.sql.Date;

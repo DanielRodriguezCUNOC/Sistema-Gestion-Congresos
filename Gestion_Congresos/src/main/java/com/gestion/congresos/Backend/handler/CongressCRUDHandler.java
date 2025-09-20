@@ -1,7 +1,7 @@
 package com.gestion.congresos.Backend.handler;
 
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlCongress;
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlCongressCRUD;
+import com.gestion.congresos.Backend.db.controls.congress.ControlCongress;
+import com.gestion.congresos.Backend.db.controls.congress.ControlCongressCRUD;
 import com.gestion.congresos.Backend.db.models.CongressModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;

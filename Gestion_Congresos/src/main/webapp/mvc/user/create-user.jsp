@@ -142,7 +142,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
             <div class="mb-3">
               <label for="foto" class="form-label"
-                >Fotografía (menor a 20MB)</label
+                >Fotografía (menor a 5MB)</label
               >
               <input
                 type="file"

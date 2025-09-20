@@ -118,6 +118,80 @@ async function submitEditCongress(form) {
 }
 
 // ==========================
+// Cargar Formulario Editar Salon
+// ==========================
+
+async function loadEditRoomForm(roomId) {
+  try {
+    const res = await fetch(`${contextPath}/SVRoomCRUD?id=${roomId}`);
+    if (!res.ok) throw new Error("Error al cargar formulario");
+
+    const html = await res.text();
+    showContent(html);
+  } catch (err) {
+    console.error(err);
+    alert("Ocurrió un error al cargar el formulario.");
+  }
+}
+
+// ==========================
+// Enviar Formulario Editar Salon
+// ==========================
+async function submitEditRoom(form) {
+  const formData = new FormData(form);
+  formData.append("action", "edit");
+
+  try {
+    const res = await fetch(`${contextPath}/SVRoomCRUD`, {
+      method: "POST",
+      body: new URLSearchParams(formData),
+    });
+
+    if (!res.ok) throw new Error("Error al editar el salón");
+
+    const result = await res.json();
+    if (result.success) {
+      alert(result.message);
+      loadConferences();
+    } else {
+      alert("Error: " + result.message);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Ocurrió un error al editar el salón.");
+  }
+}
+
+// ==========================
+// Eliminar Salón
+// ==========================
+async function deleteRoom(roomId) {
+  if (!confirm("¿Está seguro de que desea eliminar este salón?")) return;
+  try {
+    const res = await fetch(`${contextPath}/SVRoomCRUD`, {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "delete",
+        id: roomId,
+      }),
+    });
+
+    if (!res.ok) throw new Error("Error al eliminar salón");
+
+    const result = await res.json();
+    if (result.success) {
+      alert(result.message);
+      loadConferences();
+    } else {
+      alert("Error: " + result.message);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Ocurrió un error al eliminar el salón.");
+  }
+}
+
+// ==========================
 // Delegación de eventos
 // ==========================
 document.addEventListener("submit", function (event) {
@@ -153,8 +227,8 @@ document.addEventListener("click", function (event) {
        if( activityId = event.target.getAttribute("data-activity-id") !== null){
            deleteActivity(activityId);
        }
-        
-        break;
+
+       break;
    
         case "btn-edit-activity":
         if( activityId = event.target.getAttribute("data-activity-id") !== null){
@@ -165,6 +239,18 @@ document.addEventListener("click", function (event) {
         case "btn-edit-congress":
         if( congressId = event.target.getAttribute("data-congress-id") !== null){
         loadEditCongressForm(congressId);
+        }
+        break;
+
+        case "btn-edit-room":
+        if( roomId = event.target.getAttribute("data-room-id") !== null){
+        loadEditRoomForm(roomId);
+        }
+        break;
+
+        case "btn-delete-room":
+        if( roomId = event.target.getAttribute("data-room-id") !== null){
+        deleteRoom(roomId);
         }
         break;
    

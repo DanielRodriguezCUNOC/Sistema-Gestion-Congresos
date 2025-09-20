@@ -108,7 +108,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <input type="number" class="form-control" id="cupo" name="cupo" min="1" />
   </div>
 
-  <div class="d-grid gap-2 mt-4">
+  <div class="d-flex gap-3 mt-4">
     <button type="submit" class="btn btn-primary btn-lg">
       Guardar Congreso
     </button>

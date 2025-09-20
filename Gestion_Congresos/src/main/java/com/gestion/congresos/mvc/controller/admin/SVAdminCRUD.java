@@ -31,15 +31,17 @@ public class SVAdminCRUD extends HttpServlet {
                 request.getRequestDispatcher("/mvc/ajax/admin/edit-admins.jsp")
                         .forward(request, response);
                 return;
-            } catch (NumberFormatException e) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID inválido");
-            } catch (DataBaseException | UserNotFoundException e) {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+            } catch (DataBaseException | UserNotFoundException | NumberFormatException e) {
+                request.setAttribute("errorMessage", "Error al cargar el administrador: " + e.getMessage());
+                request.getRequestDispatcher("/mvc/error.jsp").forward(request, response);
             } catch (Exception e) {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error inesperado: " + e.getMessage());
+                request.setAttribute("errorMessage", "Error inesperado: " + e.getMessage());
+                request.getRequestDispatcher("/mvc/error.jsp").forward(request, response);
             }
         } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción no válida");
+            request.setAttribute("errorMessage", "Acción no válida");
+            request.getRequestDispatcher("/mvc/error.jsp").forward(request, response);
+            return;
         }
     }
 
@@ -55,7 +57,7 @@ public class SVAdminCRUD extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        if (action == null || idParam == null) {
+        if (action == null || action.isBlank() || idParam.isBlank() || idParam == null) {
             response.getWriter().write("{\"success\": false, \"message\": \"Parámetros inválidos\"}");
             return;
         }
@@ -66,12 +68,8 @@ public class SVAdminCRUD extends HttpServlet {
 
             switch (action) {
                 case "edit":
-                    String name = request.getParameter("name");
-                    String user = request.getParameter("user");
-                    String phone = request.getParameter("phone");
-                    String organization = request.getParameter("organization");
 
-                    result = handler.editAdmin(targetUserId, name, user, phone, organization);
+                    result = handler.editAdmin(targetUserId);
                     break;
 
                 case "activate":
@@ -93,11 +91,8 @@ public class SVAdminCRUD extends HttpServlet {
                 response.getWriter().write("{\"success\": false, \"message\": \"No se pudo completar la acción\"}");
             }
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | DataBaseException e) {
             response.getWriter().write("{\"success\": false, \"message\": \"El ID debe ser numérico\"}");
-        } catch (DataBaseException e) {
-            response.getWriter()
-                    .write("{\"success\": false, \"message\": \"Error en la base de datos: " + e.getMessage() + "\"}");
         } catch (Exception e) {
             response.getWriter()
                     .write("{\"success\": false, \"message\": \"Error inesperado: " + e.getMessage() + "\"}");

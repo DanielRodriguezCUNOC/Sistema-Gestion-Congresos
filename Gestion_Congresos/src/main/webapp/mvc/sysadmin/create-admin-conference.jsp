@@ -134,14 +134,14 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
               />
             </div>
 
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Registrar</button>
-            </div>
-            <div class="d-grid">
+            <div class="d-flex gap-3 mt-4">
+              <button type="submit" class="btn btn-primary btn-lg">
+                Registrar
+              </button>
               <button
                 type="button"
                 id="btn-cancel"
-                class="btn btn-secondary mt-2"
+                class="btn btn-secondary btn-lg"
               >
                 Cancelar
               </button>
@@ -150,7 +150,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         </div>
       </div>
     </main>
-
     <jsp:include page="/includes/footer.jsp" />
   </body>
 </html>
