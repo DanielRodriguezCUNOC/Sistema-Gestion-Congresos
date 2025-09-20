@@ -21,108 +21,103 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </c:if>
 
   <div class="mb-3">
-    <label for="idCongreso" class="form-label">Congreso</label>
-    <select class="form-select" id="idCongreso" name="idCongreso" required>
-      <option value="">Seleccione un congreso</option>
-      <c:forEach var="congreso" items="${congressList}">
-        <option value="${congreso.idCongreso}">
-          ${congreso.nombreCongreso}
-        </option>
-      </c:forEach>
-    </select>
-  </div>
-
-  <div class="mb-3">
-    <label for="idSalon" class="form-label">Salón</label>
-    <select class="form-select" id="idSalon" name="idSalon" required>
-      <option value="">Seleccione un salón</option>
-      <c:forEach var="salon" items="${roomList}">
-        <option value="${salon[0]}">${salon[1]} (${salon[2]})</option>
-      </c:forEach>
-    </select>
-  </div>
-
-  <div class="mb-3">
-    <label for="idTipoActividad" class="form-label">Tipo de Actividad</label>
-    <select
-      class="form-select"
-      id="idTipoActividad"
-      name="idTipoActividad"
-      required
-    >
-      <option value="">Seleccione un tipo</option>
-      <c:forEach var="tipo" items="${activityTypes}">
-        <option value="${tipo.idTipo}">${tipo.nombreTipo}</option>
-      </c:forEach>
-    </select>
-  </div>
-
-  <div class="mb-3">
-    <label for="nombreActividad" class="form-label"
-      >Nombre de la Actividad</label
-    >
+    <label for="nombreCongreso" class="form-label">Nombre Congreso</label>
     <input
       type="text"
       class="form-control"
-      id="nombreActividad"
-      name="nombreActividad"
+      id="nameCongress"
+      name="nameCongress"
+      placeholder="COMPDES 2025"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="nombreSalon" class="form-label">Salón</label>
+    <input type="text" class="form-control" id="nameRoom" name="nameRoom" />
+  </div>
+
+  <div class="mb-3">
+    <label for="tipeActivity" class="form-label">Tipo de Actividad</label>
+    <select
+      class="form-select"
+      id="tipeActividad"
+      name="tipeActividad"
+      required
+    >
+      <option value="">Seleccione un tipo</option>
+      <option value="1">PONENCIA</option>
+      <option value="2">TALLER</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="nameActividad" class="form-label">Nombre de la Actividad</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nameActivity"
+      name="nameActivity"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="descripcion" class="form-label">Descripción</label>
+    <label for="descriptionActivity" class="form-label">Descripción</label>
     <textarea
       class="form-control"
-      id="descripcion"
-      name="descripcion"
+      id="descriptionActivity"
+      name="descriptionActivity"
       rows="3"
     ></textarea>
   </div>
 
   <div class="mb-3">
-    <label for="fecha" class="form-label">Fecha</label>
-    <input type="date" class="form-control" id="fecha" name="fecha" required />
-  </div>
-
-  <div class="mb-3">
-    <label for="horaInicio" class="form-label">Hora de Inicio</label>
+    <label for="dateActivity" class="form-label">Fecha</label>
     <input
-      type="time"
+      type="date"
       class="form-control"
-      id="horaInicio"
-      name="horaInicio"
+      id="dateActivity"
+      name="dateActivity"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="horaFin" class="form-label">Hora de Fin</label>
+    <label for="timeStarting" class="form-label">Hora de Inicio</label>
     <input
       type="time"
       class="form-control"
-      id="horaFin"
-      name="horaFin"
+      id="timeStarting"
+      name="timeStarting"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="cupoTaller" class="form-label">Cupo del Taller</label>
+    <label for="timeEnding" class="form-label">Hora de Fin</label>
+    <input
+      type="time"
+      class="form-control"
+      id="timeEnding"
+      name="timeEnding"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="workshopQuota" class="form-label">Cupo del Taller</label>
     <input
       type="number"
       class="form-control"
-      id="cupoTaller"
-      name="cupoTaller"
+      id="workshopQuota"
+      name="workshopQuota"
       min="1"
       required
     />
   </div>
 
   <div class="d-flex gap-3 mt-4">
-    <button type="submit" class="btn btn-primary btn-lg">
-      Guardar Actividad
-    </button>
+    <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
     <button type="button" class="btn btn-secondary btn-lg" id="btn-cancel">
       Cancelar
     </button>

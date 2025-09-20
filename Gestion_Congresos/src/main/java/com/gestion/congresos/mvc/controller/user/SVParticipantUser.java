@@ -28,16 +28,16 @@ public class SVParticipantUser extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("idUser") == null
-                || !"4".equals(session.getAttribute("rolId").toString())
-                || !"5".equals(session.getAttribute("rolId").toString())) {
+
+        ParticipantHandler participantHandler = new ParticipantHandler();
+
+        if (session == null || !participantHandler.isParticipant(request)) {
             response.sendRedirect("index.jsp");
             return;
 
         }
 
         try {
-            ParticipantHandler participantHandler = new ParticipantHandler();
 
             UserModel user = participantHandler.getParticipant(request);
 

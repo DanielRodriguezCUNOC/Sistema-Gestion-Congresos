@@ -24,7 +24,7 @@ public class SVUserDashboard extends HttpServlet {
         HttpSession session = request.getSession(false);
         int idRol;
 
-        if (session == null || session.getAttribute("idUser") == null || session.getAttribute("roleId") == null) {
+        if (session == null || session.getAttribute("idUser") == null || session.getAttribute("idRol") == null) {
             response.sendRedirect(request.getContextPath() + "/mvc/login/login.jsp");
             return;
         }

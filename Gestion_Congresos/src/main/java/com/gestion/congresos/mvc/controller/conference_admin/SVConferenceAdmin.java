@@ -23,7 +23,7 @@ public class SVConferenceAdmin extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("idUser") == null
-                || !"2".equals(session.getAttribute("rolId").toString())) {
+                || !"2".equals(session.getAttribute("idRol").toString())) {
             response.sendRedirect("index.jsp");
             return;
 

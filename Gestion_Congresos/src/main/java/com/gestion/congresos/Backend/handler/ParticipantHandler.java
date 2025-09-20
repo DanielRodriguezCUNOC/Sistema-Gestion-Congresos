@@ -24,4 +24,16 @@ public class ParticipantHandler {
         return userControl.getUserById(idUser);
 
     }
+
+    public boolean isParticipant(HttpServletRequest request) {
+        Object idRolObj = request.getSession().getAttribute("idRol");
+
+        if (idRolObj == null) {
+            return false;
+        }
+
+        String idRolStr = idRolObj.toString();
+        return "1".equals(idRolStr) || "2".equals(idRolStr) || "3".equals(idRolStr) || "4".equals(idRolStr)
+                || "5".equals(idRolStr);
+    }
 }

@@ -23,7 +23,7 @@ public class SVSystemAdmin extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("idUser") == null
-                || !"1".equals(session.getAttribute("rolId").toString())) {
+                || !"1".equals(session.getAttribute("idRol").toString())) {
             response.sendRedirect("index.jsp");
             return;
 
