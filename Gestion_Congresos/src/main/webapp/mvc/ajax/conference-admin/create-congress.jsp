@@ -23,7 +23,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <div class="mb-3">
     <label for="idInstitucion" class="form-label">Institución Encargada</label>
     <input
-      type="number"
+      type="text"
       class="form-control"
       id="idInstitucion"
       name="idInstitucion"

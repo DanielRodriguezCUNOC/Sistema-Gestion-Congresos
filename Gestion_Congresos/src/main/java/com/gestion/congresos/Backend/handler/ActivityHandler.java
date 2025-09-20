@@ -59,7 +59,7 @@ public class ActivityHandler {
 
             int cupoTaller = 0;
             try {
-                cupoTaller = Integer.parseInt(request.getParameter("cupoTaller"));
+                cupoTaller = Integer.parseInt(request.getParameter("workshopQuota"));
                 if (!validatorData.isValidQuota(cupoTaller)) {
                     throw new MissingDataException("El cupo del taller no es valido");
                 }

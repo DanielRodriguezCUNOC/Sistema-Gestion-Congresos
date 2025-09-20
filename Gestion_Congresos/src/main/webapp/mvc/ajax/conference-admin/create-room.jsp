@@ -28,7 +28,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       id="idInstitucion"
       name="idInstitucion"
       value="${institution.name}"
-      disabled
+      placeholder="Universidad de San Carlos de Guatemala"
+      required
     />
   </div>
 
@@ -39,17 +40,19 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       class="form-control"
       id="nombreSalon"
       name="nombreSalon"
+      placeholder="Salon de Proyecciones"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="direccion" class="form-label">Dirección</label>
+    <label for="direccion" class="form-label">Ubicación</label>
     <input
       type="text"
       class="form-control"
       id="direccion"
       name="direccion"
+      placeholder="Segundo nivel, Módulo G"
       required
     />
   </div>
@@ -67,7 +70,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </div>
 
   <div class="d-flex gap-3 mt-4">
-    <button type="submit" class="btn btn-primary btn-lg">Guardar Salón</button>
+    <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
     <button type="button" class="btn btn-secondary btn-lg" id="btn-cancel">
       Cancelar
     </button>
