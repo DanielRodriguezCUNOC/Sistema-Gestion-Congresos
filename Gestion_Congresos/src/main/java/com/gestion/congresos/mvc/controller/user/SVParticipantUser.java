@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "SVParticipantUser", urlPatterns = { "/SVParticipantUser" })
 public class SVParticipantUser extends HttpServlet {
@@ -25,6 +26,15 @@ public class SVParticipantUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("idUser") == null
+                || !"4".equals(session.getAttribute("rolId").toString())
+                || !"5".equals(session.getAttribute("rolId").toString())) {
+            response.sendRedirect("index.jsp");
+            return;
+
+        }
 
         try {
             ParticipantHandler participantHandler = new ParticipantHandler();

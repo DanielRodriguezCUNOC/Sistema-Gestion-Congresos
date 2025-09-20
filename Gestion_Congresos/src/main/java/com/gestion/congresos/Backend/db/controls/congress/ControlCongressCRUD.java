@@ -1,6 +1,7 @@
 package com.gestion.congresos.Backend.db.controls.congress;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -9,7 +10,8 @@ import com.gestion.congresos.Backend.exceptions.DataBaseException;
 
 public class ControlCongressCRUD {
 
-    public boolean editCongress(int idCongress, String nombre, String descripcion, String fechaInicio, String fechaFin,
+    public boolean editCongress(int idCongress, String nombre, String descripcion, Date fechaInicio,
+            Date fechaFin,
             String costo, boolean aceptaConvocatoria) throws DataBaseException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -18,8 +20,8 @@ public class ControlCongressCRUD {
 
             ps.setString(1, nombre);
             ps.setString(2, descripcion);
-            ps.setString(3, fechaInicio);
-            ps.setString(4, fechaFin);
+            ps.setDate(3, fechaInicio);
+            ps.setDate(4, fechaFin);
             ps.setString(5, costo);
             ps.setBoolean(6, aceptaConvocatoria);
             ps.setInt(7, idCongress);

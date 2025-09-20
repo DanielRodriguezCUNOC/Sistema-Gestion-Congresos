@@ -71,7 +71,7 @@ public class ValidatorData {
     }
 
     public boolean isValidTypeActivity(String tipoActividad) {
-        return "Taller".equals(tipoActividad) || "Ponencia".equals(tipoActividad);
+        return "TALLER".equals(tipoActividad) || "PONENCIA".equals(tipoActividad);
     }
 
     public boolean isValidPercentage(Double porcentaje) {
@@ -101,7 +101,8 @@ public class ValidatorData {
         if (hora == null)
             return false;
         try {
-            LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm:ss"));
+            // Aceptar formatos HH:mm y HH:mm:ss usando el formateador ISO
+            LocalTime.parse(hora, DateTimeFormatter.ISO_LOCAL_TIME);
             return true;
         } catch (DateTimeParseException e) {
             return false;

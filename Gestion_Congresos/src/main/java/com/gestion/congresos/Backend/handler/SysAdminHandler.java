@@ -63,6 +63,13 @@ public class SysAdminHandler {
         String name_institution = request.getParameter("name_institution");
         String address_institution = request.getParameter("address_institution");
 
+        if (!validatorData.isValidOrganization(name_institution)) {
+            throw new InstitutionAlredyExists("Nombre de institución inválido: " + name_institution);
+        }
+        if (!validatorData.isValidString(address_institution)) {
+            throw new DataBaseException("Dirección de institución inválida.");
+        }
+
         InstitutionModel institutionModel = new InstitutionModel(name_institution, address_institution);
 
         if (institutionModel.isValid()) {
@@ -121,7 +128,11 @@ public class SysAdminHandler {
 
         ControlSysAdminCRUD control = new ControlSysAdminCRUD();
 
-        return control.updateAdmin(targetUserId, user, phone, organization, photo);
+        boolean result = control.updateAdmin(targetUserId, user, phone, organization, photo);
+        if (!result) {
+            throw new UserNotFoundException("No se encontró el usuario con ID: " + targetUserId);
+        }
+        return result;
     }
 
     public UserModel getAdminById() throws DataBaseException, UserNotFoundException {

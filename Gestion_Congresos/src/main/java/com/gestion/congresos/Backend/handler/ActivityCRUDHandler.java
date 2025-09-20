@@ -30,16 +30,20 @@ public class ActivityCRUDHandler {
     }
 
     public ActivityModel getActivityById() throws DataBaseException, ObjectNotFoundException {
-        int idToEdit = Integer.parseInt(request.getParameter("activityId"));
+        String param = request.getParameter("activityId");
+        if (param == null || param.isBlank()) {
+            throw new IllegalArgumentException("El parámetro activityId es obligatorio");
+        }
+
+        int idToEdit;
+        try {
+            idToEdit = Integer.parseInt(param);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("El parámetro activityId debe ser un número válido", e);
+        }
 
         ControlActivityCRUD control = new ControlActivityCRUD();
-
-        try {
-            return control.getGetActivityById(idToEdit);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return control.getGetActivityById(idToEdit);
 
     }
 

@@ -97,11 +97,11 @@ public class ControlSysAdmin {
                     admins.add(adminData);
                 }
             }
-            return admins;
         } catch (SQLException e) {
             throw new DataBaseException("Ha ocurrido un error al acceder a la base de datos.", e);
         }
 
+        return admins;
     }
 
 }

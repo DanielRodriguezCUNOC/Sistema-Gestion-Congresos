@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "SVConferenceAdmin", urlPatterns = { "/SVConferenceAdmin" })
 public class SVConferenceAdmin extends HttpServlet {
@@ -19,6 +20,14 @@ public class SVConferenceAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("idUser") == null
+                || !"2".equals(session.getAttribute("rolId").toString())) {
+            response.sendRedirect("index.jsp");
+            return;
+
+        }
 
         try {
             ConferenceAdminHandler conferenceAdminHandler = new ConferenceAdminHandler(request);

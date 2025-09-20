@@ -128,10 +128,10 @@ public class ControlConferenceAdmin {
 
         String query = "SELECT * FROM Actividad";
 
+        List<ActivityModel> activityList = new ArrayList<>();
+
         try (PreparedStatement ps = conn.prepareStatement(query);
                 ResultSet rs = ps.executeQuery()) {
-
-            List<ActivityModel> activityList = new ArrayList<>();
 
             while (rs.next()) {
                 ActivityModel activity = new ActivityModel();
@@ -155,10 +155,9 @@ public class ControlConferenceAdmin {
                 activityList.add(activity);
             }
 
-            return activityList;
-
         } catch (SQLException e) {
             throw new DataBaseException("Error al obtener las actividades", e);
         }
+        return activityList;
     }
 }

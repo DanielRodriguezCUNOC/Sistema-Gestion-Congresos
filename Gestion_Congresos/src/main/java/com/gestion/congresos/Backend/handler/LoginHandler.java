@@ -3,6 +3,7 @@ package com.gestion.congresos.Backend.handler;
 import com.gestion.congresos.Backend.db.Encryption;
 import com.gestion.congresos.Backend.db.controls.login.ControlLogin;
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
+import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
@@ -47,6 +48,17 @@ public class LoginHandler {
 
     public int getUserId() throws DataBaseException, UserNotFoundException {
         return userControl.getUserIdByUsername(request.getParameter("user"));
+    }
+
+    public int getUserRole(int idUser) throws DataBaseException, UserNotFoundException {
+        if (idUser <= 0) {
+            throw new UserNotFoundException("ID de usuario inválido");
+        }
+        UserModel user = userControl.getUserById(idUser);
+        if (user == null) {
+            throw new UserNotFoundException("Usuario no encontrado: " + idUser);
+        }
+        return user.getIdRol();
     }
 
 }
