@@ -40,7 +40,9 @@ public class SVLogin extends HttpServlet {
             if (loginHandler.autenticateUser()) {
 
                 int idUser = loginHandler.getUserId();
-                // * Enviamos el id del usuario loggeado */
+                int rolId = loginHandler.getUserRole(idUser);
+
+                request.getSession().setAttribute("idRol", rolId);
                 request.getSession().setAttribute("idUser", idUser);
                 response.sendRedirect("SVUserDashboard");
             } else {

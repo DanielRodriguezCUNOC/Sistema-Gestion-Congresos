@@ -60,7 +60,7 @@ public class ActivityHandler {
             int cupoTaller = 0;
             try {
                 cupoTaller = Integer.parseInt(request.getParameter("cupoTaller"));
-                if (cupoTaller < 0) {
+                if (!validatorData.isValidQuota(cupoTaller)) {
                     throw new MissingDataException("El cupo del taller no es valido");
                 }
             } catch (NumberFormatException e) {
@@ -77,17 +77,13 @@ public class ActivityHandler {
                 throw new MissingDataException("El tipo de actividad no es valido");
             } else if (!validatorData.isValidDate(dateActivity)) {
                 throw new MissingDataException("La fecha de la actividad no es valida");
-            } else if (!validatorData.isValidTime(timeStarting) && !validatorData.isValidTime(timeEnding)) {
+            } else if (!validatorData.isValidTime(timeStarting) || !validatorData.isValidTime(timeEnding)) {
                 throw new MissingDataException("Las horas de la actividad no son validas");
-            } else if (descriptionActivity == null || descriptionActivity.isBlank()) {
+            } else if (!validatorData.isValidString(descriptionActivity)) {
                 throw new MissingDataException("La descripcion de la actividad no es valida");
             }
 
             int idCongress = controlCongress.getIdCongressByName(nameCongress);
-
-            if (idCongress < 0) {
-                throw new ObjectNotFoundException("El congreso no existe en la base de datos");
-            }
 
             int idRoom = controlRoom.getIdRoomByNameAndCongress(nameRoom, idCongress);
 

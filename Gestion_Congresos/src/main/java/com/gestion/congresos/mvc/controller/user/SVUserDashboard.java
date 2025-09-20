@@ -2,15 +2,12 @@ package com.gestion.congresos.mvc.controller.user;
 
 import java.io.IOException;
 
-import com.gestion.congresos.Backend.exceptions.DataBaseException;
-import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
-import com.gestion.congresos.Backend.handler.UserDashboardHandler;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "SVUserDashboard", urlPatterns = { "/SVUserDashboard" })
 public class SVUserDashboard extends HttpServlet {
@@ -23,10 +20,24 @@ public class SVUserDashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDashboardHandler userDashboardHandler = new UserDashboardHandler(request);
+
+        HttpSession session = request.getSession(false);
+        int idRol;
+
+        if (session == null || session.getAttribute("idUser") == null || session.getAttribute("roleId") == null) {
+            response.sendRedirect(request.getContextPath() + "/mvc/login/login.jsp");
+            return;
+        }
+
         try {
-            int rolUser = userDashboardHandler.getUserRolId();
-            switch (rolUser) {
+            idRol = Integer.parseInt(String.valueOf(session.getAttribute("idRol")));
+        } catch (NumberFormatException e) {
+            response.sendRedirect(request.getContextPath() + "/mvc/login/login.jsp");
+            return;
+        }
+
+        try {
+            switch (idRol) {
                 case 1:
                     request.getSession().setAttribute("idUser", request.getSession().getAttribute("idUser"));
                     response.sendRedirect(request.getContextPath() + "/SVSystemAdmin");
@@ -51,12 +62,10 @@ public class SVUserDashboard extends HttpServlet {
                     response.sendRedirect("index.jsp");
                     break;
             }
-        } catch (DataBaseException e) {
-            request.getSession().setAttribute("error", e.getMessage());
-            response.sendRedirect("mvc/login/login.jsp");
-        } catch (UserNotFoundException e) {
-            request.getSession().setAttribute("error", e.getMessage());
-            response.sendRedirect("mvc/login/login.jsp");
+        } catch (Exception e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("mvc/error.jsp").forward(request, response);
+            return;
         }
     }
 }
