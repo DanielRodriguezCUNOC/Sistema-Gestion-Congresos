@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlRoom;
+import com.gestion.congresos.Backend.db.controls.room.ControlRoom;
 import com.gestion.congresos.Backend.db.models.RoomModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;

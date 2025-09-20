@@ -153,10 +153,16 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
               />
             </div>
 
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Registrar</button>
+            <div class="d-flex gap-3 mt-4">
+              <button type="submit" class="btn btn-primary btn-lg">
+                Registrar
+              </button>
 
-              <button type="button" class="btn btn-secondary" id="btn-cancel">
+              <button
+                type="button"
+                class="btn btn-secondary btn-lg"
+                id="btn-cancel"
+              >
                 Cancelar
               </button>
             </div>

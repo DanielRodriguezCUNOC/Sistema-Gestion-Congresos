@@ -33,6 +33,9 @@ public class SVActivityCRUD extends HttpServlet {
                 request.getRequestDispatcher("mvc/error.jsp").forward(request, response);
 
             }
+        } else {
+            request.setAttribute("error", "Acción no válida");
+            request.getRequestDispatcher("mvc/error.jsp").forward(request, response);
         }
 
     }

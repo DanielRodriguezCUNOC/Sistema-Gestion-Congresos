@@ -1,24 +1,32 @@
 package com.gestion.congresos.Backend.handler;
 
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlActivityCRUD;
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlCongress;
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlRoom;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import com.gestion.congresos.Backend.db.controls.activity.ControlActivityCRUD;
+import com.gestion.congresos.Backend.db.controls.congress.ControlCongress;
+import com.gestion.congresos.Backend.db.controls.room.ControlRoom;
 import com.gestion.congresos.Backend.db.controls.tipo_actividad.ControlTipoActividad;
 import com.gestion.congresos.Backend.db.models.ActivityModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
+import com.gestion.congresos.Backend.validations.ValidatorData;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 public class ActivityCRUDHandler {
 
     private HttpServletRequest request;
+    private ValidatorData validator;
 
     public ActivityCRUDHandler(HttpServletRequest request) {
         this.request = request;
+        this.validator = new ValidatorData();
     }
 
     public ActivityCRUDHandler() {
+        this.validator = new ValidatorData();
     }
 
     public ActivityModel getActivityById() throws DataBaseException, ObjectNotFoundException {
@@ -60,11 +68,23 @@ public class ActivityCRUDHandler {
             int idCongreso = getIdCongressByName(nombreCongreso);
             int idTipoActividad = getIdTipeActivityByName(tipoActividad);
 
+            if (tipoActividad.equalsIgnoreCase("TALLER") && cupoTaller <= 0) {
+                throw new MissingDataException("Cupo del taller inválido");
+            } else if (!isValidString(descripcion) || !isValidString(nombreActividad)
+                    || !isValidString(fecha) || !isValidString(horaInicio) || !isValidString(horaFin)) {
+                throw new MissingDataException("Datos inválidos para la actividad");
+
+            }
+
             ActivityModel activity = new ActivityModel(idSalon, idCongreso, idTipoActividad, nombreActividad,
-                    java.time.LocalDate.parse(fecha), java.time.LocalTime.parse(horaInicio),
-                    java.time.LocalTime.parse(horaFin), descripcion, cupoTaller);
+                    LocalDate.parse(fecha), LocalTime.parse(horaInicio),
+                    LocalTime.parse(horaFin), descripcion, cupoTaller);
 
             activity.setIdActividad(idActivity);
+
+            if (!activity.isValid()) {
+                throw new MissingDataException("Datos inválidos para la actividad");
+            }
 
             ControlActivityCRUD control = new ControlActivityCRUD();
             return control.updateActivity(activity);
@@ -98,6 +118,10 @@ public class ActivityCRUDHandler {
     private int getIdTipeActivityByName(String tipoActividad) throws DataBaseException, ObjectNotFoundException {
         ControlTipoActividad control = new ControlTipoActividad();
         return control.getIdTipeActivityByName(tipoActividad);
+    }
+
+    private boolean isValidString(String value) {
+        return value == null || value.isBlank() || !validator.isValidString(value);
     }
 
 }

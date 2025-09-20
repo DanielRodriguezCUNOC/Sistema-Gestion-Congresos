@@ -23,6 +23,7 @@ public class ValidatorData {
             return false;
         RegexValidator userValidator = new RegexValidator("^[a-zA-Z0-9_]{4,100}$");
         return userValidator.isValid(user);
+
     }
 
     public boolean isValidPassword(String password) {
@@ -111,6 +112,11 @@ public class ValidatorData {
         RegexValidator quotaValidator = new RegexValidator("^[1-9]\\d{0,4}$");
         return quotaValidator.isValid(String.valueOf(cupo));
 
+    }
+
+    public boolean isValidString(String value) {
+        RegexValidator stringValidator = new RegexValidator("^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9.,()\\- ]{0,255}$");
+        return stringValidator.isValid(value);
     }
 
 }

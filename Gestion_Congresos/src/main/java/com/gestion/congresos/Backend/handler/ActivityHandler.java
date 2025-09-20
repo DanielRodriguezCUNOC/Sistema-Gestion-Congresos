@@ -4,10 +4,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.gestion.congresos.Backend.db.controls.activity.ControlActivity;
 import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlActivity;
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlCongress;
-import com.gestion.congresos.Backend.db.controls.admin_conference.ControlRoom;
+import com.gestion.congresos.Backend.db.controls.congress.ControlCongress;
+import com.gestion.congresos.Backend.db.controls.room.ControlRoom;
 import com.gestion.congresos.Backend.db.models.ActivityModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
