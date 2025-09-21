@@ -37,11 +37,11 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </div>
 
   <div class="mb-3">
-    <label for="tipeActivity" class="form-label">Tipo de Actividad</label>
-    <select class="form-select" id="tipeActivity" name="tipeActivity" required>
+    <label for="typeActivity" class="form-label">Tipo de Actividad</label>
+    <select class="form-select" id="typeActivity" name="typeActivity" required>
       <option value="">Seleccione un tipo</option>
-      <option value="1">PONENCIA</option>
-      <option value="2">TALLER</option>
+      <option value="PONENCIA">PONENCIA</option>
+      <option value="TALLER">TALLER</option>
     </select>
   </div>
 

@@ -64,7 +64,7 @@ public class ValidatorData {
     }
 
     public boolean isValidTypeActivity(String tipoActividad) {
-        return "TALLER".equals(tipoActividad) || "PONENCIA".equals(tipoActividad);
+        return "TALLER".equalsIgnoreCase(tipoActividad) || "PONENCIA".equalsIgnoreCase(tipoActividad);
     }
 
     public boolean isValidPercentage(Double porcentaje) {

@@ -90,7 +90,7 @@ async function deleteActivity(idActivity) {
 async function loadEditCongressForm(idCongress) {
   try {
     const res = await fetch(
-      `${contextPath}/SVCRUDCongress?action=loadEditForm&idCongress=${idCongress}`
+      `${contextPath}/SVCongressCRUD?action=loadEditForm&idCongress=${idCongress}`
     );
     if (!res.ok) throw new Error("Error al cargar formulario");
 

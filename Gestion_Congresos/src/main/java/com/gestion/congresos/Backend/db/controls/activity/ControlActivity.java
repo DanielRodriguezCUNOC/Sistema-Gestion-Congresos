@@ -3,8 +3,10 @@ package com.gestion.congresos.Backend.db.controls.activity;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Types;
 
 import com.gestion.congresos.Backend.db.DBConnectionSingleton;
 import com.gestion.congresos.Backend.db.models.ActivityModel;
@@ -12,7 +14,8 @@ import com.gestion.congresos.Backend.exceptions.DataBaseException;
 
 public class ControlActivity {
     private static final String INSERT_NEW_ACTIVITY = "INSERT INTO Actividad (" +
-            "id_salon, id_congreso, id_tipo_actividad, nombre_actividad, fecha, hora_inicio, hora_fin, descripcion" +
+            "id_salon, id_congreso, id_tipo_actividad, nombre_actividad, fecha, hora_inicio, hora_fin, descripcion, cupo_taller"
+            +
             ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     public boolean insertActivity(ActivityModel activity) throws SQLException, DataBaseException {
@@ -29,6 +32,12 @@ public class ControlActivity {
             ps.setTime(6, Time.valueOf(activity.getHoraInicio()));
             ps.setTime(7, Time.valueOf(activity.getHoraFin()));
             ps.setString(8, activity.getDescripcion());
+            if (activity.getCupoTaller() != null) {
+                ps.setInt(9, activity.getCupoTaller());
+            } else {
+                ps.setNull(9, Types.INTEGER);
+
+            }
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -51,7 +60,7 @@ public class ControlActivity {
         try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, nameActivity);
-            var rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 int count = rs.getInt("count");

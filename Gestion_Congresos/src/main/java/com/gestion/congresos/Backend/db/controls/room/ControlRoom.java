@@ -45,30 +45,6 @@ public class ControlRoom {
         }
     }
 
-    public int getIdRoomByNameAndCongress(String nameRoom, int idCongress) throws DataBaseException {
-        Connection conn = DBConnectionSingleton.getInstance().getConnection();
-
-        String query = "SELECT s.id_salon FROM Salon s " +
-                "JOIN Congreso c ON s.id_congreso = c.id_congreso " +
-                "WHERE s.nombre_salon = ? AND c.id_congreso = ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-
-            ps.setString(1, nameRoom);
-            ps.setInt(2, idCongress);
-            var rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt("id_salon");
-            } else {
-                return -1;
-            }
-
-        } catch (SQLException e) {
-            throw new DataBaseException("Error al obtener el id del salon", e);
-        }
-    }
-
     public boolean existsRoom(String nameRoom, int idInstitucion, String ubicacion) throws DataBaseException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
 

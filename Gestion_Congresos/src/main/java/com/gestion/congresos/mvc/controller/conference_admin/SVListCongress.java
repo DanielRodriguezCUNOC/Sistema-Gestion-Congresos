@@ -3,7 +3,6 @@ package com.gestion.congresos.mvc.controller.conference_admin;
 import java.io.IOException;
 import java.util.List;
 
-import com.gestion.congresos.Backend.db.models.CongressModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.handler.ConferenceAdminHandler;
 
@@ -23,7 +22,7 @@ public class SVListCongress extends HttpServlet {
         try {
             ConferenceAdminHandler conferenceAdminHandler = new ConferenceAdminHandler();
 
-            List<CongressModel> congresses = conferenceAdminHandler.getAllCongresses();
+            List<String[]> congresses = conferenceAdminHandler.getAllCongresses();
 
             request.setAttribute("congresses", congresses);
 

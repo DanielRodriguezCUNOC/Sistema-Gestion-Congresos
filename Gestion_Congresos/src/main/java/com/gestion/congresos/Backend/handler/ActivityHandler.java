@@ -8,6 +8,7 @@ import com.gestion.congresos.Backend.db.controls.activity.ControlActivity;
 import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
 import com.gestion.congresos.Backend.db.controls.congress.ControlCongress;
 import com.gestion.congresos.Backend.db.controls.room.ControlRoom;
+import com.gestion.congresos.Backend.db.controls.room.ControlRoomActivity;
 import com.gestion.congresos.Backend.db.models.ActivityModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
@@ -43,6 +44,8 @@ public class ActivityHandler {
 
         ControlRoom controlRoom = new ControlRoom();
 
+        ControlRoomActivity controlRoomActivity = new ControlRoomActivity();
+
         try {
             String nameActivity = request.getParameter("nameActivity");
             String nameCongress = request.getParameter("nameCongress");
@@ -59,10 +62,23 @@ public class ActivityHandler {
 
             int cupoTaller = 0;
             try {
-                cupoTaller = Integer.parseInt(request.getParameter("workshopQuota"));
-                if (!validatorData.isValidQuota(cupoTaller)) {
-                    throw new MissingDataException("El cupo del taller no es valido");
+
+                if (typeActivity.equalsIgnoreCase("Taller")) {
+                    String cupoTallerStr = request.getParameter("workshopQuota");
+                    if (cupoTallerStr == null || cupoTallerStr.isEmpty()) {
+                        throw new MissingDataException("El cupo del taller no es valido");
+
+                    }
+                    try {
+                        cupoTaller = Integer.parseInt(cupoTallerStr);
+                    } catch (NumberFormatException e) {
+                        throw new MissingDataException("El cupo del taller no es un numero valido");
+                    }
+                    if (!validatorData.isValidQuota(cupoTaller)) {
+                        throw new MissingDataException("El cupo del taller no es valido");
+                    }
                 }
+
             } catch (NumberFormatException e) {
                 throw new MissingDataException("El cupo del taller no es valido");
             }
@@ -73,7 +89,7 @@ public class ActivityHandler {
                 throw new MissingDataException("El nombre del congreso no es valido");
             } else if (!validatorData.isValidName(nameRoom)) {
                 throw new MissingDataException("El nombre del salon no es valido");
-            } else if (!validatorData.isValidName(typeActivity)) {
+            } else if (!validatorData.isValidTypeActivity(typeActivity)) {
                 throw new MissingDataException("El tipo de actividad no es valido");
             } else if (!validatorData.isValidDate(dateActivity)) {
                 throw new MissingDataException("La fecha de la actividad no es valida");
@@ -85,7 +101,7 @@ public class ActivityHandler {
 
             int idCongress = controlCongress.getIdCongressByName(nameCongress);
 
-            int idRoom = controlRoom.getIdRoomByNameAndCongress(nameRoom, idCongress);
+            int idRoom = controlRoom.getIdRoomByName(nameRoom);
 
             if (idRoom < 0) {
                 throw new ObjectNotFoundException("El salon no existe en la base de datos");
@@ -104,6 +120,10 @@ public class ActivityHandler {
             LocalDate dateActivitySQL = LocalDate.parse(dateActivity);
             LocalTime timeStartingSQL = LocalTime.parse(timeStarting);
             LocalTime timeEndingSQL = LocalTime.parse(timeEnding);
+
+            if (!controlRoomActivity.isRoomAvailable(idRoom, dateActivity, timeStarting, timeEnding)) {
+                throw new ObjectAlreadyExists("El salon no esta disponible en la fecha y hora seleccionada");
+            }
 
             ActivityModel activityModel = new ActivityModel(idRoom, idCongress, idTypeActivity, nameActivity,
                     dateActivitySQL, timeStartingSQL, timeEndingSQL, descriptionActivity, cupoTaller);

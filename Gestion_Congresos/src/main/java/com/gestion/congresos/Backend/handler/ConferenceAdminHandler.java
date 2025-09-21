@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
-import com.gestion.congresos.Backend.db.models.ActivityModel;
-import com.gestion.congresos.Backend.db.models.CongressModel;
 import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
@@ -51,12 +49,12 @@ public class ConferenceAdminHandler {
         return controlConferenceAdmin.getAllGuestsSpeakers();
     }
 
-    public List<CongressModel> getAllCongresses() throws DataBaseException {
+    public List<String[]> getAllCongresses() throws DataBaseException {
         ControlConferenceAdmin controlConferenceAdmin = new ControlConferenceAdmin();
         return controlConferenceAdmin.getAllCongress();
     }
 
-    public List<ActivityModel> getAllActivities() throws DataBaseException {
+    public List<String[]> getAllActivities() throws DataBaseException {
         ControlConferenceAdmin controlConferenceAdmin = new ControlConferenceAdmin();
         return controlConferenceAdmin.getAllActivities();
     }
