@@ -21,49 +21,48 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </c:if>
 
   <div class="mb-3">
-    <label for="idInstitucion" class="form-label">Institución</label>
+    <label for="nameInstitution" class="form-label">Institución</label>
     <input
       type="text"
       class="form-control"
-      id="idInstitucion"
-      name="idInstitucion"
-      value="${institution.name}"
+      id="nameInstitution"
+      name="nameInstitution"
       placeholder="Universidad de San Carlos de Guatemala"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="nombreSalon" class="form-label">Nombre del Salón</label>
+    <label for="nameRoom" class="form-label">Nombre del Salón</label>
     <input
       type="text"
       class="form-control"
-      id="nombreSalon"
-      name="nombreSalon"
+      id="nameRoom"
+      name="nameRoom"
       placeholder="Salon de Proyecciones"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="direccion" class="form-label">Ubicación</label>
+    <label for="addressRoom" class="form-label">Ubicación</label>
     <input
       type="text"
       class="form-control"
-      id="direccion"
-      name="direccion"
+      id="addressRoom"
+      name="addressRoom"
       placeholder="Segundo nivel, Módulo G"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="capacidad" class="form-label">Capacidad</label>
+    <label for="capacityRoom" class="form-label">Capacidad</label>
     <input
       type="number"
       class="form-control"
-      id="capacidad"
-      name="capacidad"
+      id="capacityRoom"
+      name="capacityRoom"
       min="1"
       required
     />

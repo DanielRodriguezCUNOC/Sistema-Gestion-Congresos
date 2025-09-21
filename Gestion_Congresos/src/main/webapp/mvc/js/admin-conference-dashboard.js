@@ -88,12 +88,15 @@ async function loadGuestSpeakers() {
 // Enviar formulario Crear Congreso
 // ==========================
 async function submitCreateConference(form) {
-  const formData = new FormData(form);
+  const formData = new URLSearchParams(new FormData(form));
 
   try {
     const res = await fetch(`${contextPath}/SVCreateCongress`, {
       method: "POST",
       body: formData,
+       headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
     });
 
     if (!res.ok) throw new Error("Error en creación");
@@ -168,13 +171,16 @@ async function loadConferences() {
   // Enviar formulario Crear Actividad
   // ==========================
   async function submitCreateActivity(form) {
-    const formData = new FormData(form);
+    const formData = new URLSearchParams(new FormData(form));
 
     try {
-      const res = await fetch(`${contextPath}/SVCreateActivity`, {
-        method: "POST",
-        body: formData,
-      });
+         const res = await fetch(`${contextPath}/SVCreateActivity`, {
+      method: "POST",
+      body: formData,
+       headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+    });
 
       if (!res.ok) throw new Error("Error en creación");
 
@@ -229,43 +235,43 @@ async function loadConferences() {
     }
   }
 
-  // ==========================
-  // Enviar formulario Crear Salon
-  // ==========================
-  async function submitCreateRoom(form) {
-    const formData = new FormData(form);
-
+// ==========================
+// Enviar formulario Crear Salon
+// ==========================
+async function submitCreateRoom(form) {
+    const formData = new URLSearchParams(new FormData(form));
+    
     try {
-      const res = await fetch(`${contextPath}/SVCreateRoom`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) throw new Error("Error en creación");
-
-      //* El servlet de creación devuelve JSON
-      const result = await res.json();
-
-      if (result.success) {
-        alert(result.message);
-
-        //! Cargar listado después de crear
-        loadRooms();
-      } else {
-        alert("Error: " + result.message);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error al crear el Salón");
-    }
+            const res = await fetch(`${contextPath}/SVCreateRoom`, {
+      method: "POST",
+      body: formData,
+       headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
   }
+    });
+
+        if (!res.ok) throw new Error("Error en creación");
+
+        const result = await res.json();
+
+        if (result.success) {
+            alert(result.message);
+            loadRooms();
+        } else {
+            alert("Error: " + result.message);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Error al crear el Salón");
+    }
+}
 
   // ==========================
   // Listar Salones
   // ==========================
   async function loadRooms() {
     try {
-      const res = await fetch(`${contextPath}/SVListRooms`);
+      const res = await fetch(`${contextPath}/SVListRoom`);
       if (!res.ok) throw new Error("Error en la petición");
 
       const html = await res.text();

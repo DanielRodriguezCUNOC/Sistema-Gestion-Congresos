@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gestion.congresos.Backend.db.DBConnectionSingleton;
@@ -45,12 +46,13 @@ public class ControlRoom {
     }
 
     public int getIdRoomByNameAndCongress(String nameRoom, int idCongress) throws DataBaseException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
         String query = "SELECT s.id_salon FROM Salon s " +
                 "JOIN Congreso c ON s.id_congreso = c.id_congreso " +
                 "WHERE s.nombre_salon = ? AND c.id_congreso = ?";
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, nameRoom);
             ps.setInt(2, idCongress);
@@ -79,18 +81,19 @@ public class ControlRoom {
             ps.setInt(2, idInstitucion);
             ps.setString(3, ubicacion);
 
-            var rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("count") > 0;
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count") > 0;
+                }
+                return false;
             }
-            return false;
 
         } catch (SQLException e) {
             throw new DataBaseException("Error al verificar la existencia del salón", e);
         }
     }
 
-    public List<String[]> getAllRooms() throws SQLException {
+    public List<String[]> getAllRooms() throws DataBaseException {
 
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -100,8 +103,8 @@ public class ControlRoom {
 
         try (PreparedStatement ps = conn.prepareStatement(query)) {
 
-            var rs = ps.executeQuery();
-            List<String[]> rooms = new java.util.ArrayList<>();
+            ResultSet rs = ps.executeQuery();
+            List<String[]> rooms = new ArrayList<>();
 
             while (rs.next()) {
                 String[] room = new String[5];
@@ -115,16 +118,17 @@ public class ControlRoom {
             return rooms;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return java.util.Collections.emptyList();
+
+            throw new DataBaseException("Error al obtener los salones", e);
+
         }
     }
 
     public int getIdRoomByName(String nameRoom) throws DataBaseException, ObjectNotFoundException {
         String query = "SELECT id_salon FROM Salon WHERE nombre_salon = ?";
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, nameRoom);
 
@@ -137,6 +141,7 @@ public class ControlRoom {
             }
 
         } catch (SQLException e) {
+
             throw new DataBaseException("Error al obtener el id del salon", e);
         }
     }

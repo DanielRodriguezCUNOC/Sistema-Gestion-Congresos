@@ -4,7 +4,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="container mt-4">
   <h3 class="mb-3 text-primary">Editar Datos del Salón</h3>
 
-  <form action="updateSalon" method="post" class="needs-validation" novalidate>
+  <form method="post" class="needs-validation" novalidate>
     <div class="mb-3">
       <label for="nombre_institucion" class="form-label"
         >Nombre de la Institución</label

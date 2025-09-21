@@ -32,23 +32,24 @@ public class RoomHandler {
     public boolean createRoom()
             throws MissingDataException, DataBaseException, ObjectNotFoundException, ObjectAlreadyExists {
 
-        String nameSalon = request.getParameter("nameSalon");
-        String nameInstitution = request.getParameter("nameInstitution");
-        String addressSalon = request.getParameter("addressSalon");
-        String capacitySalonStr = request.getParameter("capacitySalon");
+        String nameRoom = request.getParameter("nameRoom");
 
-        if (!validatorData.isValidName(nameSalon)) {
+        String nameInstitution = request.getParameter("nameInstitution");
+        String addressRoom = request.getParameter("addressRoom");
+        String capacitySalonStr = request.getParameter("capacityRoom");
+
+        if (!validatorData.isValidString(nameRoom)) {
             throw new MissingDataException("El nombre del salon no es valido");
         } else if (!validatorData.isValidName(nameInstitution)) {
             throw new MissingDataException("El nombre de la institucion no es valido");
-        } else if (!validatorData.isValidName(addressSalon)) {
+        } else if (!validatorData.isValidName(addressRoom)) {
             throw new MissingDataException("La direccion del salon no es valida");
         }
 
-        int capacitySalon;
+        int capacityRoom;
         try {
-            capacitySalon = Integer.parseInt(capacitySalonStr);
-            if (capacitySalon <= 0) {
+            capacityRoom = Integer.parseInt(capacitySalonStr);
+            if (capacityRoom <= 0) {
                 throw new MissingDataException("La capacidad del salon no es valida");
             }
         } catch (NumberFormatException e) {
@@ -66,13 +67,14 @@ public class RoomHandler {
                 throw new ObjectNotFoundException("La institucion no existe en la base de datos");
             }
 
-            RoomModel roomModel = new RoomModel(idInstitution, nameSalon, addressSalon, capacitySalon);
+            RoomModel roomModel = new RoomModel(idInstitution, nameRoom, addressRoom, capacityRoom);
 
             if (!roomModel.isValid()) {
                 throw new MissingDataException("No se han proporcionado todos los datos requeridos para el salon.");
 
             }
-            if (controlRoom.existsRoom(nameSalon, idInstitution, addressSalon)) {
+
+            if (controlRoom.existsRoom(nameRoom, idInstitution, addressRoom)) {
                 throw new ObjectAlreadyExists("El salon ya existe en la base de datos");
             }
             return controlRoom.insertRoom(roomModel);
@@ -84,11 +86,9 @@ public class RoomHandler {
 
     public List<String[]> getAllRooms() throws DataBaseException {
         ControlRoom controlRoom = new ControlRoom();
-        try {
-            return controlRoom.getAllRooms();
-        } catch (SQLException e) {
-            throw new DataBaseException("Error al obtener los salones de la base de datos", e);
-        }
+
+        return controlRoom.getAllRooms();
+
     }
 
 }

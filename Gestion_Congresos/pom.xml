@@ -16,10 +16,12 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <maven.compiler.release>21</maven.compiler.release>
+        <maven.clean.skip>false</maven.clean.skip>
+        <maven.compiler.fork>true</maven.compiler.fork>
     </properties>
 
     <dependencies>
-        <!-- JakartaEE API (scope provided: lo provee el contenedor como Tomcat/Payara/etc.) -->
+        <!-- JakartaEE API -->
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
@@ -41,13 +43,12 @@
             <version>3.0.0</version>
         </dependency>
 
-        <!-- JSTL Implementación (Glassfish) -->
+        <!-- JSTL Implementación -->
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>3.0.1</version>
             <exclusions>
-                <!-- Evitamos conflictos con jakartaee-api -->
                 <exclusion>
                     <groupId>jakarta.servlet</groupId>
                     <artifactId>jakarta.servlet-api</artifactId>
@@ -62,7 +63,19 @@
 
     <build>
         <plugins>
-            <!-- Compilador Java -->
+            <!-- Clean Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <verbose>true</verbose>
+                    <followSymlinks>false</followSymlinks>
+                </configuration>
+            </plugin>
+
+          <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -71,9 +84,14 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <release>${maven.compiler.release}</release>
+                    <fork>${maven.compiler.fork}</fork>
                     <compilerArgs>
                         <arg>-parameters</arg>
+                        <arg>-Xlint:all</arg>
                     </compilerArgs>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
                 </configuration>
             </plugin>
 

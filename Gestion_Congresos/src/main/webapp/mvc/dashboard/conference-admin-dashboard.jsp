@@ -25,14 +25,15 @@
           </div>
         </div>
       </header>
-
       <section class="py-5">
         <div class="container">
-          <div id="cards-container" class="row g-4">
+          <!-- Funciones de Participante -->
+          <h3 class="mb-4">🙋 Funciones de Participante</h3>
+          <div class="row g-4 mb-5">
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">🙋 Funciones de Participante</h5>
+                  <h5 class="fw-bold">Panel de Participante</h5>
                   <p>
                     Accede al panel de participante para inscribirte, pagar,
                     reservar talleres y más.
@@ -45,7 +46,25 @@
                 </div>
               </div>
             </div>
+          </div>
 
+          <!-- Acciones de Congreso -->
+          <h3 class="mb-4">🏛️ Acciones de Congreso</h3>
+          
+          <div class="col-md-4">
+              <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                  <h5 class="fw-bold">🏛️ Registrar Congresos</h5>
+                  <p>Registrar congresos en el sistema.</p>
+                  <a href="#" id="btn-create-congress" class="btn btn-secondary"
+                    >Registrar</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4 mb-5">
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
@@ -64,10 +83,10 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">👩‍🔬 Definir Comité Científico</h5>
-                  <p>Asignar miembros al comité científico del congreso.</p>
+                  <h5 class="fw-bold">👩‍🔬 Registrar Comité Científico</h5>
+                  <p>Asignar miembros del comité científico.</p>
                   <a href="definir-comite.jsp" class="btn btn-secondary"
-                    >Definir</a
+                    >Registrar</a
                   >
                 </div>
               </div>
@@ -91,13 +110,10 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">🚪 Registrar Salon</h5>
-                  <p>
-                    Registra los salones o auditorios donde se realizarán las
-                    actividades.
-                  </p>
-                  <a href="#" id="btn-create-room" class="btn btn-secondary"
-                    >Generar</a
+                  <h5 class="fw-bold">👩‍🔬 Gestionar Comité Científico</h5>
+                  <p>Administrar miembros del comité científico.</p>
+                  <a href="definir-comite.jsp" class="btn btn-secondary"
+                    >Gestionar</a
                   >
                 </div>
               </div>
@@ -106,19 +122,49 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">🏛️ Registrar Congreso</h5>
-                  <p>Registrar un nuevo congreso en el sistema.</p>
-                  <a href="#" id="btn-create-congress" class="btn btn-secondary"
+                  <h5 class="fw-bold">🚪 Registrar Salones</h5>
+                  <p>Registrar salones o auditorios.</p>
+                  <a href="#" id="btn-create-room" class="btn btn-secondary"
                     >Registrar</a
                   >
                 </div>
               </div>
             </div>
 
+             <div class="col-md-4">
+              <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                  <h5 class="fw-bold">🏛️ Gestionar Congresos</h5>
+                  <p>Modificar congresos en el sistema.</p>
+                  <a href="#" id="btn-edit-congress" class="btn btn-secondary"
+                    >Gestionar</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">📅 Registrar Actividad</h5>
+                  <h5 class="fw-bold">🚪 Gestionar Salones</h5>
+                  <p>Modificar salones o auditorios.</p>
+                  <a href="#" id="btn-edit-room" class="btn btn-secondary"
+                    >Gestionar</a
+                  >
+                </div>
+              </div>
+            </div>
+
+           
+
+          <!-- Acciones de Actividad -->
+          <h3 class="mb-4">📅 Acciones de Actividad</h3>
+          <div class="row g-4 mb-5">
+            <div class="col-md-4">
+              <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                  <h5 class="fw-bold">Registrar Actividad</h5>
                   <p>Agregar nuevas actividades dentro de un congreso.</p>
                   <a href="#" id="btn-create-activity" class="btn btn-secondary"
                     >Registrar</a
@@ -130,7 +176,7 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">⚙️ Gestionar Actividad</h5>
+                  <h5 class="fw-bold">Gestionar Actividad</h5>
                   <p>Modificar información de actividades existentes.</p>
                   <a
                     href="#"
@@ -145,7 +191,7 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">📋 Listar Actividades</h5>
+                  <h5 class="fw-bold">Listar Actividades</h5>
                   <p>Consultar todas las actividades de un congreso.</p>
                   <a href="#" id="btn-list-activities" class="btn btn-secondary"
                     >Listar</a
@@ -157,7 +203,7 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">❌ Eliminar Actividad</h5>
+                  <h5 class="fw-bold">Eliminar Actividad</h5>
                   <p>Eliminar actividades no deseadas o canceladas.</p>
                   <a href="#" id="btn-delete-activity" class="btn btn-secondary"
                     >Eliminar</a
@@ -169,7 +215,7 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">📝 Registrar Asistencia</h5>
+                  <h5 class="fw-bold">Registrar Asistencia</h5>
                   <p>
                     Registrar asistencia de participantes a las actividades.
                   </p>
@@ -179,11 +225,15 @@
                 </div>
               </div>
             </div>
+          </div>
 
+          <!-- Reportes -->
+          <h3 class="mb-4">📊 Reportes</h3>
+          <div class="row g-4">
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">📊 Reporte Participantes</h5>
+                  <h5 class="fw-bold">Reporte Participantes</h5>
                   <p>
                     Generar reporte de participantes por congreso o actividad.
                   </p>
@@ -197,7 +247,7 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">📈 Reporte Asistencia</h5>
+                  <h5 class="fw-bold">Reporte Asistencia</h5>
                   <p>
                     Visualizar asistencia de cada participante a actividades.
                   </p>
@@ -211,7 +261,7 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">📑 Reporte Reserva Taller</h5>
+                  <h5 class="fw-bold">Reporte Reserva Taller</h5>
                   <p>Reporte de reservas realizadas en los talleres.</p>
                   <a href="reporte-reserva-taller.jsp" class="btn btn-secondary"
                     >Generar</a
@@ -223,7 +273,7 @@
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">💰 Reporte Ganancias</h5>
+                  <h5 class="fw-bold">Reporte Ganancias</h5>
                   <p>Ver ganancias obtenidas de inscripciones y actividades.</p>
                   <a href="reporte-ganancias.jsp" class="btn btn-secondary"
                     >Generar</a
@@ -234,6 +284,7 @@
           </div>
         </div>
       </section>
+
       <div id="content" class="container mt-4" style="display: none"></div>
     </main>
     <jsp:include page="/includes/footer.jsp" />

@@ -22,9 +22,9 @@ public class ControlConferenceAdmin {
             + "WHERE r.rol = 'Ponente Invitado'";
 
     public int getIdInstitutionByName(String nameInstitution) throws DataBaseException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(GET_ID_INSTITUTION_BY_NAME)) {
+        try (PreparedStatement ps = conn.prepareStatement(GET_ID_INSTITUTION_BY_NAME)) {
 
             ps.setString(1, nameInstitution);
 

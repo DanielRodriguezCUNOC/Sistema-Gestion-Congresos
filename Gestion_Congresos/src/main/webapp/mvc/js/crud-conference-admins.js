@@ -2,9 +2,9 @@
 // Cargar Formulario Editar Actividad
 // ==========================
 
-async function loadEditActivityForm(activityId) {
+async function loadEditActivityForm(idActivity) {
   try {
-    const res = await fetch(`${contextPath}/SVCRUDActivity?id=${activityId}`);
+    const res = await fetch(`${contextPath}/SVCRUDActivity?id=${idActivity}`);
     if (!res.ok) throw new Error("Error al cargar formulario");
 
     const html = await res.text();
@@ -20,65 +20,71 @@ async function loadEditActivityForm(activityId) {
 // ==========================
 
 async function submitEditActivity(form) {
-  const formData = new FormData(form);
+  const formData = new URLSearchParams(new FormData(form));
   formData.append("action", "edit");
+  try {
+    const res = await fetch(`${contextPath}/SVActivityCRUD`, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
 
-  const res = await fetch(`${contextPath}/SVCRUDActivity`, {
-    method: "POST",
-    body: new URLSearchParams(formData),
-  });
+    if (!res.ok) {
+      alert("Error al editar la actividad.");
+      return;
+    }
 
-  if (!res.ok) {
-    alert("Error al editar la actividad.");
-    return;
-  }
-
-  const result = await res.json();
-  if (result.success) {
-    alert(result.message);
-    loadConferences();
-  } else {
-    alert("Error: " + result.message);
+    const result = await res.json();
+    if (result.success) {
+      alert(result.message);
+      loadConferences();
+    } else {
+      alert("Error: " + result.message);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Ocurrió un error al editar la actividad.");
   }
 }
 
-  // ==========================
-  // Eliminar Actividad
-  // ==========================
+// ==========================
+// Eliminar Actividad
+// ==========================
 
-  async function deleteActivity(activityId) {
-    if (!confirm("¿Está seguro de que desea eliminar esta actividad?")) return;
-    try {
-      const res = await fetch(`${contextPath}/SVCRUDActivity`, {
-        method: "POST",
-        body: new URLSearchParams({
-          action: "delete",
-          id: activityId,
-        }),
-      });
+async function deleteActivity(idActivity) {
+  if (!confirm("¿Está seguro de que desea eliminar esta actividad?")) return;
+  try {
+    const res = await fetch(`${contextPath}/SVCRUDActivity`, {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "delete",
+        id: idActivity,
+      }),
+    });
 
-      if (!res.ok) throw new Error("Error al eliminar actividad");
+    if (!res.ok) throw new Error("Error al eliminar actividad");
 
-      const result = await res.json();
-      if (result.success) {
-        alert(result.message);
-        loadConferences();
-      } else {
-        alert("Error: " + result.message);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Ocurrió un error al eliminar la actividad.");
+    const result = await res.json();
+    if (result.success) {
+      alert(result.message);
+      loadConferences();
+    } else {
+      alert("Error: " + result.message);
     }
+  } catch (err) {
+    console.error(err);
+    alert("Ocurrió un error al eliminar la actividad.");
   }
-
+}
 
 // ==========================
 // Cargar Formulario Editar Congreso
 // ==========================
-async function loadEditCongressForm(congressId) {
+async function loadEditCongressForm(idCongress) {
   try {
-    const res = await fetch(`${contextPath}/SVCRUDCongress?id=${congressId}`);
+    const res = await fetch(`${contextPath}/SVCRUDCongress?id=${idCongress}`);
     if (!res.ok) throw new Error("Error al cargar formulario");
 
     const html = await res.text();
@@ -93,13 +99,16 @@ async function loadEditCongressForm(congressId) {
 // Enviar Formulario Editar Congreso
 // ==========================
 async function submitEditCongress(form) {
-  const formData = new FormData(form);
+  const formData = new URLSearchParams(new FormData(form));
   formData.append("action", "edit");
 
   try {
-    const res = await fetch(`${contextPath}/SVCRUDCongress`, {
+    const res = await fetch(`${contextPath}/SVCongressCRUD`, {
       method: "POST",
-      body: new URLSearchParams(formData),
+      body: formData,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
     });
 
     if (!res.ok) throw new Error("Error al editar el congreso");
@@ -121,9 +130,9 @@ async function submitEditCongress(form) {
 // Cargar Formulario Editar Salon
 // ==========================
 
-async function loadEditRoomForm(roomId) {
+async function loadEditRoomForm(idRoom) {
   try {
-    const res = await fetch(`${contextPath}/SVRoomCRUD?id=${roomId}`);
+    const res = await fetch(`${contextPath}/SVRoomCRUD?id=${idRoom}`);
     if (!res.ok) throw new Error("Error al cargar formulario");
 
     const html = await res.text();
@@ -138,13 +147,16 @@ async function loadEditRoomForm(roomId) {
 // Enviar Formulario Editar Salon
 // ==========================
 async function submitEditRoom(form) {
-  const formData = new FormData(form);
+ const formData = new URLSearchParams(new FormData(form));
   formData.append("action", "edit");
 
   try {
-    const res = await fetch(`${contextPath}/SVRoomCRUD`, {
+       const res = await fetch(`${contextPath}/SVRoomCRUD`, {
       method: "POST",
-      body: new URLSearchParams(formData),
+      body: formData,
+       headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
     });
 
     if (!res.ok) throw new Error("Error al editar el salón");
@@ -165,14 +177,14 @@ async function submitEditRoom(form) {
 // ==========================
 // Eliminar Salón
 // ==========================
-async function deleteRoom(roomId) {
+async function deleteRoom(idRoom) {
   if (!confirm("¿Está seguro de que desea eliminar este salón?")) return;
   try {
     const res = await fetch(`${contextPath}/SVRoomCRUD`, {
       method: "POST",
       body: new URLSearchParams({
         action: "delete",
-        id: roomId,
+        id: idRoom,
       }),
     });
 
@@ -213,48 +225,52 @@ document.addEventListener("submit", function (event) {
 
 //* Clics en botones dinamicos
 document.addEventListener("click", function (event) {
-     const activityId = null;
-     const congressId = null;
+  const idActivity = null;
+  const idCongress = null;
 
   switch (event.target.id) {
-  
     case "btn-take-attendance":
       loadTakeAttendanceForm();
       break;
-  
-      case " btn-delete-activity":
 
-       if( activityId = event.target.getAttribute("data-activity-id") !== null){
-           deleteActivity(activityId);
-       }
+    case " btn-delete-activity":
+      if (
+        (idActivity = event.target.getAttribute("data-activity-id") !== null)
+      ) {
+        deleteActivity(idActivity);
+      }
 
-       break;
-   
-        case "btn-edit-activity":
-        if( activityId = event.target.getAttribute("data-activity-id") !== null){
-        loadEditActivityForm(activityId);
-        }
-        break;
-   
-        case "btn-edit-congress":
-        if( congressId = event.target.getAttribute("data-congress-id") !== null){
-        loadEditCongressForm(congressId);
-        }
-        break;
+      break;
 
-        case "btn-edit-room":
-        if( roomId = event.target.getAttribute("data-room-id") !== null){
-        loadEditRoomForm(roomId);
-        }
-        break;
+    case "btn-edit-activity":
+      if (
+        (idActivity = event.target.getAttribute("data-activity-id") !== null)
+      ) {
+        loadEditActivityForm(idActivity);
+      }
+      break;
 
-        case "btn-delete-room":
-        if( roomId = event.target.getAttribute("data-room-id") !== null){
-        deleteRoom(roomId);
-        }
-        break;
-   
-        default:
+    case "btn-edit-congress":
+      if (
+        (idCongress = event.target.getAttribute("data-congress-id") !== null)
+      ) {
+        loadEditCongressForm(idCongress);
+      }
+      break;
+
+    case "btn-edit-room":
+      if ((idRoom = event.target.getAttribute("data-room-id") !== null)) {
+        loadEditRoomForm(idRoom);
+      }
+      break;
+
+    case "btn-delete-room":
+      if ((idRoom = event.target.getAttribute("data-room-id") !== null)) {
+        deleteRoom(idRoom);
+      }
+      break;
+
+    default:
       console.warn("Botón no manejado:", event.target.id);
   }
 });
