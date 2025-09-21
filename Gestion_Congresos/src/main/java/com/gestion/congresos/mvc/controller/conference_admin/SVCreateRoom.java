@@ -21,6 +21,9 @@ public class SVCreateRoom extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+
         RoomHandler roomHandler = new RoomHandler(request);
 
         try {

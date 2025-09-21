@@ -21,12 +21,14 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </c:if>
 
   <div class="mb-3">
-    <label for="idInstitucion" class="form-label">Institución Encargada</label>
+    <label for="nameInstitution" class="form-label"
+      >Institución Encargada</label
+    >
     <input
       type="text"
       class="form-control"
-      id="idInstitucion"
-      name="idInstitucion"
+      id="nameInstitution"
+      name="nameInstitution"
       placeholder="Ingrese el nombre de la institución"
       required
       min="1"
@@ -34,45 +36,45 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </div>
 
   <div class="mb-3">
-    <label for="nombreCongreso" class="form-label">Nombre del Congreso</label>
+    <label for="nameCongress" class="form-label">Nombre del Congreso</label>
     <input
       type="text"
       class="form-control"
-      id="nombreCongreso"
-      name="nombreCongreso"
+      id="nameCongress"
+      name="nameCongress"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+    <label for="dateInitializing" class="form-label">Fecha de Inicio</label>
     <input
       type="date"
       class="form-control"
-      id="fechaInicio"
-      name="fechaInicio"
+      id="dateInitializing"
+      name="dateInitializing"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="fechaFin" class="form-label">Fecha de Fin</label>
+    <label for="dateEnding" class="form-label">Fecha de Fin</label>
     <input
       type="date"
       class="form-control"
-      id="fechaFin"
-      name="fechaFin"
+      id="dateEnding"
+      name="dateEnding"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="precio" class="form-label">Precio</label>
+    <label for="priceCongress" class="form-label">Precio</label>
     <input
       type="number"
       class="form-control"
-      id="precio"
-      name="precio"
+      id="priceCongress"
+      name="priceCongress"
       step="0.01"
       min="0"
       required
@@ -83,11 +85,11 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <input
       class="form-check-input"
       type="checkbox"
-      id="aceptaConvocatoria"
-      name="aceptaConvocatoria"
+      id="acceptConvocations"
+      name="acceptConvocations"
       checked
     />
-    <label class="form-check-label" for="aceptaConvocatoria"
+    <label class="form-check-label" for="acceptConvocations"
       >Acepta Convocatoria</label
     >
   </div>
@@ -96,22 +98,20 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <input
       class="form-check-input"
       type="checkbox"
-      id="estado"
-      name="estado"
+      id="statusCongress"
+      name="statusCongress"
       checked
     />
-    <label class="form-check-label" for="estado">Activo</label>
+    <label class="form-check-label" for="statusCongress">Activo</label>
   </div>
 
   <div class="mb3">
-    <label for="cupo" class="form-label">Cupo Máximo de Participantes</label>
-    <input type="number" class="form-control" id="cupo" name="cupo" min="1" />
+    <label for="quota" class="form-label">Cupo Máximo de Participantes</label>
+    <input type="number" class="form-control" id="quota" name="quota" min="1" />
   </div>
 
   <div class="d-flex gap-3 mt-4">
-    <button type="submit" class="btn btn-primary btn-lg">
-      Guardar Congreso
-    </button>
+    <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
     <button type="button" class="btn btn-secondary btn-lg" id="btn-cancel">
       Cancelar
     </button>

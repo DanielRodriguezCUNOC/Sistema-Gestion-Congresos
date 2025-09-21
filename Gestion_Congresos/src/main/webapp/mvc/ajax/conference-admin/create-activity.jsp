@@ -21,7 +21,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </c:if>
 
   <div class="mb-3">
-    <label for="nombreCongreso" class="form-label">Nombre Congreso</label>
+    <label for="nameCongress" class="form-label">Nombre Congreso</label>
     <input
       type="text"
       class="form-control"
@@ -32,18 +32,13 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </div>
 
   <div class="mb-3">
-    <label for="nombreSalon" class="form-label">Salón</label>
+    <label for="nameRoom" class="form-label">Salón</label>
     <input type="text" class="form-control" id="nameRoom" name="nameRoom" />
   </div>
 
   <div class="mb-3">
     <label for="tipeActivity" class="form-label">Tipo de Actividad</label>
-    <select
-      class="form-select"
-      id="tipeActividad"
-      name="tipeActividad"
-      required
-    >
+    <select class="form-select" id="tipeActivity" name="tipeActivity" required>
       <option value="">Seleccione un tipo</option>
       <option value="1">PONENCIA</option>
       <option value="2">TALLER</option>
@@ -51,7 +46,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </div>
 
   <div class="mb-3">
-    <label for="nameActividad" class="form-label">Nombre de la Actividad</label>
+    <label for="nameActivity" class="form-label">Nombre de la Actividad</label>
     <input
       type="text"
       class="form-control"

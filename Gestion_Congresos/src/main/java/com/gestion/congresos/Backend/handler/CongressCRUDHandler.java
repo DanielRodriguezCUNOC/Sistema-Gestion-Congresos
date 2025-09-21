@@ -27,7 +27,7 @@ public class CongressCRUDHandler {
 
     public CongressModel getCongressById() throws DataBaseException, ObjectNotFoundException {
 
-        int idToEdit = Integer.parseInt(request.getParameter("congressId"));
+        int idToEdit = Integer.parseInt(request.getParameter("idCongress"));
 
         ControlCongress control = new ControlCongress();
 

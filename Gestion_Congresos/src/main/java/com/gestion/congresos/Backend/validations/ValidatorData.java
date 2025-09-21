@@ -6,58 +6,51 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import org.apache.commons.validator.routines.EmailValidator;
-import org.apache.commons.validator.routines.RegexValidator;
-
 public class ValidatorData {
 
     public boolean isValidName(String name) {
         if (name == null || name.length() > 255)
             return false;
-        RegexValidator nameValidator = new RegexValidator("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,255}$");
-        return nameValidator.isValid(name);
+        return name.matches("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,255}$");
     }
 
     public boolean isValidUsername(String user) {
         if (user == null || user.length() > 100)
             return false;
-        RegexValidator userValidator = new RegexValidator("^[a-zA-Z0-9_]{4,100}$");
-        return userValidator.isValid(user);
-
+        return user.matches("^[a-zA-Z0-9_]{4,100}$");
     }
 
     public boolean isValidPassword(String password) {
         if (password == null || password.length() > 100)
             return false;
-        RegexValidator passValidator = new RegexValidator("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,100}$");
-        return passValidator.isValid(password);
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,100}$");
     }
 
     public boolean isValidEmail(String email) {
         if (email == null || email.length() > 100)
             return false;
-        return EmailValidator.getInstance().isValid(email);
+
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+
+        return email.matches(emailRegex);
     }
 
     public boolean isValidID(String id) {
         if (id == null || id.length() > 15)
             return false;
-        RegexValidator idValidator = new RegexValidator("^\\d{6,15}$");
-        return idValidator.isValid(id);
+        return id.matches("^\\d{6,15}$");
     }
 
     public boolean isValidPhone(String phone) {
         if (phone == null || phone.length() > 25)
             return false;
-        RegexValidator phoneValidator = new RegexValidator("^\\+?\\d{8,25}$");
-        return phoneValidator.isValid(phone);
+        return phone.matches("^\\+?\\d{8,25}$");
     }
 
     public boolean isValidOrganization(String org) {
         if (org == null || org.length() > 150)
             return false;
-        RegexValidator orgValidator = new RegexValidator("^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9 ]{2,150}$");
-        return orgValidator.isValid(org);
+        return org.matches("^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9 ]{2,150}$");
     }
 
     public boolean isValidState(String estado) {
@@ -101,7 +94,6 @@ public class ValidatorData {
         if (hora == null)
             return false;
         try {
-            // Aceptar formatos HH:mm y HH:mm:ss usando el formateador ISO
             LocalTime.parse(hora, DateTimeFormatter.ISO_LOCAL_TIME);
             return true;
         } catch (DateTimeParseException e) {
@@ -110,14 +102,18 @@ public class ValidatorData {
     }
 
     public boolean isValidQuota(int cupo) {
-        RegexValidator quotaValidator = new RegexValidator("^[1-9]\\d{0,4}$");
-        return quotaValidator.isValid(String.valueOf(cupo));
-
+        return String.valueOf(cupo).matches("^[1-9]\\d{0,4}$");
     }
 
     public boolean isValidString(String value) {
-        RegexValidator stringValidator = new RegexValidator("^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9.,()\\- ]{0,255}$");
-        return stringValidator.isValid(value);
+        if (value == null) {
+            return false;
+        }
+        value = value.trim();
+        if (value.length() < 1 || value.length() > 255) {
+            return false;
+        }
+        return value.matches("^[\\w\\sáéíóúÁÉÍÓÚñÑ.,()\\-]+$");
     }
 
 }
