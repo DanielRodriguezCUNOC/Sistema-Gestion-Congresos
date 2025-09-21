@@ -2,6 +2,7 @@ package com.gestion.congresos.mvc.controller.conference_admin;
 
 import java.io.IOException;
 
+import com.gestion.congresos.Backend.db.models.RoomModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
@@ -70,8 +71,9 @@ public class SVRoomCRUD extends HttpServlet {
 
         if ("loadEditForm".equals(action)) {
             try {
+                System.out.println("Loading edit form for room ID: " + request.getParameter("idRoom"));
                 RoomCRUDHandler handler = new RoomCRUDHandler(request);
-                var room = handler.getRoomById();
+                RoomModel room = handler.getRoomById();
 
                 request.setAttribute("room", room);
                 request.getRequestDispatcher("/mvc/ajax/conference-admin/edit-room.jsp").forward(request, response);

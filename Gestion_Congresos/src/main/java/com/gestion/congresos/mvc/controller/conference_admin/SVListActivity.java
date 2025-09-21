@@ -27,7 +27,7 @@ public class SVListActivity extends HttpServlet {
 
             request.setAttribute("activities", activities);
 
-            request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/list-activities.jsp").forward(request,
+            request.getRequestDispatcher("/mvc/ajax/conference-admin/list-activities.jsp").forward(request,
                     response);
 
         } catch (DataBaseException e) {

@@ -30,6 +30,7 @@ public class RoomCRUDHandler {
 
         int capacity;
         int idRoom;
+        int idInstitution;
 
         String nameInstitution = request.getParameter("nameInstitution");
 
@@ -63,11 +64,13 @@ public class RoomCRUDHandler {
 
         if (!controlInstitution.existsInstitution(nameInstitution)) {
             throw new MissingDataException("La institución no existe");
-        } else if (controlInstitution.getIdInstitutionByName(nameInstitution) == -1) {
+        }
+        idInstitution = controlInstitution.getIdInstitutionByName(nameInstitution);
+        if (idInstitution == -1) {
             throw new DataBaseException("Error al obtener la institución");
         }
 
-        return controlRoomCRUD.editRoom(idRoom, nameInstitution, nameRoom, capacity, address);
+        return controlRoomCRUD.editRoom(idRoom, idInstitution, nameRoom, capacity, address);
 
     }
 
@@ -75,12 +78,15 @@ public class RoomCRUDHandler {
 
         int idRoom;
         ControlRoomCRUD controlRoomCRUD = new ControlRoomCRUD();
+        System.out.println("Getting room by ID " + request.getParameter("idRoom"));
 
         try {
             if (request.getParameter("idRoom") == null || request.getParameter("idRoom").isBlank()) {
+
                 throw new MissingDataException("ID del salón inválido");
             }
             idRoom = Integer.parseInt(request.getParameter("idRoom"));
+
         } catch (NumberFormatException e) {
             throw new MissingDataException("ID del salón inválido");
         }
@@ -112,7 +118,7 @@ public class RoomCRUDHandler {
     }
 
     private boolean isValidString(String value) {
-        return value == null || value.isBlank() || !validator.isValidString(value);
+        return value != null && !value.isBlank() && validator.isValidString(value);
     }
 
 }

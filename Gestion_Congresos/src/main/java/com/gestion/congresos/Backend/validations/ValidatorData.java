@@ -113,7 +113,8 @@ public class ValidatorData {
         if (value.length() < 1 || value.length() > 255) {
             return false;
         }
-        return value.matches("^[\\w\\sáéíóúÁÉÍÓÚñÑ.,()\\-]+$");
+
+        return value.matches("^[\\w\\sáéíóúÁÉÍÓÚñÑ0-9.,()\\-]+$");
     }
 
 }

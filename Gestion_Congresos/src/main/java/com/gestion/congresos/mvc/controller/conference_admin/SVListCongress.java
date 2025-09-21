@@ -27,7 +27,7 @@ public class SVListCongress extends HttpServlet {
 
             request.setAttribute("congresses", congresses);
 
-            request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/list-congresses.jsp")
+            request.getRequestDispatcher("/mvc/ajax/conference-admin/list-congresses.jsp")
                     .forward(request, response);
 
         } catch (DataBaseException e) {

@@ -3,7 +3,7 @@
 async function loadEditAdminForm(adminId) {
   try {
     const url = `${contextPath}/SVAdminCRUD?action=loadEditForm&id=${adminId}`;
-    console.log("Fetch URL:", url);
+ 
 
     const res = await fetch(url);
     if (!res.ok) throw new Error("Error al cargar formulario de edición");

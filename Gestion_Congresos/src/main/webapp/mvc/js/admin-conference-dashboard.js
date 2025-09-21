@@ -5,14 +5,14 @@ function showContent(html) {
   const cards = document.querySelector("#cards-container");
   const content = document.querySelector("#content");
 
-  cards.style.display = "none";
-  content.style.display = "block";
+  cards.classList.add("d-none");
+  content.classList.remove("d-none");
   content.innerHTML = html;
 }
 
 function showCards() {
-  document.querySelector("#cards-container").style.display = "flex";
-  document.querySelector("#content").style.display = "none";
+  document.querySelector("#cards-container").classList.remove("d-none");
+  document.querySelector("#content").classList.add("d-none");
   document.querySelector("#content").innerHTML = "";
 }
 
@@ -106,7 +106,7 @@ async function submitCreateConference(form) {
 
     if (result.success) {
       alert(result.message);
-      showCards();
+      loadConferences();
     } else {
       alert("Error: " + result.message);
     }
@@ -320,7 +320,7 @@ async function submitCreateRoom(form) {
       case "btn-create-congress":
         loadCreateConferenceForm();
         break;
-      case "btn-list-congresses":
+      case "btn-list-congress":
         loadConferences();
         break;
       case "btn-create-activity":

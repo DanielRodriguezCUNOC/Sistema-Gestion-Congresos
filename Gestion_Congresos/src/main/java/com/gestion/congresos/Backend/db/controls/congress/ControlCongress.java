@@ -50,10 +50,11 @@ public class ControlCongress {
     }
 
     public boolean existsCongressByName(String nameCongress) throws DataBaseException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
         String query = "SELECT COUNT(*) AS count FROM Congreso WHERE nombre_congreso = ?";
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, nameCongress);
             var rs = ps.executeQuery();

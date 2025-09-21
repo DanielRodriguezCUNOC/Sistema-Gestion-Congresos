@@ -46,9 +46,9 @@ public class ControlActivity {
 
     public boolean existsActivityByName(String nameActivity) throws DataBaseException {
         String query = "SELECT COUNT(*) AS count FROM Actividad WHERE nombre_actividad = ?";
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, nameActivity);
             var rs = ps.executeQuery();

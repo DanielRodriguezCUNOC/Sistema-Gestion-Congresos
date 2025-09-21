@@ -98,7 +98,7 @@ public class CongressHandler {
     }
 
     public boolean convertStringToBoolean(String value) {
-        return value != null && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("si"));
+        return value != null && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("on"));
     }
 
 }

@@ -106,8 +106,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       class="form-control"
       id="workshopQuota"
       name="workshopQuota"
-      min="1"
-      required
     />
   </div>
 

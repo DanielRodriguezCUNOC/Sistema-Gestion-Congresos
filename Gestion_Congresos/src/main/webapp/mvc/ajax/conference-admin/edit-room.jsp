@@ -4,7 +4,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="container mt-4">
   <h3 class="mb-3 text-primary">Editar Datos del Salón</h3>
 
-  <form method="post" class="needs-validation" novalidate>
+  <form id="form-edit-room" method="post" class="needs-validation" novalidate>
     <div class="mb-3">
       <label for="nombre_institucion" class="form-label"
         >Nombre de la Institución</label
@@ -48,17 +48,19 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     </div>
 
     <div class="mb-3">
-      <label for="ubicacion" class="form-label">Ubicación</label>
+      <label for="address" class="form-label">Ubicación</label>
       <input
         type="text"
         class="form-control"
-        id="ubicacion"
+        id="address"
         name="address"
         value="${room.direccion}"
         required
       />
       <div class="invalid-feedback">Por favor ingrese la ubicación.</div>
     </div>
+
+    <input type="hidden" name="idRoom" value="${room.idSalon}" />
 
     <div class="d-grid gap-2 mt-4">
       <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
