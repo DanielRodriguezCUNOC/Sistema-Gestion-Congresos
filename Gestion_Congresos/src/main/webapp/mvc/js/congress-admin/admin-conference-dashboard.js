@@ -1,20 +1,4 @@
-// ==========================
-// Funciones base
-// ==========================
-function showContent(html) {
-  const cards = document.querySelector("#cards-container");
-  const content = document.querySelector("#content");
 
-  cards.style.display = "none";
-  content.style.display = "block";
-  content.innerHTML = html;
-}
-
-function showCards() {
-  document.querySelector("#cards-container").style.display = "flex";
-  document.querySelector("#content").style.display = "none";
-  document.querySelector("#content").innerHTML = "";
-}
 
 //* Funcionalidades relacionadas a Creacion de Ponentes Invitados*/
 
@@ -106,7 +90,7 @@ async function submitCreateConference(form) {
 
     if (result.success) {
       alert(result.message);
-      showCards();
+      loadConferences();
     } else {
       alert("Error: " + result.message);
     }
@@ -156,11 +140,14 @@ async function loadConferences() {
   // ==========================
   async function loadCreateActivityForm() {
     try {
+
+      console.log("Lllamando fetch SVCreateActivity");
       const res = await fetch(`${contextPath}/SVCreateActivity`);
       if (!res.ok) throw new Error("Error al cargar formulario");
 
       const html = await res.text();
       showContent(html);
+     
     } catch (err) {
       console.error(err);
       alert("Ocurrió un error al cargar el formulario.");
@@ -206,7 +193,7 @@ async function loadConferences() {
   // ==========================
   async function loadActivities() {
     try {
-      const res = await fetch(`${contextPath}/SVListActivities`);
+      const res = await fetch(`${contextPath}/SVListActivity`);
       if (!res.ok) throw new Error("Error en la petición");
 
       const html = await res.text();
@@ -320,7 +307,7 @@ async function submitCreateRoom(form) {
       case "btn-create-congress":
         loadCreateConferenceForm();
         break;
-      case "btn-list-congresses":
+      case "btn-list-congress":
         loadConferences();
         break;
       case "btn-create-activity":

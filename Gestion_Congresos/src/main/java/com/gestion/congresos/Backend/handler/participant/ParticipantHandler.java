@@ -1,4 +1,6 @@
-package com.gestion.congresos.Backend.handler;
+package com.gestion.congresos.Backend.handler.participant;
+
+import java.util.List;
 
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
 import com.gestion.congresos.Backend.db.models.UserModel;
@@ -35,5 +37,9 @@ public class ParticipantHandler {
         String idRolStr = idRolObj.toString();
         return "1".equals(idRolStr) || "2".equals(idRolStr) || "3".equals(idRolStr) || "4".equals(idRolStr)
                 || "5".equals(idRolStr);
+    }
+
+    public List<String[]> getAllActiveCongresses() {
+
     }
 }

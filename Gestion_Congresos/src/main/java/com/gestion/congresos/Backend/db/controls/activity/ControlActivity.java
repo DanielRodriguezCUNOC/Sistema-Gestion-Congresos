@@ -3,21 +3,27 @@ package com.gestion.congresos.Backend.db.controls.activity;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Types;
 
 import com.gestion.congresos.Backend.db.DBConnectionSingleton;
 import com.gestion.congresos.Backend.db.models.ActivityModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
 
 public class ControlActivity {
+
     private static final String INSERT_NEW_ACTIVITY = "INSERT INTO Actividad (" +
-            "id_salon, id_congreso, id_tipo_actividad, nombre_actividad, fecha, hora_inicio, hora_fin, descripcion" +
-            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            "id_salon, id_congreso, id_tipo_actividad, nombre_actividad, fecha, hora_inicio, hora_fin, descripcion, cupo_taller"
+            +
+            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public boolean insertActivity(ActivityModel activity) throws SQLException, DataBaseException {
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(INSERT_NEW_ACTIVITY)) {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+        try (PreparedStatement ps = conn.prepareStatement(INSERT_NEW_ACTIVITY)) {
 
             conn.setAutoCommit(false);
 
@@ -29,6 +35,12 @@ public class ControlActivity {
             ps.setTime(6, Time.valueOf(activity.getHoraInicio()));
             ps.setTime(7, Time.valueOf(activity.getHoraFin()));
             ps.setString(8, activity.getDescripcion());
+            if (activity.getCupoTaller() != null) {
+                ps.setInt(9, activity.getCupoTaller());
+            } else {
+                ps.setNull(9, Types.INTEGER);
+
+            }
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -45,13 +57,14 @@ public class ControlActivity {
     }
 
     public boolean existsActivityByName(String nameActivity) throws DataBaseException {
+
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
         String query = "SELECT COUNT(*) AS count FROM Actividad WHERE nombre_actividad = ?";
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, nameActivity);
-            var rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 int count = rs.getInt("count");
@@ -62,6 +75,28 @@ public class ControlActivity {
 
         } catch (SQLException e) {
             throw new DataBaseException("Error al verificar la existencia de la actividad", e);
+        }
+    }
+
+    public int getIdCongressByNameActivity(String nameActivity) throws DataBaseException, ObjectNotFoundException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+        String query = "SELECT id_congreso FROM Actividad WHERE nombre_actividad = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, nameActivity);
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return rs.getInt("id_congreso");
+                } else {
+                    throw new ObjectNotFoundException("No se encontró el congreso para la actividad: " + nameActivity);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DataBaseException("Error al obtener el ID del congreso por nombre de actividad", e);
         }
     }
 

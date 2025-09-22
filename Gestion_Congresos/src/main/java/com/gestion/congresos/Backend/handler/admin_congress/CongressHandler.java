@@ -1,11 +1,10 @@
-package com.gestion.congresos.Backend.handler;
+package com.gestion.congresos.Backend.handler.admin_congress;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
-
-import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
 import com.gestion.congresos.Backend.db.controls.congress.ControlCongress;
+import com.gestion.congresos.Backend.db.controls.institution.ControlInstitution;
 import com.gestion.congresos.Backend.db.models.CongressModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
@@ -33,7 +32,7 @@ public class CongressHandler {
     public boolean createCongress()
             throws DataBaseException, MissingDataException, ObjectNotFoundException, ObjectAlreadyExists {
 
-        ControlConferenceAdmin controlConferenceAdmin = new ControlConferenceAdmin();
+        ControlInstitution controlInstitution = new ControlInstitution();
 
         ControlCongress controlCongress = new ControlCongress();
 
@@ -75,7 +74,7 @@ public class CongressHandler {
                 throw new MissingDataException("El nombre de la institucion no es valido");
             }
 
-            int idInstitution = controlConferenceAdmin.getIdInstitutionByName(nameInstitution);
+            int idInstitution = controlInstitution.getIdInstitutionByName(nameInstitution);
 
             if (idInstitution < 0) {
                 throw new ObjectNotFoundException("La institucion no existe en la base de datos");
@@ -98,7 +97,7 @@ public class CongressHandler {
     }
 
     public boolean convertStringToBoolean(String value) {
-        return value != null && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("si"));
+        return value != null && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("on"));
     }
 
 }

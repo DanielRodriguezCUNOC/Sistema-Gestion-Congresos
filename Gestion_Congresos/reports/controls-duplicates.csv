@@ -1,0 +1,44 @@
+class,method_signature,return_type,observation,duplication_group
+controls.room.ControlRoomActivity,isRoomAvailable(int idRoom, String dateActivity, String timeStarting, String timeEnding),boolean,Check room availability by counting overlapping activities,None
+controls.room.ControlRoomCRUD,editRoom(int idRoom, int idInstitution, String nameRoom, int capacity, String address),boolean,Update salon fields,CRUD
+controls.room.ControlRoomCRUD,getRoomById(int idRoom),RoomModel,Select * from Salon by id,GetById pattern
+controls.room.ControlRoomCRUD,deleteRoom(int idRoom),boolean,Delete salon by id,CRUD
+controls.room.ControlRoom,insertRoom(RoomModel salon),boolean,Insert new salon,CRUD
+controls.room.ControlRoom,existsRoom(String nameRoom, int idInstitucion, String ubicacion),boolean,COUNT(*) > 0 check,Exists pattern
+controls.room.ControlRoom,getAllRooms(),List<String[]>,Map ResultSet to String[] List,Listing/Mapping
+controls.room.ControlRoom,getIdRoomByName(String nameRoom),int,Select id_salon by name,GetIdByName
+controls.activity.ControlActivityCRUD,getGetActivityById(int idActivity),ActivityModel,Select * from Actividad by id (naming inconsistent),GetById pattern
+controls.activity.ControlActivityCRUD,deleteActivity(int idActivity),boolean,Delete activity by id,CRUD
+controls.activity.ControlActivityCRUD,updateActivity(ActivityModel activity),boolean,Update actividad fields,CRUD
+controls.activity.ControlActivity,insertActivity(ActivityModel activity),boolean,Insert new actividad,CRUD
+controls.activity.ControlActivity,existsActivityByName(String nameActivity),boolean,COUNT(*) > 0 check,Exists pattern
+controls.congress.ControlCongress,insertCongress(CongressModel congress),boolean,Insert new congreso,CRUD
+controls.congress.ControlCongress,existsCongressByName(String nameCongress),boolean,COUNT(*) > 0 check,Exists pattern
+controls.congress.ControlCongress,getIdCongressByName(String nameCongress),int,Select id_congreso by name,GetIdByName
+controls.congress.ControlCongress,getCongressById(int idCongress),CongressModel,Select * from Congreso by id,GetById pattern
+controls.congress.ControlCongressCRUD,editCongress(int idCongress, String nombre, String descripcion, Date fechaInicio, Date fechaFin, String costo, boolean aceptaConvocatoria),boolean,Update congreso fields,CRUD
+controls.institution.ControlInstitution,insertInstitution(InstitutionModel institution),boolean,Insert new institution,CRUD
+controls.institution.ControlInstitution,existsInstitution(String name_institution),boolean,COUNT(*) > 0 check,Exists pattern
+controls.institution.ControlInstitution,getIdInstitutionByName(String name_institution),int,Select id_institucion by name,GetIdByName
+controls.tipo_actividad.ControlTipoActividad,getIdTipeActivityByName(String tipoActividad),int,Select id_tipo_actividad by name,GetIdByName
+controls.guest_speaker.ControlGuestSpeaker,, ,Class empty,None
+controls.user.UserControl,insertUser(UserModel user),boolean,Insert new user,CRUD
+controls.user.UserControl,validateUser(String username),boolean,Select * by username -> exists,Exists pattern
+controls.user.UserControl,getEmailByUsername(String username),String,Select correo by username,User utilities
+controls.user.UserControl,getUserIdByUsername(String username),int,Select id_usuario by username,User utilities
+controls.user.UserControl,getUserRolIdByIdUser(int userId),int,Select id_rol by id_usuario,User utilities
+controls.user.UserControl,getUserById(int userId),UserModel,Select * from Usuario by id,GetById pattern
+controls.rol.RolControl,getIdRol(String rol),int,Select id_rol by rol name,GetIdByName
+controls.rol.RolControl,getAllRol(),List<String>,Select all roles,Listing
+controls.login.ControlLogin,userExist(String username, String password),boolean,Select * where usuario=? AND password=? -> exists,Auth
+controls.admin.ControlSysAdminCRUD,updateAdmin(int userId, String username, String phone, String organization, byte[] photo),boolean,Update user fields,CRUD
+controls.admin.ControlSysAdminCRUD,activateUser(int userId),boolean,Set estado = 'ACTIVO',User state management
+controls.admin.ControlSysAdminCRUD,deactivateUser(int userId),boolean,Set estado = 'INACTIVO' with constraints,User state management
+controls.admin.ControlConferenceAdmin,getIdInstitutionByName(String),int,Select id_institucion by name,GetIdByName
+controls.admin.ControlConferenceAdmin,getIdTypeActivityByName(String),int,Select id_tipo_actividad by name,GetIdByName
+controls.admin.ControlConferenceAdmin,getAllGuestsSpeakers(),List<String[]>,Map ResultSet to String[] for guest speakers,Listing/Mapping
+controls.admin.ControlConferenceAdmin,getAllCongress(),List<String[]>,Map ResultSet to String[] for congresses,Listing/Mapping
+controls.admin.ControlConferenceAdmin,getAllActivities(),List<String[]>,Map ResultSet to String[] for activities,Listing/Mapping
+controls.admin.ControlSysAdmin,getAllConferenceAdmins(),List<String[]>,Map ResultSet to String[] for conference admins,Listing/Mapping
+controls.admin.ControlSysAdmin,getAllInstitutions(),List<InstitutionModel>,Map ResultSet to InstitutionModel list,Listing/Mapping
+controls.admin.ControlSysAdmin,getAllAdmins(),List<String[]>,Map ResultSet to String[] for admins,Listing/Mapping

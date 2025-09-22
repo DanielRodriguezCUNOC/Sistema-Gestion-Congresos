@@ -1,51 +1,18 @@
-<@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ taglib
-uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<form id="actividadForm" class="needs-validation" novalidate>
-  <input type="hidden" name="id_actividad" value="${activity.idActividad}" />
+<form id="form-edit-activity" class="needs-validation" novalidate>
+  <!-- Campos ocultos -->
+  <input type="hidden" name="idActivity" value="${activity.idActividad}" />
+  <input type="hidden" name="idTipoActividad" value="${activity.idTipoActividad}" />
+  <input type="hidden" name="idSalon" value="${activity.idSalon}" />
+  <input type="hidden" name="idCongreso" value="${activity.idCongreso}" />
 
   <h3 class="text-center mb-4">Editar Actividad</h3>
 
+  <!-- Nombre de la Actividad -->
   <div class="mb-3">
-    <label for="nombre_salon" class="form-label">Nombre del Salón</label>
-    <input
-      type="text"
-      class="form-control"
-      id="nombre_salon"
-      name="nombre_salon"
-      required
-    />
-  </div>
-
-  <div class="mb-3">
-    <label for="nombre_congreso" class="form-label">Nombre del Congreso</label>
-    <input
-      type="text"
-      class="form-control"
-      id="nombre_congreso"
-      name="nombre_congreso"
-      required
-    />
-  </div>
-
-  <div class="mb-3">
-    <label for="tipo_actividad" class="form-label">Tipo de Actividad</label>
-    <select
-      class="form-select"
-      id="tipo_actividad"
-      name="tipo_actividad"
-      required
-    >
-      <option value="" selected disabled>Seleccione...</option>
-      <option value="PONENCIA">PONENCIA</option>
-      <option value="TALLER">TALLER</option>
-    </select>
-  </div>
-
-  <div class="mb-3">
-    <label for="nombre_actividad" class="form-label"
-      >Nombre de la Actividad</label
-    >
+    <label for="nombre_actividad" class="form-label">Nombre de la Actividad</label>
     <input
       type="text"
       class="form-control"
@@ -57,6 +24,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     />
   </div>
 
+  <!-- Fecha y Horarios -->
   <div class="row">
     <div class="col-md-6 mb-3">
       <label for="fecha" class="form-label">Fecha</label>
@@ -93,18 +61,19 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     </div>
   </div>
 
+  <!-- Descripción -->
   <div class="mb-3">
     <label for="descripcion" class="form-label">Descripción</label>
     <textarea
       class="form-control"
       id="descripcion"
       name="descripcion"
-      value="${activity.descripcion}"
       maxlength="255"
       required
-    ></textarea>
+    >${activity.descripcion}</textarea>
   </div>
 
+  <!-- Cupo taller -->
   <div class="mb-3">
     <label for="cupo_taller" class="form-label">Cupo (solo si es taller)</label>
     <input
@@ -112,15 +81,15 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
       class="form-control"
       id="cupo_taller"
       name="cupo_taller"
-      value="${activity.cupoTaller}"
+      value="${activity.cupoTaller != null ? activity.cupoTaller : ''}"
       min="1"
-      disabled
+      <c:if test="${activity.idTipoActividad != 2}">disabled</c:if>
     />
   </div>
+
+  <!-- Botones -->
   <div class="d-grid gap-2 mt-4">
     <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
-    <button type="button" class="btn btn-secondary btn-lg" id="btn-cancel">
-      Cancelar
-    </button>
+    <button type="button" class="btn btn-secondary btn-lg" id="btn-cancel">Cancelar</button>
   </div>
 </form>

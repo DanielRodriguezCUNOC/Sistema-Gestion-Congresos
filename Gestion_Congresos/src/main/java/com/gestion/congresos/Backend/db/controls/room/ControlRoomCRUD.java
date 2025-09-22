@@ -12,16 +12,16 @@ import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
 
 public class ControlRoomCRUD {
 
-    public boolean editRoom(int idRoom, String nameInstitution, String nameRoom, int capacity, String address)
+    public boolean editRoom(int idRoom, int idInstitution, String nameRoom, int capacity, String address)
             throws DataBaseException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-        String sql = "UPDATE Salon SET nombre_institucion = ?, nombre_salon = ?, capacidad = ?, ubicacion = ? WHERE id_salon = ?";
+        String sql = "UPDATE Salon SET id_institucion = ?, nombre_salon = ?, capacidad = ?, ubicacion = ? WHERE id_salon = ?";
         try {
             conn.setAutoCommit(false);
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-                ps.setString(1, nameInstitution);
+                ps.setInt(1, idInstitution);
                 ps.setString(2, nameRoom);
                 ps.setInt(3, capacity);
                 ps.setString(4, address);

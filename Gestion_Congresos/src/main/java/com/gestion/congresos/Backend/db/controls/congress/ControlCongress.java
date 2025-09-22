@@ -50,10 +50,11 @@ public class ControlCongress {
     }
 
     public boolean existsCongressByName(String nameCongress) throws DataBaseException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
         String query = "SELECT COUNT(*) AS count FROM Congreso WHERE nombre_congreso = ?";
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, nameCongress);
             var rs = ps.executeQuery();
@@ -71,10 +72,11 @@ public class ControlCongress {
     }
 
     public int getIdCongressByName(String nameCongress) throws DataBaseException, ObjectNotFoundException {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
         String query = "SELECT id_congreso FROM Congreso WHERE nombre_congreso = ?";
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, nameCongress);
             try (ResultSet rs = ps.executeQuery()) {
@@ -95,8 +97,9 @@ public class ControlCongress {
     public CongressModel getCongressById(int idCongress) throws DataBaseException, ObjectNotFoundException {
         String query = "SELECT * FROM Congreso WHERE id_congreso = ?";
 
-        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setInt(1, idCongress);
             try (ResultSet rs = ps.executeQuery()) {

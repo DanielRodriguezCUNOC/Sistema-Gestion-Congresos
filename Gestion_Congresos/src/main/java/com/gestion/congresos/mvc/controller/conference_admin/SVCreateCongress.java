@@ -6,7 +6,7 @@ import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.ObjectAlreadyExists;
 import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
-import com.gestion.congresos.Backend.handler.CongressHandler;
+import com.gestion.congresos.Backend.handler.admin_congress.CongressHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

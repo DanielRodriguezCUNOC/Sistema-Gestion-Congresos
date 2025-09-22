@@ -6,7 +6,8 @@ import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.ObjectAlreadyExists;
 import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
-import com.gestion.congresos.Backend.handler.ActivityHandler;
+import com.gestion.congresos.Backend.handler.admin_congress.ActivityHandler;
+import com.gestion.congresos.Backend.handler.admin_congress.CongressActivityHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -40,8 +41,17 @@ public class SVCreateActivity extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        request.getRequestDispatcher("/mvc/ajax/conference-admin/create-activity.jsp").forward(request,
-                response);
+        CongressActivityHandler institutionRoomHandler = new CongressActivityHandler();
+        try {
+            request.setAttribute("congresses", institutionRoomHandler.getNamesCongresses());
+
+            request.getRequestDispatcher("/mvc/ajax/conference-admin/create-activity.jsp").forward(request,
+                    response);
+        } catch (DataBaseException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/mvc/error.jsp").forward(request, response);
+            return;
+        }
 
     }
 

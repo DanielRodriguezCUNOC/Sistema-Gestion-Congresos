@@ -36,7 +36,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <div class="card-body text-center">
                   <h5 class="fw-bold">📝 Inscripción</h5>
                   <p>Elige el congreso en el que deseas inscribirte.</p>
-                  <a href="inscripcion.jsp" class="btn btn-primary"
+                  <a
+                    href="#"
+                    id="btn-participant-inscription"
+                    class="btn btn-primary"
                     >Inscribirse</a
                   >
                 </div>
@@ -129,5 +132,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       </section>
     </main>
     <jsp:include page="/includes/footer.jsp" />
+    <script>
+      const contextPath = "${pageContext.request.contextPath}";
+    </script>
+    <script src="${pageContext.request.contextPath}/mvc/js/dashboard-base.js"></script>
+    <script src="${pageContext.request.contextPath}/mvc/js/participant-dashboard-base.js"></script>
   </body>
 </html>

@@ -3,9 +3,8 @@ package com.gestion.congresos.mvc.controller.conference_admin;
 import java.io.IOException;
 import java.util.List;
 
-import com.gestion.congresos.Backend.db.models.CongressModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
-import com.gestion.congresos.Backend.handler.ConferenceAdminHandler;
+import com.gestion.congresos.Backend.handler.admin_congress.ConferenceAdminHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,11 +22,11 @@ public class SVListCongress extends HttpServlet {
         try {
             ConferenceAdminHandler conferenceAdminHandler = new ConferenceAdminHandler();
 
-            List<CongressModel> congresses = conferenceAdminHandler.getAllCongresses();
+            List<String[]> congresses = conferenceAdminHandler.getAllCongresses();
 
             request.setAttribute("congresses", congresses);
 
-            request.getRequestDispatcher("/mvc/dashboard/ajax/conference-admin/list-congresses.jsp")
+            request.getRequestDispatcher("/mvc/ajax/conference-admin/list-congresses.jsp")
                     .forward(request, response);
 
         } catch (DataBaseException e) {

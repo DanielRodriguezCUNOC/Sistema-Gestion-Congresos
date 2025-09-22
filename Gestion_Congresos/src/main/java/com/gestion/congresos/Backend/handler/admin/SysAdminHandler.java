@@ -1,4 +1,4 @@
-package com.gestion.congresos.Backend.handler;
+package com.gestion.congresos.Backend.handler.admin;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -41,7 +41,7 @@ public class SysAdminHandler {
 
         UserControl userControl = new UserControl();
 
-        // * Obtenemos el id del usuario loggeado de la sesion */
+        // * Obtenemos el idAdmin del usuario loggeado de la sesion */
         Object idUserObj = request.getSession().getAttribute("idUser");
 
         if (idUserObj == null) {
@@ -51,11 +51,6 @@ public class SysAdminHandler {
 
         return userControl.getUserById(idUser);
 
-    }
-
-    public List<String[]> getAllConferenceAdmins() throws DataBaseException {
-        ControlSysAdmin controlSysAdmin = new ControlSysAdmin();
-        return controlSysAdmin.getAllConferenceAdmins();
     }
 
     public boolean addInstitution() throws DataBaseException, InstitutionAlredyExists {
@@ -136,7 +131,7 @@ public class SysAdminHandler {
     }
 
     public UserModel getAdminById() throws DataBaseException, UserNotFoundException {
-        int idToEdit = Integer.parseInt(request.getParameter("id"));
+        int idToEdit = Integer.parseInt(request.getParameter("idAdmin"));
         UserControl userControl = new UserControl();
         return userControl.getUserById(idToEdit);
     }

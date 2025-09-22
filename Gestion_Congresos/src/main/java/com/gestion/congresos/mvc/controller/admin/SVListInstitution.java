@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.gestion.congresos.Backend.db.models.InstitutionModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
-import com.gestion.congresos.Backend.handler.SysAdminHandler;
+import com.gestion.congresos.Backend.handler.admin.SysAdminHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
