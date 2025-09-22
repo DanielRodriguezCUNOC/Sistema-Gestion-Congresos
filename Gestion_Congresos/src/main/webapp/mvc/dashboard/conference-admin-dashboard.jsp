@@ -69,21 +69,6 @@
               <div class="col-md-4">
                 <div class="card shadow-sm h-100">
                   <div class="card-body text-center">
-                    <h5 class="fw-bold">📢 Abrir Convocatoria</h5>
-                    <p>Inicia la convocatoria para un nuevo congreso.</p>
-                    <a
-                      href="#"
-                      id="btn-open-convocatory"
-                      class="btn btn-secondary"
-                      >Abrir</a
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="card shadow-sm h-100">
-                  <div class="card-body text-center">
                     <h5 class="fw-bold">👩‍🔬 Registrar Comité Científico</h5>
                     <p>Asignar miembros del comité científico.</p>
                     <a href="definir-comite.jsp" class="btn btn-secondary"
@@ -193,36 +178,6 @@
               <div class="col-md-4">
                 <div class="card shadow-sm h-100">
                   <div class="card-body text-center">
-                    <h5 class="fw-bold">Listar Actividades</h5>
-                    <p>Consultar todas las actividades de un congreso.</p>
-                    <a
-                      href="#"
-                      id="btn-list-activities"
-                      class="btn btn-secondary"
-                      >Listar</a
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="card shadow-sm h-100">
-                  <div class="card-body text-center">
-                    <h5 class="fw-bold">Eliminar Actividad</h5>
-                    <p>Eliminar actividades no deseadas o canceladas.</p>
-                    <a
-                      href="#"
-                      id="btn-delete-activity"
-                      class="btn btn-secondary"
-                      >Eliminar</a
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="card shadow-sm h-100">
-                  <div class="card-body text-center">
                     <h5 class="fw-bold">Registrar Asistencia</h5>
                     <p>
                       Registrar asistencia de participantes a las actividades.
@@ -308,7 +263,9 @@
     <script>
       const contextPath = "${pageContext.request.contextPath}";
     </script>
-    <script src="${pageContext.request.contextPath}/mvc/js/admin-conference-dashboard.js"></script>
-    <script src="${pageContext.request.contextPath}/mvc/js/crud-conference-admins.js"></script>
+    <script src="${pageContext.request.contextPath}/mvc/js/dashboard-base.js"></script>
+    <script src="${pageContext.request.contextPath}/mvc/js/congress-admin/dinamic-create-activity.js"></script>
+    <script src="${pageContext.request.contextPath}/mvc/js/congress-admin/admin-conference-dashboard.js"></script>
+    <script src="${pageContext.request.contextPath}/mvc/js/congress-admin/crud-conference-admins.js"></script>
   </body>
 </html>

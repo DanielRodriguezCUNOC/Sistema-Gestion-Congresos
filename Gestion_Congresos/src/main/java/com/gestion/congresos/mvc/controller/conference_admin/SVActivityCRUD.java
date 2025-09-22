@@ -4,8 +4,9 @@ import java.io.IOException;
 
 import com.gestion.congresos.Backend.db.models.ActivityModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
-import com.gestion.congresos.Backend.handler.ActivityCRUDHandler;
+import com.gestion.congresos.Backend.handler.admin_congress.ActivityCRUDHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -47,8 +48,12 @@ public class SVActivityCRUD extends HttpServlet {
         ActivityCRUDHandler handler = new ActivityCRUDHandler(request);
 
         String action = request.getParameter("action");
-
-        String idParam = request.getParameter("activityId");
+        // Debug: mostrar parámetros entrantes
+        System.out.println("[DEBUG SVActivityCRUD] action=" + action);
+        String idParam = request.getParameter("idActivity");
+        System.out.println("[DEBUG SVActivityCRUD] idActivity=" + idParam);
+        System.out.println("[DEBUG SVActivityCRUD] All params:");
+        request.getParameterMap().forEach((k, v) -> System.out.println("  " + k + "=" + java.util.Arrays.toString(v)));
 
         if (action == null || idParam == null) {
             response.getWriter().write("{\"success\": false, \"message\": \"Parámetros inválidos\"}");
@@ -63,7 +68,7 @@ public class SVActivityCRUD extends HttpServlet {
 
             switch (action) {
                 case "edit":
-                    boolean updated = handler.editActivity(idActivity);
+                    boolean updated = handler.editActivity();
                     if (updated) {
                         response.getWriter()
                                 .write("{\"success\": true, \"message\": \"Actividad actualizada correctamente.\"}");
@@ -85,7 +90,7 @@ public class SVActivityCRUD extends HttpServlet {
                 default:
                     response.getWriter().write("{\"success\": false, \"message\": \"Acción no válida.\"}");
             }
-        } catch (DataBaseException | ObjectNotFoundException e) {
+        } catch (DataBaseException | MissingDataException e) {
             response.getWriter().write("{\"success\": false, \"message\": \"Error: " + e.getMessage() + "\"}");
             e.printStackTrace();
         }

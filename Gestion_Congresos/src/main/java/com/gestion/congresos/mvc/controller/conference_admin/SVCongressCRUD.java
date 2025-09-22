@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.gestion.congresos.Backend.db.models.CongressModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
-import com.gestion.congresos.Backend.handler.CongressCRUDHandler;
+import com.gestion.congresos.Backend.handler.admin_congress.CongressCRUDHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

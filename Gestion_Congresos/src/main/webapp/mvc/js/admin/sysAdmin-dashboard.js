@@ -1,20 +1,4 @@
-// ==========================
-// Funciones base
-// ==========================
-function showContent(html) {
-  const cards = document.querySelector("#cards-container");
-  const content = document.querySelector("#content");
 
-  cards.style.display = "none";
-  content.style.display = "block";
-  content.innerHTML = html;
-}
-
-function showCards() {
-  document.querySelector("#cards-container").style.display = "flex";
-  document.querySelector("#content").style.display = "none";
-  document.querySelector("#content").innerHTML = "";
-}
 
 //* Funcionalidades relacionadas a Creacion de Administrador de Congreso*/
 
@@ -56,7 +40,7 @@ async function submitCreateConferenceAdmin(form) {
       alert(result.message);
       
       //! Cargar listado después de crear
-      loadConferenceAdmins();
+      loadAdmins();
     } else {
       alert("Error: " + result.message);
     }
@@ -67,23 +51,6 @@ async function submitCreateConferenceAdmin(form) {
   }
 }
 
-// ==========================
-// Listar Administradores de Congreso
-// ==========================
-async function loadConferenceAdmins() {
-  try {
-    const res = await fetch(`${contextPath}/SVListConferenceAdmin`);
-    if (!res.ok) throw new Error("Error en la petición");
-
-    //* El servlet devuelve HTML (JSP renderizado)
-    const html = await res.text();
-    showContent(html + `<button class="btn btn-secondary mt-3" id="btn-back">Regresar</button>`);
-
-  } catch (err) {
-    console.error(err);
-    alert("Error al cargar los administradores");
-  }
-}
 
 //* Funcionalidades relacionadas a creacion de Instituciones*/
 
@@ -178,8 +145,6 @@ async function loadAdmins() {
   }
 }
 
-
-
 // ==========================
 // Delegación de eventos
 // ==========================
@@ -206,9 +171,6 @@ document.addEventListener("click", (e) => {
       return;
     case "btn-create-institution":
       loadCreateInstitutionForm();
-      return;
-    case "btn-list-conference-admins":
-      loadConferenceAdmins();
       return;
     case "btn-list-institutions":
       loadInstitutions();

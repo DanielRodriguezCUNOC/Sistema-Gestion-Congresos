@@ -1,4 +1,4 @@
-package com.gestion.congresos.Backend.handler;
+package com.gestion.congresos.Backend.handler.admin_congress;
 
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
 import com.gestion.congresos.Backend.db.models.UserModel;

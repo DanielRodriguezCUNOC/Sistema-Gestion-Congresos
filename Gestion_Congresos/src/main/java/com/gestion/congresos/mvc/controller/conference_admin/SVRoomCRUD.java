@@ -6,7 +6,7 @@ import com.gestion.congresos.Backend.db.models.RoomModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
-import com.gestion.congresos.Backend.handler.RoomCRUDHandler;
+import com.gestion.congresos.Backend.handler.admin_congress.RoomCRUDHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

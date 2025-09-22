@@ -1,14 +1,14 @@
-package com.gestion.congresos.Backend.handler;
+package com.gestion.congresos.Backend.handler.admin_congress;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.gestion.congresos.Backend.db.controls.activity.ControlActivity;
-import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
 import com.gestion.congresos.Backend.db.controls.congress.ControlCongress;
 import com.gestion.congresos.Backend.db.controls.room.ControlRoom;
 import com.gestion.congresos.Backend.db.controls.room.ControlRoomActivity;
+import com.gestion.congresos.Backend.db.controls.tipo_actividad.ControlTypeActivity;
 import com.gestion.congresos.Backend.db.models.ActivityModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.MissingDataException;
@@ -36,9 +36,9 @@ public class ActivityHandler {
     public boolean createActivity()
             throws DataBaseException, MissingDataException, ObjectAlreadyExists, ObjectNotFoundException {
 
-        ControlConferenceAdmin controlConferenceAdmin = new ControlConferenceAdmin();
-
         ControlActivity controlActivity = new ControlActivity();
+
+        ControlTypeActivity controlActivityType = new ControlTypeActivity();
 
         ControlCongress controlCongress = new ControlCongress();
 
@@ -50,6 +50,7 @@ public class ActivityHandler {
             String nameActivity = request.getParameter("nameActivity");
             String nameCongress = request.getParameter("nameCongress");
             String nameRoom = request.getParameter("nameRoom");
+            System.out.println("Valor recibido en nameRoom: [" + nameRoom + "]");
             String typeActivity = request.getParameter("typeActivity");
 
             String dateActivity = request.getParameter("dateActivity");
@@ -87,7 +88,7 @@ public class ActivityHandler {
                 throw new MissingDataException("El nombre de la actividad no es valido");
             } else if (!validatorData.isValidName(nameCongress)) {
                 throw new MissingDataException("El nombre del congreso no es valido");
-            } else if (!validatorData.isValidName(nameRoom)) {
+            } else if (!validatorData.isValidString(nameRoom)) {
                 throw new MissingDataException("El nombre del salon no es valido");
             } else if (!validatorData.isValidTypeActivity(typeActivity)) {
                 throw new MissingDataException("El tipo de actividad no es valido");
@@ -107,7 +108,7 @@ public class ActivityHandler {
                 throw new ObjectNotFoundException("El salon no existe en la base de datos");
             }
 
-            int idTypeActivity = controlConferenceAdmin.getIdTypeActivityByName(typeActivity);
+            int idTypeActivity = controlActivityType.getIdTypeActivityByName(typeActivity);
 
             if (idTypeActivity < 0) {
                 throw new ObjectNotFoundException("El tipo de actividad no existe en la base de datos");

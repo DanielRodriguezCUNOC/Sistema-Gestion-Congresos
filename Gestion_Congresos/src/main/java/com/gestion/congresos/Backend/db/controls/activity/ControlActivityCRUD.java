@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import com.gestion.congresos.Backend.db.DBConnectionSingleton;
 import com.gestion.congresos.Backend.db.models.ActivityModel;
@@ -12,9 +13,9 @@ import com.gestion.congresos.Backend.exceptions.ObjectNotFoundException;
 
 public class ControlActivityCRUD {
 
-    private static final String GET_ACTIVITY_BY_ID = "SELECT * FROM Actividad WHERE idActividad = ?;";
+    private static final String GET_ACTIVITY_BY_ID = "SELECT * FROM Actividad WHERE id_actividad = ?";
 
-    public ActivityModel getGetActivityById(int idActivity) throws DataBaseException, ObjectNotFoundException {
+    public ActivityModel getActivityById(int idActivity) throws DataBaseException, ObjectNotFoundException {
 
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -37,7 +38,14 @@ public class ControlActivityCRUD {
                     activity.setHoraInicio(rs.getTime("hora_inicio").toLocalTime());
                     activity.setHoraFin(rs.getTime("hora_fin").toLocalTime());
                     activity.setDescripcion(rs.getString("descripcion"));
-                    activity.setCupoTaller(rs.getInt("cupoTaller"));
+                    activity.setCupoTaller(rs.getInt("cupo_taller"));
+                    int cupoTaller = rs.getInt("cupo_taller");
+                    if (rs.wasNull()) {
+                        activity.setCupoTaller(null);
+                    } else {
+                        activity.setCupoTaller(cupoTaller);
+
+                    }
                     return activity;
                 } else {
                     throw new ObjectNotFoundException("No se encontró la actividad con ID: " + idActivity);
@@ -78,7 +86,7 @@ public class ControlActivityCRUD {
                     hora_inicio = ?,
                     hora_fin = ?,
                     descripcion = ?,
-                    cupoTaller = ?
+                    cupo_taller = ?
                 WHERE id_actividad = ?
                 """;
 
@@ -97,7 +105,7 @@ public class ControlActivityCRUD {
             if (activity.getCupoTaller() != null) {
                 ps.setInt(9, activity.getCupoTaller());
             } else {
-                ps.setNull(9, java.sql.Types.INTEGER);
+                ps.setNull(9, Types.INTEGER);
             }
             ps.setInt(10, activity.getIdActividad());
 

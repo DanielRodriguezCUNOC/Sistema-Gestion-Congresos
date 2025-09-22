@@ -59,15 +59,13 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                 </td>
                 <td>
                   <button
-                    class="btn btn-sm btn-primary"
-                    id="btn-edit-activity"
-                    data-activity-id="${actividad.idActividad}"
+                    class="btn btn-sm btn-primary btn-edit-activity"
+                    data-activity-id="${actividad[0]}"
                   >
                     Editar
                   </button>
                   <button
-                    class="btn btn-sm btn-danger"
-                    id="btn-delete-activity"
+                    class="btn btn-sm btn-danger btn-delete-activity"
                     data-activity-id="${actividad[0]}"
                   >
                     Eliminar

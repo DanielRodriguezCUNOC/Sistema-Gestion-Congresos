@@ -22,18 +22,19 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
   <div class="mb-3">
     <label for="nameCongress" class="form-label">Nombre Congreso</label>
-    <input
-      type="text"
-      class="form-control"
-      id="nameCongress"
-      name="nameCongress"
-      placeholder="COMPDES 2025"
-    />
+    <select class="form-select" id="nameCongress" name="nameCongress" required>
+      <option value="">Seleccione un congreso</option>
+      <c:forEach var="name" items="${congresses}">
+        <option value="${name}">${name}</option>
+      </c:forEach>
+    </select>
   </div>
 
   <div class="mb-3">
     <label for="nameRoom" class="form-label">Salón</label>
-    <input type="text" class="form-control" id="nameRoom" name="nameRoom" />
+    <select class="form-select" id="nameRoom" name="nameRoom" required>
+      <option value="">Seleccione un salón</option>
+    </select>
   </div>
 
   <div class="mb-3">

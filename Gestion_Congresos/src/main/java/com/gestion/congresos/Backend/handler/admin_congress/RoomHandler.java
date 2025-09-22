@@ -1,9 +1,9 @@
-package com.gestion.congresos.Backend.handler;
+package com.gestion.congresos.Backend.handler.admin_congress;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import com.gestion.congresos.Backend.db.controls.admin.ControlConferenceAdmin;
+import com.gestion.congresos.Backend.db.controls.institution.ControlInstitution;
 import com.gestion.congresos.Backend.db.controls.room.ControlRoom;
 import com.gestion.congresos.Backend.db.models.RoomModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
@@ -32,6 +32,8 @@ public class RoomHandler {
     public boolean createRoom()
             throws MissingDataException, DataBaseException, ObjectNotFoundException, ObjectAlreadyExists {
 
+        ControlInstitution controlInstitution = new ControlInstitution();
+
         String nameRoom = request.getParameter("nameRoom");
 
         String nameInstitution = request.getParameter("nameInstitution");
@@ -58,10 +60,8 @@ public class RoomHandler {
 
         ControlRoom controlRoom = new ControlRoom();
 
-        ControlConferenceAdmin controlConferenceAdmin = new ControlConferenceAdmin();
-
         try {
-            int idInstitution = controlConferenceAdmin.getIdInstitutionByName(nameInstitution);
+            int idInstitution = controlInstitution.getIdInstitutionByName(nameInstitution);
 
             if (idInstitution < 0) {
                 throw new ObjectNotFoundException("La institucion no existe en la base de datos");

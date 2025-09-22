@@ -127,23 +127,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             <div class="col-md-4">
               <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
-                  <h5 class="fw-bold">
-                    🧑‍💻 Listar Administradores de Congresos
-                  </h5>
-                  <p>Gestiona usuarios encargados de los Congresos.</p>
-                  <a
-                    href="#"
-                    id="btn-list-conference-admins"
-                    class="btn btn-dark"
-                    >Ver Listado</a
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
                   <h5 class="fw-bold">🏫 Listar Instituciones</h5>
                   <p>Gestiona las Instituciones que albergan Congresos.</p>
                   <a href="#" id="btn-list-institutions" class="btn btn-dark"
@@ -161,6 +144,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <script>
       const contextPath = "${pageContext.request.contextPath}";
     </script>
+    <script src="${pageContext.request.contextPath}/mvc/js/dashboard-base.js"></script>
     <script src="${pageContext.request.contextPath}/mvc/js/sysAdmin-dashboard.js"></script>
     <script src="${pageContext.request.contextPath}/mvc/js/crud-admins.js"></script>
   </body>

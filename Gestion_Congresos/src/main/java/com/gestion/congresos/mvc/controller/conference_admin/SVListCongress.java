@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
-import com.gestion.congresos.Backend.handler.ConferenceAdminHandler;
+import com.gestion.congresos.Backend.handler.admin_congress.ConferenceAdminHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

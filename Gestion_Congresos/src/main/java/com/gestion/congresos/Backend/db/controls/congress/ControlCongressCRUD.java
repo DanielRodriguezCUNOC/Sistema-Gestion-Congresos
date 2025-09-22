@@ -10,20 +10,21 @@ import com.gestion.congresos.Backend.exceptions.DataBaseException;
 
 public class ControlCongressCRUD {
 
-    public boolean editCongress(int idCongress, String nombre, String descripcion, Date fechaInicio,
+    public boolean editCongress(int idCongress, String nombre, Date fechaInicio,
             Date fechaFin,
-            String costo, boolean aceptaConvocatoria) throws DataBaseException {
+            String costo, boolean aceptaConvocatoria, boolean estado) throws DataBaseException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-        try (PreparedStatement ps = conn.prepareStatement(
-                "UPDATE Congreso SET nombre_congreso = ?, descripcion = ?, fecha_inicio = ?, fecha_fin = ?, costo = ?, acepta_convocatoria = ? WHERE id_congreso = ?")) {
+        String sql = "UPDATE Congreso SET nombre_congreso = ?, fecha_inicio = ?, fecha_fin = ?, precio = ?, acepta_convocatoria = ?, estado = ? WHERE id_congreso = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, nombre);
-            ps.setString(2, descripcion);
-            ps.setDate(3, fechaInicio);
-            ps.setDate(4, fechaFin);
-            ps.setString(5, costo);
-            ps.setBoolean(6, aceptaConvocatoria);
+            ps.setDate(2, fechaInicio);
+            ps.setDate(3, fechaFin);
+            ps.setString(4, costo);
+            ps.setBoolean(5, aceptaConvocatoria);
+            ps.setBoolean(6, estado);
             ps.setInt(7, idCongress);
 
             int rowsAffected = ps.executeUpdate();

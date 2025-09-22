@@ -5,7 +5,7 @@
 async function loadEditActivityForm(idActivity) {
   try {
     const res = await fetch(
-      `${contextPath}/SVCRUDActivity?action=loadEditForm&idActivity=${idActivity}`
+      `${contextPath}/SVActivityCRUD?action=loadEditForm&idActivity=${idActivity}`
     );
     if (!res.ok) throw new Error("Error al cargar formulario");
 
@@ -24,6 +24,11 @@ async function loadEditActivityForm(idActivity) {
 async function submitEditActivity(form) {
   const formData = new URLSearchParams(new FormData(form));
   formData.append("action", "edit");
+  // Debug: imprimir FormData enviado
+  console.log('[DEBUG submitEditActivity] Enviando FormData:');
+  for (const pair of formData.entries()) {
+    console.log('  ' + pair[0] + ' = ' + pair[1]);
+  }
   try {
     const res = await fetch(`${contextPath}/SVActivityCRUD`, {
       method: "POST",
@@ -34,11 +39,14 @@ async function submitEditActivity(form) {
     });
 
     if (!res.ok) {
+      const text = await res.text();
+      console.error('[DEBUG submitEditActivity] Response not ok, status=' + res.status + ', text=' + text);
       alert("Error al editar la actividad.");
       return;
     }
 
     const result = await res.json();
+    console.log('[DEBUG submitEditActivity] JSON result:', result);
     if (result.success) {
       alert(result.message);
       loadActivities();
@@ -238,54 +246,65 @@ document.addEventListener("submit", function (event) {
   }
 });
 
-//* Clics en botones dinamicos
+
+// * Clics en botones dinámicos con delegación de eventos
 document.addEventListener("click", function (event) {
-  const idActivity = null;
-  const idCongress = null;
+  const target = event.target;
 
-  switch (event.target.id) {
-    case "btn-take-attendance":
-      loadTakeAttendanceForm();
-      break;
+  // Tomar asistencia
+  if (target.classList.contains("btn-take-attendance")) {
+    loadTakeAttendanceForm();
+    return;
+  }
 
-    case "btn-delete-activity":
-      const idActivityToDelete = event.target.getAttribute("data-activity-id");
-      if (idActivityToDelete !== null) {
-        deleteActivity(idActivityToDelete);
-      }
+  // Editar actividad
+  if (target.classList.contains("btn-edit-activity")) {
+    const idActivity = target.getAttribute("data-activity-id");
+    if (idActivity) {
+      loadEditActivityForm(idActivity);
+    }
+    return;
+  }
 
-      break;
+  // Eliminar actividad
+  if (target.classList.contains("btn-delete-activity")) {
+    const idActivity = target.getAttribute("data-activity-id");
+    if (idActivity) {
+      deleteActivity(idActivity);
+    }
+    return;
+  }
 
-    case "btn-edit-activity":
-      const idActivity = event.target.getAttribute("data-activity-id");
-      if (idActivity !== null) {
-        loadEditActivityForm(idActivity);
-      }
+  // Editar congreso
+  if (target.classList.contains("btn-edit-congress")) {
+    const idCongress = target.getAttribute("data-congress-id");
+    if (idCongress) {
+      loadEditCongressForm(idCongress);
+    }
+    return;
+  }
 
-      break;
+  // Editar salón
+  if (target.classList.contains("btn-edit-room")) {
+    const idRoom = target.getAttribute("data-room-id");
+    if (idRoom) {
+      loadEditRoomForm(idRoom);
+    }
+    return;
+  }
 
-    case "btn-edit-congress":
-      const idCongress = event.target.getAttribute("data-congress-id");
-      if (idCongress !== null) {
-        loadEditCongressForm(idCongress);
-      }
-      break;
+  // Eliminar salón
+  if (target.classList.contains("btn-delete-room")) {
+    const idRoom = target.getAttribute("data-room-id");
+    if (idRoom) {
+      deleteRoom(idRoom);
+    }
+    return;
+  }
 
-    case "btn-edit-room":
-      const idRoom = event.target.getAttribute("data-room-id");
-      if (idRoom !== null) {
-        loadEditRoomForm(idRoom);
-      }
-      break;
-
-    case "btn-delete-room":
-      const idRoomToDelete = event.target.getAttribute("data-room-id");
-      if (idRoomToDelete !== null) {
-        deleteRoom(idRoomToDelete);
-      }
-      break;
-
-    default:
-      console.warn("Botón no manejado:", event.target.id);
+  // Si no coincide con ninguno
+  if (target.tagName === "BUTTON") {
+    console.warn("Botón no manejado:", target.className);
   }
 });
+

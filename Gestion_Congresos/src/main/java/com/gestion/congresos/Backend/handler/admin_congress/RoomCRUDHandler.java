@@ -1,4 +1,4 @@
-package com.gestion.congresos.Backend.handler;
+package com.gestion.congresos.Backend.handler.admin_congress;
 
 import com.gestion.congresos.Backend.db.controls.institution.ControlInstitution;
 import com.gestion.congresos.Backend.db.controls.room.ControlRoomCRUD;

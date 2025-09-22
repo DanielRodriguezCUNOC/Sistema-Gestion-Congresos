@@ -9,9 +9,13 @@ import java.time.format.DateTimeParseException;
 public class ValidatorData {
 
     public boolean isValidName(String name) {
-        if (name == null || name.length() > 255)
+        if (name == null)
             return false;
-        return name.matches("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,255}$");
+        String trimmed = name.trim();
+        if (trimmed.length() < 2 || name.length() > 255)
+            return false;
+
+        return name.matches("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");
     }
 
     public boolean isValidUsername(String user) {

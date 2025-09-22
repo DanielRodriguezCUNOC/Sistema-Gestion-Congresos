@@ -34,15 +34,13 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                 <td>${room[4]}</td>
                 <td class="d-flex gap-2">
                   <button
-                    class="btn btn-sm btn-warning"
-                    id="btn-edit-room"
+                    class="btn btn-sm btn-warning btn-edit-room"
                     data-room-id="${room[0]}"
                   >
                     Editar
                   </button>
                   <button
-                    class="btn btn-sm btn-danger"
-                    id="btn-delete-room"
+                    class="btn btn-sm btn-danger btn-delete-room"
                     data-room-id="${room[0]}"
                   >
                     Eliminar

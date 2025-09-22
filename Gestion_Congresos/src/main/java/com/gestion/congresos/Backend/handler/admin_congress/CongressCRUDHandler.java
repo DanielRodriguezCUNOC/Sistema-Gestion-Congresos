@@ -1,4 +1,4 @@
-package com.gestion.congresos.Backend.handler;
+package com.gestion.congresos.Backend.handler.admin_congress;
 
 import java.sql.Date;
 
@@ -43,8 +43,6 @@ public class CongressCRUDHandler {
 
         String nombre = request.getParameter("nombre");
 
-        String descripcion = request.getParameter("descripcion");
-
         String fechaInicio = request.getParameter("fecha_inicio");
 
         String fechaFin = request.getParameter("fecha_fin");
@@ -52,9 +50,11 @@ public class CongressCRUDHandler {
         String costo = request.getParameter("costo");
 
         boolean aceptaConvocatoria = Boolean.parseBoolean(request.getParameter("acepta_convocatoria"));
+
+        boolean estado = Boolean.parseBoolean(request.getParameter("estado"));
         try {
 
-            if (!isValidString(nombre) || !isValidString(descripcion)) {
+            if (!isValidString(nombre)) {
                 return false;
             }
 
@@ -67,8 +67,8 @@ public class CongressCRUDHandler {
 
             ControlCongressCRUD control = new ControlCongressCRUD();
 
-            return control.editCongress(idCongress, nombre, descripcion, sqlFechaInicio, sqlFechaFin, costo,
-                    aceptaConvocatoria);
+            return control.editCongress(idCongress, nombre, sqlFechaInicio, sqlFechaFin, costo,
+                    aceptaConvocatoria, estado);
 
         } catch (Exception e) {
             e.printStackTrace();

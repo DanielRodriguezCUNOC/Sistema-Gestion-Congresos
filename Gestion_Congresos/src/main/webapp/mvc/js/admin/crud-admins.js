@@ -2,7 +2,7 @@
 // --- Cargar formulario de edición ---
 async function loadEditAdminForm(adminId) {
   try {
-    const url = `${contextPath}/SVAdminCRUD?action=loadEditForm&id=${adminId}`;
+    const url = `${contextPath}/SVAdminCRUD?action=loadEditForm&idAdmin=${adminId}`;
  
 
     const res = await fetch(url);

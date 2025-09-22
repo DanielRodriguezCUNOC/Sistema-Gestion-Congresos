@@ -63,8 +63,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                 <td>${congreso[9]}</td>
                 <td>
                   <button
-                    class="btn btn-sm btn-warning"
-                    id="btn-edit-congress"
+                    class="btn btn-sm btn-warning btn-edit-congress"
                     data-congress-id="${congreso[0]}"
                   >
                     Editar

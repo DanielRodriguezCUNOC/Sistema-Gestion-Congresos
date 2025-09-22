@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
 import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
-import com.gestion.congresos.Backend.handler.ParticipantHandler;
+import com.gestion.congresos.Backend.handler.participant.ParticipantHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

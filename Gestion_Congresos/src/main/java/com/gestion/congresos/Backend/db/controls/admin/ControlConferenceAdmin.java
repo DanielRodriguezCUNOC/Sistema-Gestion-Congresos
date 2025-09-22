@@ -12,55 +12,10 @@ import com.gestion.congresos.Backend.exceptions.DataBaseException;
 
 public class ControlConferenceAdmin {
 
-    private static final String GET_ID_INSTITUTION_BY_NAME = "SELECT id_institucion FROM Institucion WHERE nombre_institucion = ?";
-
     private static final String GET_ALL_GUESTS_SPEAKERS = "SELECT u.nombre, u.correo, u.telefono, u.identificacion_personal, "
             + "u.organizacion, u.estado, r.rol AS tipo_rol "
             + "FROM Usuario u JOIN Rol r ON u.id_rol = r.id_rol "
             + "WHERE r.rol = 'Ponente Invitado'";
-
-    public int getIdInstitutionByName(String nameInstitution) throws DataBaseException {
-        Connection conn = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement ps = conn.prepareStatement(GET_ID_INSTITUTION_BY_NAME)) {
-
-            ps.setString(1, nameInstitution);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("id_institucion");
-                } else {
-                    return -1;
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new DataBaseException("Error al obtener el id de la institución", e);
-        }
-    }
-
-    public int getIdTypeActivityByName(String nameTypeActivity) throws DataBaseException {
-
-        Connection conn = DBConnectionSingleton.getInstance().getConnection();
-
-        String query = "SELECT id_tipo_actividad FROM Tipo_Actividad WHERE tipo_actividad = ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-
-            ps.setString(1, nameTypeActivity);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("id_tipo_actividad");
-                } else {
-                    return -1;
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new DataBaseException("Error al obtener el id del tipo de actividad", e);
-        }
-    }
 
     public List<String[]> getAllGuestsSpeakers() throws DataBaseException {
         Connection conn = DBConnectionSingleton.getInstance().getConnection();
