@@ -77,7 +77,6 @@ public class SVCongressCRUD extends HttpServlet {
             }
         } catch (DataBaseException e) {
             response.getWriter().write("{\"success\": false, \"message\": \"Error: " + e.getMessage() + "\"}");
-            e.printStackTrace();
         }
     }
 }

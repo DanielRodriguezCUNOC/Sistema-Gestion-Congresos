@@ -46,11 +46,6 @@ public class ActivityCRUDHandler {
 
     public boolean editActivity() throws DataBaseException, MissingDataException {
 
-        // Debug: imprimir parámetros recibidos
-        System.out.println("[DEBUG ActivityCRUDHandler] Iniciando editActivity");
-        System.out.println("[DEBUG ActivityCRUDHandler] Parámetros recibidos:");
-        request.getParameterMap().forEach((k, v) -> System.out.println("  " + k + "=" + java.util.Arrays.toString(v)));
-
         int idActivity = Integer.parseInt(request.getParameter("idActivity"));
         int idTipoActividad = Integer.parseInt(request.getParameter("idTipoActividad"));
         int idSalon = Integer.parseInt(request.getParameter("idSalon"));
@@ -68,20 +63,13 @@ public class ActivityCRUDHandler {
             try {
                 cupoTaller = Integer.parseInt(cupoTallerParam);
             } catch (NumberFormatException e) {
-                System.out.println("[DEBUG ActivityCRUDHandler] cupo_taller inválido: " + cupoTallerParam);
                 throw new MissingDataException("Cupo de taller inválido");
             }
         }
 
-        System.out.println("[DEBUG ActivityCRUDHandler] Valores parseados: idActivity=" + idActivity
-                + ", idTipoActividad=" + idTipoActividad + ", idSalon=" + idSalon + ", idCongreso=" + idCongreso);
-        System.out.println("[DEBUG ActivityCRUDHandler] nombreActividad='" + nombreActividad + "', fecha='" + fecha
-                + "', horaInicio='" + horaInicio + "', horaFin='" + horaFin + "', descripcion='" + descripcion
-                + "', cupoTaller='" + cupoTaller + "'");
-
         if (!isValidString(nombreActividad) || !validator.isValidDate(fecha) ||
                 !validator.isValidTime(horaInicio) || !validator.isValidTime(horaFin) || !isValidString(descripcion)) {
-            System.out.println("[DEBUG ActivityCRUDHandler] Validación básica falló");
+            // validación básica falló
             throw new MissingDataException("Datos inválidos para la actividad");
         }
 
@@ -98,7 +86,6 @@ public class ActivityCRUDHandler {
         activity.setIdActividad(idActivity);
 
         if (!activity.isValid()) {
-            System.out.println("[DEBUG ActivityCRUDHandler] activity.isValid() == false");
             throw new MissingDataException("Datos inválidos para la actividad");
         }
 

@@ -48,12 +48,7 @@ public class SVActivityCRUD extends HttpServlet {
         ActivityCRUDHandler handler = new ActivityCRUDHandler(request);
 
         String action = request.getParameter("action");
-        // Debug: mostrar parámetros entrantes
-        System.out.println("[DEBUG SVActivityCRUD] action=" + action);
         String idParam = request.getParameter("idActivity");
-        System.out.println("[DEBUG SVActivityCRUD] idActivity=" + idParam);
-        System.out.println("[DEBUG SVActivityCRUD] All params:");
-        request.getParameterMap().forEach((k, v) -> System.out.println("  " + k + "=" + java.util.Arrays.toString(v)));
 
         if (action == null || idParam == null) {
             response.getWriter().write("{\"success\": false, \"message\": \"Parámetros inválidos\"}");
@@ -92,7 +87,6 @@ public class SVActivityCRUD extends HttpServlet {
             }
         } catch (DataBaseException | MissingDataException e) {
             response.getWriter().write("{\"success\": false, \"message\": \"Error: " + e.getMessage() + "\"}");
-            e.printStackTrace();
         }
 
     }

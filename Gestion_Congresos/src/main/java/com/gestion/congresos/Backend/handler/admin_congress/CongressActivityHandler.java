@@ -34,7 +34,6 @@ public class CongressActivityHandler {
         ControlRoomActivity controlRoomActivity = new ControlRoomActivity();
 
         String nameCongress = request.getParameter("congress");
-        System.out.println("nameCongress: " + nameCongress);
 
         if (nameCongress == null || nameCongress.isEmpty() || !validator.isValidString(nameCongress)) {
             throw new MissingDataException(nameCongress + " no es un nombre de congreso valido");

@@ -71,7 +71,6 @@ public class SVRoomCRUD extends HttpServlet {
 
         if ("loadEditForm".equals(action)) {
             try {
-                System.out.println("Loading edit form for room ID: " + request.getParameter("idRoom"));
                 RoomCRUDHandler handler = new RoomCRUDHandler(request);
                 RoomModel room = handler.getRoomById();
 

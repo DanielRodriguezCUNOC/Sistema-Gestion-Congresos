@@ -29,9 +29,9 @@ public class SVParticipantUser extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        ParticipantHandler participantHandler = new ParticipantHandler();
+        ParticipantHandler participantHandler = new ParticipantHandler(request);
 
-        if (session == null || !participantHandler.isParticipant(request)) {
+        if (session == null || !participantHandler.isParticipant()) {
             response.sendRedirect("index.jsp");
             return;
 
@@ -39,7 +39,7 @@ public class SVParticipantUser extends HttpServlet {
 
         try {
 
-            UserModel user = participantHandler.getParticipant(request);
+            UserModel user = participantHandler.getParticipant();
 
             if (user == null) {
                 request.getSession().setAttribute("error", "Usuario no encontrado.");

@@ -64,9 +64,7 @@ public class UserControl {
             return rowsAffected > 0;
         } catch (SQLException e) {
             conn.rollback();
-            e.printStackTrace();
-            return false;
-
+            throw e;
         }
 
     }

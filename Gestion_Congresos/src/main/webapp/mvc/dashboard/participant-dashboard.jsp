@@ -30,112 +30,116 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
       <section class="py-5">
         <div class="container">
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                  <h5 class="fw-bold">📝 Inscripción</h5>
-                  <p>Elige el congreso en el que deseas inscribirte.</p>
-                  <a
-                    href="#"
-                    id="btn-participant-inscription"
-                    class="btn btn-primary"
-                    >Inscribirse</a
-                  >
+          <div id="cards-container" class="container mt-4">
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">📝 Inscripción</h5>
+                    <p>Elige el congreso en el que deseas inscribirte.</p>
+                    <a
+                      href="#"
+                      id="btn-inscription-congress"
+                      class="btn btn-primary"
+                      >Inscribirse</a
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                  <h5 class="fw-bold">🛠️ Reservación Taller</h5>
-                  <p>Reserva tu lugar en un taller disponible.</p>
-                  <a href="reservar-taller.jsp" class="btn btn-primary"
-                    >Reservar</a
-                  >
+              <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">🛠️ Reservación Taller</h5>
+                    <p>Reserva tu lugar en un taller disponible.</p>
+                    <a href="reservar-taller.jsp" class="btn btn-primary"
+                      >Reservar</a
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                  <h5 class="fw-bold">💳 Recargar Cartera</h5>
-                  <p>Agrega saldo a tu cartera digital.</p>
-                  <a href="recargar-cartera.jsp" class="btn btn-primary"
-                    >Recargar</a
-                  >
+              <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">💳 Recargar Cartera</h5>
+                    <p>Agrega saldo a tu cartera digital.</p>
+                    <a href="recargar-cartera.jsp" class="btn btn-primary"
+                      >Recargar</a
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                  <h5 class="fw-bold">💵 Realizar Pago</h5>
-                  <p>Paga la inscripción a un congreso.</p>
-                  <a href="pago.jsp" class="btn btn-primary">Pagar</a>
+              <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">💵 Realizar Pago</h5>
+                    <p>Paga la inscripción a un congreso.</p>
+                    <a href="pago.jsp" class="btn btn-primary">Pagar</a>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                  <h5 class="fw-bold">📄 Presentar Trabajo</h5>
-                  <p>Envía tu trabajo al comité científico.</p>
-                  <a href="presentar-trabajo.jsp" class="btn btn-primary"
-                    >Presentar</a
-                  >
+              <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">📄 Presentar Trabajo</h5>
+                    <p>Envía tu trabajo al comité científico.</p>
+                    <a href="presentar-trabajo.jsp" class="btn btn-primary"
+                      >Presentar</a
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                  <h5 class="fw-bold">📚 Listar Congresos</h5>
-                  <p>Consulta los congresos en los que has participado.</p>
-                  <a href="listar-congresos.jsp" class="btn btn-primary"
-                    >Ver Congresos</a
-                  >
+              <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">📚 Listar Congresos</h5>
+                    <p>Consulta los congresos en los que has participado.</p>
+                    <a href="listar-congresos.jsp" class="btn btn-primary"
+                      >Ver Congresos</a
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                  <h5 class="fw-bold">🎓 Obtener Diploma</h5>
-                  <p>Descarga tus diplomas obtenidos.</p>
-                  <a href="diplomas.jsp" class="btn btn-primary"
-                    >Ver Diplomas</a
-                  >
+              <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">🎓 Obtener Diploma</h5>
+                    <p>Descarga tus diplomas obtenidos.</p>
+                    <a href="diplomas.jsp" class="btn btn-primary"
+                      >Ver Diplomas</a
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                  <h5 class="fw-bold">📅 Listar Actividades</h5>
-                  <p>Revisa las actividades en las que participaste.</p>
-                  <a href="listar-actividades.jsp" class="btn btn-primary"
-                    >Ver Actividades</a
-                  >
+              <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">📅 Listar Actividades</h5>
+                    <p>Revisa las actividades en las que participaste.</p>
+                    <a href="listar-actividades.jsp" class="btn btn-primary"
+                      >Ver Actividades</a
+                    >
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <div id="content" class="container mt-4 d-none"></div>
     </main>
     <jsp:include page="/includes/footer.jsp" />
     <script>
       const contextPath = "${pageContext.request.contextPath}";
     </script>
+    <script src="${pageContext.request.contextPath}/mvc/js/participant/participant-dashboard-functions.js"></script>
     <script src="${pageContext.request.contextPath}/mvc/js/dashboard-base.js"></script>
-    <script src="${pageContext.request.contextPath}/mvc/js/participant-dashboard-base.js"></script>
+    <script src="${pageContext.request.contextPath}/mvc/js/participant/participant-dashboard.js"></script>
   </body>
 </html>

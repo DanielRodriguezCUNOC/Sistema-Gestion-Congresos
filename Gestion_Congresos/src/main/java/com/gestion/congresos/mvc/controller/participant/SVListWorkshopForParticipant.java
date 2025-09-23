@@ -1,9 +1,10 @@
 package com.gestion.congresos.mvc.controller.participant;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
-import com.gestion.congresos.Backend.handler.participant.ParticipantHandler;
+import com.gestion.congresos.Backend.handler.participant.ParticipantActivityHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,23 +12,27 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SVListCongressForParticipant", urlPatterns = { "/SVListCongressForParticipant" })
-public class SVListCongressForParticipant extends HttpServlet {
+@WebServlet(name = "SVListWorkshopForParticipant", urlPatterns = { "/SVListWorkshopForParticipant" })
+public class SVListWorkshopForParticipant extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException, ServletException {
 
         try {
-            ParticipantHandler participantHandler = new ParticipantHandler(request);
+            ParticipantActivityHandler handler = new ParticipantActivityHandler(request);
 
-            request.setAttribute("listaCongresos", participantHandler.getAllActiveCongresses());
-            request.getRequestDispatcher("/mvc/ajax/participant/select-congress.jsp").forward(request, response);
+            List<String[]> activities = handler.getWorkshopsByCongress();
+
+            request.setAttribute("listaTalleres", activities);
+
+            request.getRequestDispatcher("/mvc/participant/ajax/list-activities.jsp").forward(request, response);
 
         } catch (DataBaseException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/mvc/error.jsp").forward(request, response);
         }
+
     }
 
 }
