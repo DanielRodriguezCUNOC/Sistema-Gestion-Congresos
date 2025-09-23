@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
+import com.gestion.congresos.Backend.exceptions.MissingDataException;
 import com.gestion.congresos.Backend.exceptions.UserNotFoundException;
 import com.gestion.congresos.Backend.handler.admin.SysAdminHandler;
 
@@ -43,7 +44,7 @@ public class SVSystemAdmin extends HttpServlet {
             request.setAttribute("sysAdmin", sysAdmin);
             request.getRequestDispatcher("mvc/dashboard/sysadmin-dashboard.jsp").forward(request, response);
 
-        } catch (DataBaseException e) {
+        } catch (DataBaseException | MissingDataException e) {
             request.setAttribute("error", e.getMessage());
 
             request.getRequestDispatcher("mvc/error.jsp").forward(request, response);

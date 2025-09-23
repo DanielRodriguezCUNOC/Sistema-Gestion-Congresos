@@ -125,16 +125,12 @@ public class UserCreateHandler {
             }
 
             try {
-
                 return userControl.insertUser(newUser);
-
             } catch (SQLException e) {
-                e.printStackTrace();
                 return false;
             }
 
         } catch (IOException | ServletException e) {
-            e.printStackTrace();
             return false;
         }
     }

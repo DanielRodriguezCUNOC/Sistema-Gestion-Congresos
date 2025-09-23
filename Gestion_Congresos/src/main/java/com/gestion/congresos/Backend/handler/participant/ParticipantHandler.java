@@ -2,6 +2,7 @@ package com.gestion.congresos.Backend.handler.participant;
 
 import java.util.List;
 
+import com.gestion.congresos.Backend.db.controls.participant.ControlParticipantCongress;
 import com.gestion.congresos.Backend.db.controls.user.UserControl;
 import com.gestion.congresos.Backend.db.models.UserModel;
 import com.gestion.congresos.Backend.exceptions.DataBaseException;
@@ -11,23 +12,23 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class ParticipantHandler {
 
-    public UserModel getParticipant(HttpServletRequest request) throws DataBaseException, UserNotFoundException {
+    private HttpServletRequest request;
+
+    public ParticipantHandler(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public UserModel getParticipant() throws DataBaseException, UserNotFoundException {
 
         UserControl userControl = new UserControl();
 
-        // * Obtenemos el id del usuario loggeado de la sesion */
-        Object idUserObj = request.getSession().getAttribute("idUser");
-
-        if (idUserObj == null) {
-            return null;
-        }
-        int idUser = (int) idUserObj;
+        int idUser = getIdUserFromSession();
 
         return userControl.getUserById(idUser);
 
     }
 
-    public boolean isParticipant(HttpServletRequest request) {
+    public boolean isParticipant() {
         Object idRolObj = request.getSession().getAttribute("idRol");
 
         if (idRolObj == null) {
@@ -39,7 +40,22 @@ public class ParticipantHandler {
                 || "5".equals(idRolStr);
     }
 
-    public List<String[]> getAllActiveCongresses() {
+    public List<String[]> getAllActiveCongresses() throws DataBaseException {
+        ControlParticipantCongress control = new ControlParticipantCongress();
+        return control.getAllActiveCongresses();
+    }
 
+    private int getIdUserFromSession() throws DataBaseException, UserNotFoundException {
+        Object idUserObj = request.getSession().getAttribute("idUser");
+
+        if (idUserObj == null) {
+            throw new DataBaseException("No se encontró el ID de usuario en la sesión.");
+        }
+
+        try {
+            return (int) idUserObj;
+        } catch (ClassCastException e) {
+            throw new DataBaseException("El ID de usuario en la sesión no es válido.");
+        }
     }
 }

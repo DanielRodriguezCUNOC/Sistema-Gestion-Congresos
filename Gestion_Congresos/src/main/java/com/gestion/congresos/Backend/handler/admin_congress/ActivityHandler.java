@@ -50,7 +50,6 @@ public class ActivityHandler {
             String nameActivity = request.getParameter("nameActivity");
             String nameCongress = request.getParameter("nameCongress");
             String nameRoom = request.getParameter("nameRoom");
-            System.out.println("Valor recibido en nameRoom: [" + nameRoom + "]");
             String typeActivity = request.getParameter("typeActivity");
 
             String dateActivity = request.getParameter("dateActivity");

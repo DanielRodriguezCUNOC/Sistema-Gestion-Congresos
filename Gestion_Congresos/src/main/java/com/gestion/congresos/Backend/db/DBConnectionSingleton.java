@@ -21,9 +21,7 @@ public class DBConnectionSingleton {
         try {
             connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
         } catch (SQLException e) {
-            // manejamos la exception
-            System.out.println("Error al conectarse");
-            e.printStackTrace();
+            connection = null;
         }
     }
 

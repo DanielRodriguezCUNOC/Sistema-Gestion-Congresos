@@ -78,7 +78,6 @@ public class RoomCRUDHandler {
 
         int idRoom;
         ControlRoomCRUD controlRoomCRUD = new ControlRoomCRUD();
-        System.out.println("Getting room by ID " + request.getParameter("idRoom"));
 
         try {
             if (request.getParameter("idRoom") == null || request.getParameter("idRoom").isBlank()) {

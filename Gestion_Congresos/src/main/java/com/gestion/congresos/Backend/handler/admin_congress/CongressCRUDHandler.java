@@ -34,9 +34,8 @@ public class CongressCRUDHandler {
         try {
             return control.getCongressById(idToEdit);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
     public boolean editCongress(int idCongress) throws DataBaseException {
@@ -71,8 +70,7 @@ public class CongressCRUDHandler {
                     aceptaConvocatoria, estado);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new DataBaseException("Error al actualizar el congreso en la base de datos.");
+            throw new DataBaseException("Error al actualizar el congreso en la base de datos.", e);
         }
     }
 

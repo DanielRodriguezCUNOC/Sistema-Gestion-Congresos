@@ -51,7 +51,6 @@ public class ControlInstitution {
             return false;
 
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DataBaseException("Error al verificar la existencia de la institución", e);
         }
     }

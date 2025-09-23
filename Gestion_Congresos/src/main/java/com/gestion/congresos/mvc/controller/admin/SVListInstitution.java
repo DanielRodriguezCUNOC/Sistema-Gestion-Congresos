@@ -19,12 +19,10 @@ public class SVListInstitution extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        System.out.println("DEBUG >>> Accediendo a SVListInstitution");
         try {
             SysAdminHandler sysAdminHandler = new SysAdminHandler();
 
             List<InstitutionModel> institutions = sysAdminHandler.getAllInstitutions();
-            System.out.println("DEBUG >>> Institutions size: " + institutions.size());
 
             request.setAttribute("institutions", institutions);
 

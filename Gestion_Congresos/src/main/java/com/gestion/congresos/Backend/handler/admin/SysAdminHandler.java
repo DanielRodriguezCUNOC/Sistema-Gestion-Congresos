@@ -37,17 +37,11 @@ public class SysAdminHandler {
         this.validatorData = new ValidatorData();
     }
 
-    public UserModel getSysAdmin() throws DataBaseException, UserNotFoundException {
+    public UserModel getSysAdmin() throws DataBaseException, UserNotFoundException, MissingDataException {
 
         UserControl userControl = new UserControl();
 
-        // * Obtenemos el idAdmin del usuario loggeado de la sesion */
-        Object idUserObj = request.getSession().getAttribute("idUser");
-
-        if (idUserObj == null) {
-            return null;
-        }
-        int idUser = (int) idUserObj;
+        int idUser = getIdUserFromSession();
 
         return userControl.getUserById(idUser);
 
@@ -91,21 +85,29 @@ public class SysAdminHandler {
         return controlSysAdmin.getAllAdmins();
     }
 
-    public boolean deactivateAdmin(int targetUserId) throws DataBaseException {
+    public boolean deactivateAdmin() throws DataBaseException, MissingDataException {
+        int targetUserId = getIdAdmin();
 
         ControlSysAdminCRUD control = new ControlSysAdminCRUD();
         return control.deactivateUser(targetUserId);
     }
 
-    public boolean activateAdmin(int targetUserId) throws DataBaseException {
+    public boolean activateAdmin() throws DataBaseException, MissingDataException {
+        int targetUserId = getIdAdmin();
 
         ControlSysAdminCRUD control = new ControlSysAdminCRUD();
         return control.activateUser(targetUserId);
     }
 
-    public boolean editAdmin(int targetUserId)
+    public boolean editAdmin()
             throws DataBaseException, UserNotFoundException, IOException, ServletException, ImageFormatException,
             MissingDataException {
+
+        int targetUserId = getIdAdmin();
+
+        if (targetUserId <= 0) {
+            throw new MissingDataException("ID de administrador inválido.");
+        }
 
         String user = getFormField(request, "user");
         String phone = getFormField(request, "phone");
@@ -142,6 +144,27 @@ public class SysAdminHandler {
             return new String(part.getInputStream().readAllBytes(), StandardCharsets.UTF_8).trim();
         }
         return null;
+    }
+
+    private int getIdAdmin() throws MissingDataException {
+        try {
+            return Integer.parseInt(request.getParameter("idAdmin"));
+        } catch (NumberFormatException e) {
+            throw new MissingDataException("ID de administrador inválido.");
+        }
+
+    }
+
+    private int getIdUserFromSession() throws MissingDataException {
+        Object idUserObj = request.getSession().getAttribute("idUser");
+        if (idUserObj == null) {
+            throw new MissingDataException("No se encontró el ID de usuario en la sesión.");
+        }
+        try {
+            return (int) idUserObj;
+        } catch (ClassCastException e) {
+            throw new MissingDataException("ID de usuario en sesión inválido.");
+        }
     }
 
 }

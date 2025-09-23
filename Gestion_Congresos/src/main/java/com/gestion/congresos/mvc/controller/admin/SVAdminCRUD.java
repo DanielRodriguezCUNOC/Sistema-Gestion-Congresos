@@ -64,21 +64,21 @@ public class SVAdminCRUD extends HttpServlet {
         }
 
         try {
-            int targetUserId = Integer.parseInt(idParam);
+
             boolean result = false;
 
             switch (action) {
                 case "edit":
 
-                    result = handler.editAdmin(targetUserId);
+                    result = handler.editAdmin();
                     break;
 
                 case "activate":
-                    result = handler.activateAdmin(targetUserId);
+                    result = handler.activateAdmin();
                     break;
 
                 case "deactivate":
-                    result = handler.deactivateAdmin(targetUserId);
+                    result = handler.deactivateAdmin();
                     break;
 
                 default:
