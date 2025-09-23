@@ -26,7 +26,7 @@ public class SVListWorkshopForParticipant extends HttpServlet {
 
             request.setAttribute("listaTalleres", activities);
 
-            request.getRequestDispatcher("/mvc/participant/ajax/list-activities.jsp").forward(request, response);
+            request.getRequestDispatcher("/mvc/ajax/participant/select-activity.jsp").forward(request, response);
 
         } catch (DataBaseException e) {
             request.setAttribute("error", e.getMessage());
