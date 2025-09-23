@@ -79,7 +79,10 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 <div class="card-body text-center">
                   <h5 class="fw-bold">📊 Generar Reporte Congresos</h5>
                   <p>Obtén reportes detallados de los congresos realizados.</p>
-                  <a href="reporte-congresos.jsp" class="btn btn-dark"
+                  <a
+                    href="#"
+                    id="generate-report-congress-institution"
+                    class="btn btn-dark"
                     >Generar</a
                   >
                 </div>

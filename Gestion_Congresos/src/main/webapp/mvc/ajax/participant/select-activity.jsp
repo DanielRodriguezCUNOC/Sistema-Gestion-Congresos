@@ -44,7 +44,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 <div class="mt-auto">
                   <button
                     class="btn btn-outline-primary w-100"
-                    onclick="inscribirseTaller('${taller[0]}')"
+                    onclick="reserveWorkshop('${taller[0]}')"
                   >
                     Inscribirse
                   </button>

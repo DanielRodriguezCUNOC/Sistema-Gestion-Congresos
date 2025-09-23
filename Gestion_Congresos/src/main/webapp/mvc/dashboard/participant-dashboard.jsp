@@ -52,7 +52,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <div class="card-body text-center">
                     <h5 class="fw-bold">🛠️ Reservación Taller</h5>
                     <p>Reserva tu lugar en un taller disponible.</p>
-                    <a href="reservar-taller.jsp" class="btn btn-primary"
+                    <a
+                      href="#"
+                      class="btn btn-primary"
+                      id="btn-available-workshop"
                       >Reservar</a
                     >
                   </div>
@@ -76,7 +79,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <div class="card-body text-center">
                     <h5 class="fw-bold">💵 Realizar Pago</h5>
                     <p>Paga la inscripción a un congreso.</p>
-                    <a href="pago.jsp" class="btn btn-primary">Pagar</a>
+                    <a href="#" id="btn-pay-congress" class="btn btn-primary"
+                      >Pagar</a
+                    >
                   </div>
                 </div>
               </div>

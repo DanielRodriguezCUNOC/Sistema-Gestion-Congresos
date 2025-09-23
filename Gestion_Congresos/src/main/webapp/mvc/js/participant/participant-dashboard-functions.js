@@ -65,25 +65,38 @@ async function reserveWorkshop(id) {
     }
 }
 
-async function inscribirseTaller(idTaller) {
-        fetch("inscribirTaller", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: "idTaller=" + idTaller,
-        })
-          .then((response) => {
-            if (response.ok) {
-              alert("Inscripción realizada con éxito ✅");
-              location.reload();
-            } else {
-              alert("Error al inscribirse ❌");
+// ==========================
+// Realizar Pago Congreso
+// ==========================
+async function payCongress(id) {
+    if (!confirm("¿Está seguro de que desea realizar el pago para este congreso?")) return;
+
+    try {
+        const res = await fetch(`${contextPath}/SVPaymentCongress`, {
+            method: "POST",
+            body: new URLSearchParams({
+                action: "pago",
+                idCongress: id,
+            }),
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
             }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            alert("Error de conexión ❌");
-          });
-      }
+        });
+
+        if (!res.ok) throw new Error("Error al procesar el pago");
+
+        const result = await res.json();
+        if (result.success) {
+            alert(result.message);
+            loadPaymentCongress();
+        } else {
+            alert("Error: " + result.message);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Ocurrió un error al procesar el pago.");
+    }
+}
 
 
 //* clicks en botones dinamicos
@@ -93,8 +106,11 @@ document.addEventListener("click", function(event) {
          case "btn-inscription-congress":
             loadParticipantCongresses();
             return;
-        case "btn-available-workshops":
+        case "btn-available-workshop":
             loadAvailableWorkshops();
+            return;
+        case "btn-pay-congress":
+            loadPaymentCongress();
             return;
         case "btn-back":
             showCards();
